@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 export default {
   mode: 'universal',
@@ -27,6 +28,12 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
+  styleResources: {
+    scss: [
+      '@/assets/icofont/icofont.scss',
+      '@/assets/scss/*.scss'
+    ]
+  },
   plugins: [
   ],
   /*
@@ -38,10 +45,20 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+     "@nuxtjs/axios",
+     "@nuxtjs/dotenv",
+    // "@nuxtjs/style-resources"
   ],
+  env:{
+    apiUrl: 'http://127.0.0.1:8000/'
+  },
   /*
   ** Build configuration
   */
+  axios:{
+    baseURL: 'http://127.0.0.1:8000/',
+    debug: false
+  },
   build: {
     /*
     ** You can extend webpack config here

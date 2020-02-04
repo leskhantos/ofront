@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap');
+
+@import '~simple-line-icons/css/simple-line-icons.css';
+@import "~bootstrap/scss/bootstrap";
+
+@import 'antUI';
+@import 'transitions';
+@import 'buttons';
+@import 'inputs';
+@import 'tables';
+// @import 'fluid-font';
+
+body {
+    font-size: 14px;
+	font-family: 'Open Sans', sans-serif !important;
+	color: #575962;
+}
+
+.custom-sroll {
+    &::-webkit-scrollbar {
+		width: .3rem;
+	}
+
+	&::-webkit-scrollbar-track {
+		background-color: rgba(255,255,255,.15);
+	}
+
+	&::-webkit-scrollbar-thumb {
+        background-color: rgba(255,255,255,.15);
+	}
+}
+
+// $min_width: 320px;
+// $max_width: 1200px;
+// $min_font: 16px;
+// $max_font: 24px;
+
+// html {
+//   @include fluid-type($min_width, $max_width, $min_font, $max_font);
+// }
