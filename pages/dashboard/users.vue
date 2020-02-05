@@ -7,12 +7,13 @@
           type="success"
 
           icon="icon-plus"
-        >
-          <ant-icon type="user-add" slot="ant-icon" />
-        </oy-button>
+          @click="showModal"
+        >+</oy-button>
         <oy-modal
           title="Добавить пользователя"
           padding="1rem"
+          :visible="set_new_user"
+          @close="set_new_user = false"
         >
           <store-form />
         </oy-modal>
@@ -29,12 +30,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td data-label="Имя"> user.surname user.name </td>
-            <td data-label="Последний вход">utils.humanDatetime(user.last_login, true) </td>
-            <td data-label="IP">user.last_ip </td>
-            <td data-label="Статус">Отключен : 'Активный</td>
+          <tr v-for="user of allUsers" :key="user.id">
+            <td data-label="Имя">{{ user.surname }} {{ user.name }}</td>
+            <td data-label="Последний вход">{{ user.last_login }}</td>
+            <td data-label="IP">{{ user.last_ip }}</td>
+            <td data-label="Статус">{{ Boolean(user.disabled) ? 'Отключен' : 'Активный' }}</td>
           </tr>
+        {{ allUsers }}
         </tbody>
       </table>
     </oy-page-body>
@@ -42,15 +44,46 @@
 </template>
 
 <script>
-import storeForm from "@/components/dashboard/users/storeForm.vue";
-export default {
-  layout: "dashboard",
-  data: () => ({
-    newUserMode: false
-  }),
+  import storeForm from "../../components/dashboard/users/storeForm";
+  import oyButton from "../../components/oyUI/base/oyButton";
+  import oyModal from "../../components/oyUI/base/oyModal";
+  import oyPage from "../../components/oyUI/page/oyPage";
+  import oyPageHeader from "../../components/oyUI/page/oyPageHeader";
+  import oyPageBody from "../../components/oyUI/page/oyPageBody";
 
-  components: {
-    storeForm
-  }
-};
+  export default {
+    layout: "dashboard",
+    data: () => ({
+    }),
+    async beforeRouteEnter(to, from, next) {
+      await store.dispatch("users/getUsers");
+      next();
+    },
+    components: {
+      storeForm,
+      oyButton,
+      oyModal,
+      oyPageHeader,
+      oyPageBody,
+      oyPage
+    },
+    methods:{
+      showModal(){
+        return  this.set_new_user = true;
+      }
+    },
+    computed:{
+      set_new_user: {
+        get: function() {
+          return this.$store.getters["app/set_new_user"];
+        },
+        set: function (value) {
+          this.$store.commit('app/SET_NEW_USER', value);
+        }
+      },
+      allUsers: function() {
+        return this.$store.getters["users/list"];
+      },
+    }
+  };
 </script>

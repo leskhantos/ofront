@@ -1,17 +1,22 @@
 <template>
   <div class="auth-page">
+  <no-ssr>
+    <FlashMessage :position="'right top'"/>
+  </no-ssr>
     <div class="auth-page__bg" :style="{ backgroundImage: `url(${bg})` }">
       <div class="auth-page__gradient-wrapper">
         <form @submit.prevent="login" class="auth-page__card">
           <div class="logo" :style="{ backgroundImage: `url(${logo})` }"></div>
           <Inputs
             label="USERNAME"
+            :error="errors.login"
             v-model="form.username"
           />
 
           <Inputs
             label="PASSWORD"
             type="password"
+            :error="errors.password"
             v-model="form.password"
           />
           <button class="button" type="submit">АВТОРИЗАЦИЯ</button>
@@ -24,8 +29,7 @@
 <script>
   import bg from '@/static/bg.jpg';
   import logo from '@/static/logo.png';
-  import Inputs from '@/components/inputs.vue';
-
+  import Inputs from '../components/auth/inputs';
 
   export default {
     layout: 'auth',
@@ -37,10 +41,6 @@
         username: "",
         password: ""
       },
-      errors: {
-        login: "",
-        password: ""
-      }
     }),
     components: {
       Inputs
@@ -56,7 +56,11 @@
           })
           this.$router.push('/dashboard/statistics')
         } catch (e) {
-          this.error = e.response.data.message
+          if (e.response.data.message){
+            this.flashMessage.error({
+              title: e.response.data.message,
+            });
+          }
         }
       }
     }

@@ -24,17 +24,22 @@ export default {
   ** Global CSS
   */
   css: [
+    './assets/icofont/icofont.css',
+    './assets/scss/main.scss'
+
   ],
   /*
   ** Plugins to load before mounting the App
   */
   styleResources: {
     scss: [
-      '@/assets/icofont/icofont.scss',
-      '@/assets/scss/*.scss'
     ]
   },
   plugins: [
+    './plugins/mixins/validation',
+    './plugins/axios',
+    { src: './plugins/vue-flash-message', mode: 'client'},
+
   ],
   /*
   ** Nuxt.js dev-modules
@@ -44,6 +49,11 @@ export default {
   /*
   ** Nuxt.js modules
   */
+  router: {
+    middleware:[
+      'clearValidationErrors'
+    ]
+  },
   modules: [
      '@nuxtjs/axios',
      '@nuxtjs/dotenv',
@@ -54,17 +64,17 @@ export default {
   ** Build configuration
   */
   axios:{
-    baseURL: 'http://127.0.0.1:8000/auth',
+    baseURL: 'http://127.0.0.1:8000',
   },
 
   auth: {
     strategies: {
       local: {
         endpoints: {
-          login: {url: 'login', method: 'post', propertyName: 'access_token'},
-          user: {url: 'user', method: 'get', propertyName: false},
+          login: {url: 'auth/login', method: 'post', propertyName: 'access_token'},
+          user: {url: 'auth/user', method: 'get', propertyName: false},
           logout: {
-            url: 'logout', method: 'get'
+            url: 'auth/logout', method: 'get'
           }
         }
       }

@@ -1,6 +1,15 @@
 <template>
   <div class="dashboard-layout">
     <sidebar/>
+    <oyModal
+      :visible="set_password_mode"
+      @close="set_password_mode = false"
+      title="Сменить пароль"
+      padding="1rem"
+      minWidth="350px"
+    >
+      <setPasswordForm @success="set_password_mode = false" />
+      </oyModal>
     <div class="dashboard-layout__content-wrapper">
       <dashHeader/>
       <transition name="page" mode="out-in">
@@ -13,13 +22,28 @@
 <script>
   import dashHeader from "@/components/dashboard/header.vue";
   import sidebar from "@/components/dashboard/sidebar/sidebar.vue";
+  import oyModal from "../components/oyUI/base/oyModal";
+  import setPasswordForm from "../components/auth/set-password-form"
     export default {
-        name: "dashboard",
+      middleware:'auth',
+      name: "dashboard",
       components:{
         sidebar,
-        dashHeader
-      }
+        dashHeader,
+        oyModal,
+        setPasswordForm
+      },
+      computed: {
+        set_password_mode: {
+          get: function() {
+            return this.$store.getters["app/set_password_mode"];
+          },
+          set: function (value) {
+            this.$store.commit('app/SET_PASSWORD_MODE', value);
+          }
+        }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

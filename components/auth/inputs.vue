@@ -16,7 +16,7 @@
         <div class="chevron-right"></div>
       </div>
       <transition name="input-error">
-        <div class="error" v-if="error">{{ error }}</div>
+        <div class="error" v-if="error">{{ error[0] }}</div>
       </transition>
     </div>
   </div>
@@ -32,7 +32,7 @@
           default: "1.5rem"
         },
         error: {
-          type: String,
+          type: Array,
           required: false
         },
         type: {
@@ -89,7 +89,7 @@
 
       .desc {
         width: 110px;
-        height: 33px;
+        height: 28px;
         font-family: "Roboto";
         font-size: 14px;
         font-weight: 300;
@@ -109,7 +109,7 @@
         border: 1px solid #d20000;
         border-right: 0;
         border-radius: 5px 0 0 0;
-        height: 100%;
+        height: 36px;
         background-color: #f04641;
 
         &:after {
@@ -186,7 +186,7 @@
           border: 1px solid #dddddd;
           border-left: 0;
           border-radius: 0 5px 0 0;
-          height: 100%;
+          height: 37px;
           background-color: #fff;
 
           &:after {

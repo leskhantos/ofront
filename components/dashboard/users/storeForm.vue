@@ -44,16 +44,33 @@
   </form>
 </template>
 
+
 <script>
-export default {
+import oyInput from "../../oyUI/base/oyInput";
+import oyButton from "../../oyUI/base/oyButton";
+  export default {
   data: () => ({
     form: {
       user_type: "",
       username: ""
     }
   }),
+    components:{
+      oyInput,
+      oyButton
+    },
   methods: {
-    storeForm() {}
+   async storeUser() {
+     try {
+       await this.$axios.post('',this.form)
+     }catch (e) {
+       if (e.response.data.message){
+         this.flashMessage.error({
+           title: e.response.data.message,
+         });
+       }
+     }
+    }
   }
 };
 </script>

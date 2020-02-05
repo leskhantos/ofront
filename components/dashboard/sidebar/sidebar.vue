@@ -4,7 +4,7 @@
       <div class="header-wrapper">
         <div class="header">
           <div class="logo">
-            <img :src="logo" alt="logo" class="img-fluid" />
+            <nuxt-link to="/dashboard/statistics"><img :src="logo" alt="logo" class="img-fluid" /></nuxt-link>
           </div>
         </div>
         <div class="mobile-close-button" >
