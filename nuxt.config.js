@@ -45,19 +45,30 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
-     "@nuxtjs/axios",
-     "@nuxtjs/dotenv",
-    // "@nuxtjs/style-resources"
+     '@nuxtjs/axios',
+     '@nuxtjs/dotenv',
+     '@nuxtjs/auth'
+
   ],
-  env:{
-    apiUrl: 'http://127.0.0.1:8000/'
-  },
   /*
   ** Build configuration
   */
   axios:{
-    baseURL: 'http://127.0.0.1:8000/',
-    debug: false
+    baseURL: 'http://127.0.0.1:8000/auth',
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {url: 'login', method: 'post', propertyName: 'access_token'},
+          user: {url: 'user', method: 'get', propertyName: false},
+          logout: {
+            url: 'logout', method: 'get'
+          }
+        }
+      }
+    }
   },
   build: {
     /*

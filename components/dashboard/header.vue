@@ -1,20 +1,22 @@
 <template>
   <header class="application-header">
     <div class="mobile-buttons">
-      <oy-button  @click="">
+      <oy-button :titleHidden="true" @click="$store.commit('app/toggle_sidebar')">
         <ant-icon type="bars" slot="ant-icon" />
       </oy-button>
     </div>
     <div class="right-buttons">
+      <user-menu-item title="Выйти" icon="icon-power" @click="logout" />
+
       <user-menu >
-        <user-menu-header slot="header" />
+        <user-menu-header slot="header"/>
         <oy-avatar
           slot="trigger"
           cursor="pointer"
         />
         <!-- menu items -->
-        <user-menu-item title="Сменить пароль" icon="icon-lock" />
-        <user-menu-item title="Выйти" icon="icon-power" />
+<!--        <user-menu-item title="Сменить пароль" icon="icon-lock" @click="onItemClick('password')" />-->
+        <user-menu-item title="Выйти" icon="icon-power" @click="logout" />
       </user-menu>
     </div>
   </header>
@@ -24,12 +26,22 @@
 import userMenu from "@/components/dashboard/header/user-menu.vue";
 import userMenuItem from "@/components/dashboard/header/user-menu-item.vue";
 import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
+import { mapGetters } from 'vuex'
+
 export default {
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser'])
+  },
   components: {
     userMenu,
     userMenuItem,
     userMenuHeader
   },
+  methods:{
+    async logout() {
+      await this.$auth.logout();
+    },
+  }
 };
 </script>
 

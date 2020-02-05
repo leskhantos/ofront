@@ -2,11 +2,11 @@
   <div class="auth-page">
     <div class="auth-page__bg" :style="{ backgroundImage: `url(${bg})` }">
       <div class="auth-page__gradient-wrapper">
-        <form @submit.prevent="authMe" class="auth-page__card">
+        <form @submit.prevent="login" class="auth-page__card">
           <div class="logo" :style="{ backgroundImage: `url(${logo})` }"></div>
           <Inputs
             label="USERNAME"
-            v-model="form.login"
+            v-model="form.username"
           />
 
           <Inputs
@@ -26,15 +26,15 @@
   import logo from '@/static/logo.png';
   import Inputs from '@/components/inputs.vue';
 
-  const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
-    layout: "auth",
+    layout: 'auth',
+    middleware:'guest',
     data: () => ({
       bg: bg,
       logo: logo,
       form: {
-        login: "",
+        username: "",
         password: ""
       },
       errors: {
@@ -46,15 +46,19 @@
       Inputs
     },
     methods: {
-      async authMe () {
+      async login() {
         try {
-          await this.$store.dispatch('auth/login', this.form);
-          // await this.$store.dispatch('user/loadUser');
-          //this.$router.push({ name: 'dashboard-statistics' });
-        } catch (error) {
-          return false;
+          await this.$auth.loginWith('local', {
+            data: {
+              login: this.form.username,
+              password: this.form.password
+            }
+          })
+          this.$router.push('/dashboard/statistics')
+        } catch (e) {
+          this.error = e.response.data.message
         }
-      },
+      }
     }
   }
 </script>
