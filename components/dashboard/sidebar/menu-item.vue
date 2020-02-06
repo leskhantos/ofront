@@ -10,11 +10,6 @@
 <script>
 export default {
   props: {
-    route: {
-      type: String,
-      required: false,
-      default: "#"
-    },
     icon: {
       type: String,
       required: false
@@ -24,12 +19,26 @@ export default {
       required: false,
       default: "link"
     },
+    route: {
+      type: Object,
+      required: false,
+      default: () => {
+        return { name: 'dashboard-not-found' };
+      }
+  }
+  },
+  methods:{
+    getFirstObjectKeyValue(obj){
+      const key = Object.keys(obj)[0];
+      return obj[key];
+    }
   },
   computed: {
     active: function () {
       if (this.route.params === undefined) return this.$route.name === this.route.name;
       else {
-
+        const prop_param = this.getFirstObjectKeyValue(this.route.params);
+        const url_param = this.getFirstObjectKeyValue(this.$route.params);
         return String(prop_param) === String(url_param);
       }
     }

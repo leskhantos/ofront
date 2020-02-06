@@ -61,15 +61,7 @@ import oyButton from "../../oyUI/base/oyButton";
     },
   methods: {
    async storeUser() {
-     try {
-       await this.$axios.post('',this.form)
-     }catch (e) {
-       if (e.response.data.message){
-         this.flashMessage.error({
-           title: e.response.data.message,
-         });
-       }
-     }
+        await this.$store.dispatch('users/createUser', this.form);
     }
   }
 };

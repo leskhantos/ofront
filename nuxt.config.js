@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 
 export default {
   mode: 'universal',
@@ -26,15 +26,10 @@ export default {
   css: [
     './assets/icofont/icofont.css',
     './assets/scss/main.scss'
-
   ],
   /*
   ** Plugins to load before mounting the App
   */
-  styleResources: {
-    scss: [
-    ]
-  },
   plugins: [
     './plugins/mixins/validation',
     './plugins/axios',
@@ -45,6 +40,7 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    ['@nuxtjs/dotenv', { filename: '.env' }]
   ],
   /*
   ** Nuxt.js modules
@@ -64,7 +60,7 @@ export default {
   ** Build configuration
   */
   axios:{
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: process.env.API_HOST
   },
 
   auth: {

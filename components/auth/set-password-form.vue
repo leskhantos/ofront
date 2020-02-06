@@ -31,11 +31,7 @@
           await this.$axios.post('',this.form)
           this.$emit('success');
         }catch (e) {
-          if (e.response.data.message){
-            this.flashMessage.error({
-              title: e.response.data.message,
-            });
-          }
+        console.log(e.response.data)
         }
       }
     }

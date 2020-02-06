@@ -28,7 +28,6 @@
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
   import oyAvatar from "../oyUI/base/oyAvatar";
   import oyButton from "../oyUI/base/oyButton";
-  import { Icon } from 'ant-design-vue';
 
   export default {
     mounted() {
@@ -59,7 +58,6 @@
       userMenuHeader,
       oyAvatar,
       oyButton,
-      Icon
     },
     methods: {
       toggle(){

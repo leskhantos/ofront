@@ -27,16 +27,17 @@
             <th scope="col">Последний вход</th>
             <th scope="col">IP</th>
             <th scope="col" :style="{ width: '10%' }">Статус</th>
+<!--            <th scope="col">EDIT</th>-->
           </tr>
         </thead>
         <tbody>
           <tr v-for="user of allUsers" :key="user.id">
             <td data-label="Имя">{{ user.surname }} {{ user.name }}</td>
-            <td data-label="Последний вход">{{ user.last_login }}</td>
+            <td data-label="Последний вход">{{ dateTransform(user.last_login,true) }}</td>
             <td data-label="IP">{{ user.last_ip }}</td>
             <td data-label="Статус">{{ Boolean(user.disabled) ? 'Отключен' : 'Активный' }}</td>
+<!--            <td data-label="EDIT" :value="user.id"><button>Edit</button></td>-->
           </tr>
-        {{ allUsers }}
         </tbody>
       </table>
     </oy-page-body>
@@ -50,15 +51,11 @@
   import oyPage from "../../components/oyUI/page/oyPage";
   import oyPageHeader from "../../components/oyUI/page/oyPageHeader";
   import oyPageBody from "../../components/oyUI/page/oyPageBody";
+  import moment from 'moment';
+
 
   export default {
     layout: "dashboard",
-    data: () => ({
-    }),
-    async beforeRouteEnter(to, from, next) {
-      await store.dispatch("users/getUsers");
-      next();
-    },
     components: {
       storeForm,
       oyButton,
@@ -70,6 +67,9 @@
     methods:{
       showModal(){
         return  this.set_new_user = true;
+      },
+      dateTransform(date,time){
+        return moment(date, 'YYYY-MM-DD H:mm:ss').format(time ? 'DD.MM.YYYY H:mm' : 'DD.MM.YYYY');
       }
     },
     computed:{
@@ -84,6 +84,10 @@
       allUsers: function() {
         return this.$store.getters["users/list"];
       },
+
+    },
+    mounted() {
+      this.$store.dispatch("users/getUsers");
     }
   };
 </script>

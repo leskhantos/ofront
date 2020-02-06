@@ -13,16 +13,16 @@
       </div>
       <div class="dashboard-layout__sidebar--system-nav">
         <menu-header title="Основное" />
-        <menu-item icon="icon-chart" title="Статистика" :route="{ name: 'dashboard-statistics' }" />
-        <menu-item icon="icon-user" title="Пользователи" :route="{ name: 'dashboard-users' }" />
-        <menu-item icon="icon-settings" title="Настройки" :route="{ name: 'dashboard-settings' }" />
+        <menu-item title="Статистика" :route="{ name: 'dashboard-statistics' }" />
+        <menu-item title="Пользователи" :route="{ name: 'dashboard-users' }" />
+        <menu-item title="Настройки" :route="{ name: 'dashboard-settings' }" />
         <menu-item
           icon="icon-speedometer"
           title="Диагностика"
           :route="{ name: 'dashboard-diagnostics' }"
         />
         <menu-header title="Компании">
-          <div slot="extra" class="add-company-button">
+          <div slot="extra" class="add-company-button" @click="showModal">
             <i class="icofont-plus"></i>
           </div>
         </menu-header>
@@ -31,19 +31,25 @@
     <div class="dashboard-layout__sidebar--dynamic-section custom-sroll">
       <div class="dashboard-layout__sidebar--companies-nav">
         <menu-item
+          v-for="company in allCompanies"
+          :key="company.id"
+          :title="company.name"
+          :route="{ name: 'dashboard-company-id', params: { id: company.id } }"
         />
       </div>
     </div>
-    <div class="dashboard-layout__sidebar--mobile-logout-bitton">
+    <div class="dashboard-layout__sidebar--mobile-logout-bitton" @click="this.$auth.logout()">
       <i class="icon-power mr-3"></i>
       <span>Выйти</span>
     </div>
 
     <oy-modal name="name"
+              :visible="set_new_company"
+              @close="set_new_company = false"
       title="Добавить компанию"
       padding="1rem"
     >
-      <add-company-form/>
+      <add-company-form @succes="set_new_company=false"/>
     </oy-modal>
   </div>
 </template>
@@ -53,6 +59,8 @@ import logo from "@/static/logo.png";
 import addCompanyForm from './addCompanyForm.vue';
 import menuItem from "@/components/dashboard/sidebar/menu-item.vue";
 import menuHeader from "@/components/dashboard/sidebar/menu-header.vue";
+import oyModal from "../../oyUI/base/oyModal";
+
 export default {
   data: () => ({
     logo: logo,
@@ -61,17 +69,39 @@ export default {
   components: {
     menuItem,
     menuHeader,
-    addCompanyForm
+    addCompanyForm,
+    oyModal,
+  },
+  methods:{
+    showModal(){
+      return  this.set_new_company = true;
+    }
+  },
+  computed:{
+    set_new_company: {
+      get: function() {
+        return this.$store.getters["app/set_new_company"];
+      },
+      set: function (value) {
+        this.$store.commit('app/SET_NEW_COMPANY', value);
+      }
+    },
+    allCompanies: function() {
+      return this.$store.getters["company/companies"];
+    }
+  },
+  mounted() {
+    this.$store.dispatch("company/getCompanies");
   }
 };
 </script>
 
 <style lang="scss">
-$logo-width: 100px;
+/*$logo-width: 100px;
 $sidebar-width: 300px;
-
+*/
 .dashboard-layout__sidebar {
-  width: $sidebar-width;
+  width: 300px;
   background-color: #2c343f;
   display: flex;
   flex-direction: column;
@@ -98,7 +128,7 @@ $sidebar-width: 300px;
       }
 
       .logo {
-        width: $logo-width;
+        width: 100px;
       }
     }
 

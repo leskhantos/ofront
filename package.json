@@ -15,12 +15,11 @@
     "@nuxtjs/auth": "^4.8.5",
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/dotenv": "^1.4.1",
-    "@nuxtjs/style-resources": "^1.0.0",
     "@smartweb/vue-flash-message": "^0.5.3",
-    "ant-design-vue": "^1.4.10",
-    "cookieparser": "^0.1.0",
-    "js-cookie": "^2.2.1",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
+    "sass-loader": "^8.0.2",
     "vue": "latest",
     "vuex": "^3.1.2"
   },
@@ -31,8 +30,6 @@
     "babel-jest": "^24.1.0",
     "babel-plugin-import": "^1.13.0",
     "jest": "^24.1.0",
-    "node-sass": "^4.13.1",
-    "sass-loader": "^8.0.2",
     "vue-jest": "^4.0.0-0"
   }
 }

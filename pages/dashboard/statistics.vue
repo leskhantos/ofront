@@ -27,7 +27,7 @@
 import sms from "@/components/dashboard/statistics/sms.vue";
 import calls from "@/components/dashboard/statistics/calls.vue";
 import metrica from "@/components/dashboard/statistics/metrica.vue";
-
+import oyPageHeader from "../../components/oyUI/page/oyPageHeader";
 export default {
   layout: "dashboard",
   metaInfo() {
@@ -52,7 +52,8 @@ export default {
   components: {
     sms,
     calls,
-    metrica
+    metrica,
+    oyPageHeader
   }
 };
 </script>

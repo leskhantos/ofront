@@ -12,18 +12,6 @@
       :type="type"
       v-if="!options"
     />
-    <!-- <select
-      v-else
-      class="form-control form-control-sm"
-      @change="$emit('input', $event.target.value)"
-    >
-      <option
-        :key="index"
-        :value="option.key"
-        v-for="(option, index) in options"
-        :selected="option.key === value"
-      >{{ option.title }}</option>
-    </select> -->
     <transition name="input-error">
       <small v-if="error" class="oy-input__error">{{ error }}</small>
     </transition>

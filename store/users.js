@@ -16,7 +16,13 @@ export const mutations = {
 
 export const actions = {
   async getUsers({commit}){
-    let users = await this.$axios.get('users');
-    commit('SET_USERS_LIST',users.data);
+    await this.$axios.get('users').then((response)=>{
+      commit('SET_USERS_LIST',response.data);
+    });
+  },
+  async createUser({commit}, userData){
+   await this.$axios.post('user').then((response)=>{
+     console.log(response)
+   });
   },
 };
