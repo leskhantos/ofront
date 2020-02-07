@@ -1,41 +1,44 @@
 <template>
   <form @submit.prevent="storeUser">
     <div class="row">
-      <oy-input label="Логин" v-model="form.username" input-class="col-lg-12" error="" />
+      <oy-input label="Логин" v-model="form.user.username" input-class="col-lg-12"/>
     </div>
 
     <div class="row">
-      <oy-input label="Имя пользователя" v-model="form.username" input-class="col-lg-6" />
-      <oy-input label="Тип пользователя" v-model="form.user_type" input-class="col-lg-6"
-        :options="[
-          { key: 'admin', title: 'Администратор' },
-          { key: 'company', title: 'Компания' },
-        ]"
-      />
-    </div>
+      <oy-input label="Имя пользователя" v-model="form.user.name" input-class="col-lg-6" />
+      <div class="col-lg-6">
+        <label :style="{ marginBottom: '0.3rem' }">Тип пользователя</label>
+        <select
+          class="form-control form-control-sm"
+          v-model="form.user.user_type"
+        >
+          <option
+            :key="role.id"
+            :value="role.name"
+            v-for="role in roles"
+          >{{role.name}}</option>
+        </select>
+      </div>
 
+    </div>
     <transition name="fade">
-      <div v-if="form.user_type === 'company'">
+      <div v-if="form.user.user_type === 'company'">
         <div class="row">
-          <oy-input label="Наименование компании" v-model="form.username" input-class="col-lg-12" />
+          <oy-input label="Наименование компании" v-model="form.company.name" input-class="col-lg-12" />
         </div>
         <div class="row">
-          <oy-input label="Имя зоны" v-model="form.username" input-class="col-lg-6" />
-          <oy-input label="Адрес подключения" v-model="form.username" input-class="col-lg-6" />
+          <oy-input label="Имя зоны" v-model="form.company.spot" input-class="col-lg-6" />
+          <oy-input label="Адрес подключения" v-model="form.company.address" input-class="col-lg-6" />
         </div>
         <div class="row">
-          <oy-input label="Идентификатор" v-model="form.username" input-class="col-lg-6" />
-          <oy-input label="Тип авторизации" v-model="form.username" input-class="col-lg-6" :options="[
-            { key: 'admin', title: 'Администратор' },
-            { key: 'company', title: 'Компания' },
-          ]" />
+          <oy-input label="Идентификатор" v-model="form.company.interface" input-class="col-lg-6" />
         </div>
       </div>
     </transition>
 
     <div class="row">
-      <oy-input label="Пароль" v-model="form.username" input-class="col-lg-6" type="password" />
-      <oy-input label="Подтвердите пароль" v-model="form.username" input-class="col-lg-6" type="password" />
+      <oy-input label="Пароль" v-model="form.user.password" input-class="col-lg-6" type="password" />
+      <oy-input label="Подтвердите пароль" v-model="form.user.password" input-class="col-lg-6" type="password" />
     </div>
 
     <div class="mb-0">
@@ -51,8 +54,19 @@ import oyButton from "../../oyUI/base/oyButton";
   export default {
   data: () => ({
     form: {
-      user_type: "",
-      username: ""
+      user:{
+        username: '',
+        name:'',
+        user_type:'',
+        password:'',
+        repeated_password:''
+      },
+      company:{
+        name:'',
+        spot:'',
+        address:'',
+        interface:''
+      }
     }
   }),
     components:{
@@ -61,8 +75,24 @@ import oyButton from "../../oyUI/base/oyButton";
     },
   methods: {
    async storeUser() {
-        await this.$store.dispatch('users/createUser', this.form);
+     try {
+       await this.$axios.post('user', this.form).then((res)=>{
+         this.$store.dispatch("users/getUsers");
+         this.$store.commit("app/SET_NEW_USER",false);
+         this.flashMessage.success({
+           title: "User added",
+         });
+         this.$router.push({ name: "dashboard-users"});
+       })
+     } catch (e) {
+              console.log(e)
+     }
+   }
+  },
+    computed:{
+      roles:function () {
+        return this.$store.getters["users/roles"];
+      }
     }
-  }
 };
 </script>

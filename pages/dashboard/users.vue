@@ -5,7 +5,6 @@
         <oy-button
           title="Добавить пользователя"
           type="success"
-
           icon="icon-plus"
           @click="showModal"
         >+</oy-button>
@@ -66,6 +65,7 @@
     },
     methods:{
       showModal(){
+        this.$store.dispatch('users/getRoles');
         return  this.set_new_user = true;
       },
       dateTransform(date,time){

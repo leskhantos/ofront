@@ -3,6 +3,7 @@ export const state= ()=>({
   set_password_mode:false,
   set_new_user:false,
   set_new_company:false,
+  sidebar_opened: false,
   errors:{}
 });
 
@@ -18,6 +19,9 @@ export const getters = {
   },
   errors(state){
     return state.errors;
+  },
+  sidebar_opened(state){
+    return state.sidebar_opened
   }
 
 
@@ -35,6 +39,9 @@ export const mutations = {
   },
   SET_VALIDATION_ERRORS(state,errors){
     state.errors = errors;
+  },
+  TOGGLE_SIDEBAR(state,sidebar_opened){
+    state.sidebar_opened = sidebar_opened
   },
 };
 

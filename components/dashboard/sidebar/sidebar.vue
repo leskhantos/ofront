@@ -1,21 +1,21 @@
 <template>
-  <div class="dashboard-layout__sidebar" >
+  <div class="dashboard-layout__sidebar" :class="{ opened: sidebar_state }" >
     <div class="dashboard-layout__sidebar--static-section">
       <div class="header-wrapper">
         <div class="header">
           <div class="logo">
-            <nuxt-link to="/dashboard/statistics"><img :src="logo" alt="logo" class="img-fluid" /></nuxt-link>
+            <nuxt-link to="/dashboard/statistics"><img :src="logo" alt="logo" width="100px" class="img-fluid" /></nuxt-link>
           </div>
         </div>
-        <div class="mobile-close-button" >
-
+        <div class="mobile-close-button"  @click="$store.commit('app/TOGGLE_SIDEBAR',false)">
+          <i class="icon icon-arrow-left mr-3" ></i>
         </div>
       </div>
       <div class="dashboard-layout__sidebar--system-nav">
         <menu-header title="Основное" />
-        <menu-item title="Статистика" :route="{ name: 'dashboard-statistics' }" />
-        <menu-item title="Пользователи" :route="{ name: 'dashboard-users' }" />
-        <menu-item title="Настройки" :route="{ name: 'dashboard-settings' }" />
+        <menu-item icon="icon-chart" title="Статистика" :route="{ name: 'dashboard-statistics' }" />
+        <menu-item icon="icon-user"  title="Пользователи" :route="{ name: 'dashboard-users' }" />
+        <menu-item icon="icon-settings" title="Настройки" :route="{ name: 'dashboard-settings' }" />
         <menu-item
           icon="icon-speedometer"
           title="Диагностика"
@@ -88,7 +88,15 @@ export default {
     },
     allCompanies: function() {
       return this.$store.getters["company/companies"];
-    }
+    },
+    sidebar_state: {
+      get: function() {
+        return this.$store.getters["app/sidebar_opened"];
+      },
+      set: function (value) {
+        this.$store.commit('app/TOGGLE_SIDEBAR', value);
+      }
+    },
   },
   mounted() {
     this.$store.dispatch("company/getCompanies");
@@ -97,11 +105,11 @@ export default {
 </script>
 
 <style lang="scss">
-/*$logo-width: 100px;
+$logo-width: 100px;
 $sidebar-width: 300px;
-*/
+
 .dashboard-layout__sidebar {
-  width: 300px;
+  width: $sidebar-width;
   background-color: #2c343f;
   display: flex;
   flex-direction: column;
@@ -128,7 +136,7 @@ $sidebar-width: 300px;
       }
 
       .logo {
-        width: 100px;
+        width: $logo-width;
       }
     }
 

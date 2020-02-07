@@ -1,8 +1,8 @@
 <template>
   <header class="application-header">
     <div class="mobile-buttons">
-      <oyButton :titleHidden="true" @click="$store.commit('app/toggle_sidebar')">
-      </oyButton>
+      <i class="icon icon-list mr-3"  @click="$store.commit('app/TOGGLE_SIDEBAR',true)"></i>
+
     </div>
     <div class="right-buttons">
       <user-menu :visible="user_menu_opened">
@@ -16,7 +16,7 @@
         />
         <!-- menu items -->
         <user-menu-item title="Сменить пароль" icon="icon-lock" @click="onItemClick('password')" />
-        <user-menu-item title="Выйти" @click="onItemClick('logout')" />
+        <user-menu-item title="Выйти" icon="icon-power" @click="onItemClick('logout')" />
       </user-menu>
     </div>
   </header>

@@ -5,6 +5,7 @@
         label="Наименование компании"
         v-model="form.company.name"
         input-class="col-lg-12"
+        :error="errors['company.name']"
       />
     </div>
     <div class="row">
@@ -12,12 +13,13 @@
         label="Имя зоны"
         v-model="form.spot.name"
         input-class="col-lg-6"
-
+        :error="errors['spot.name']"
       />
       <oy-input
         label="Адрес подключения"
         v-model="form.spot.address"
         input-class="col-lg-6"
+        :error="errors['spot.address']"
       />
     </div>
     <div class="row">
@@ -25,15 +27,9 @@
         v-model="form.spot.interface"
         input-class="col-lg-6"
         label="Идентификатор"
+        :error="errors['spot.interface']"
 
       />
-      <!-- <oy-input
-        label="Тип авторизации"
-        v-model="form.spot.type"
-        input-class="col-lg-6"
-        :options="types"
-        :error="$store.state.errors.list['company:spot.type']"
-      />-->
 
       <div class="col-lg-6">
         <label :style="{ marginBottom: '0.3rem' }">Тип авторизации</label>
@@ -86,14 +82,19 @@ export default {
   },
   methods:{
     async storeCompany() {
-      await this.$store.dispatch("company/createCompany", this.form).then((res)=>{
-        //this.$store.commit('app/SET_NEW_COMPANY', false);
-        this.flashMessage.success({
-          title: 'created',
-        });
-        this.$router.push({ name: "dashboard-statistics"});
-      });
-
+      try {
+        await this.$axios.post('company', this.form).then((res)=>{
+          this.$store.dispatch("company/getCompanies");
+          this.$store.commit("app/SET_NEW_COMPANY",false);
+          this.flashMessage.success({
+            title: "Компания добавлена",
+          });
+          console.log(res.data.company.id )
+          this.$router.push({ name: "dashboard-company-id",params:{ id:res.data.company.id }});
+        })
+      } catch (e) {
+            console.log(e)
+        }
     },
   },mounted() {
     this.$store.dispatch("company/getAuthTypes");

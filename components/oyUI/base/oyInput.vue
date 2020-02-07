@@ -13,7 +13,7 @@
       v-if="!options"
     />
     <transition name="input-error">
-      <small v-if="error" class="oy-input__error">{{ error }}</small>
+      <small v-if="error" class="oy-input__error">{{ error[0] }}</small>
     </transition>
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
       required: false
     },
     error: {
-      type: String,
+      type: Array,
       required: false
     }
   },

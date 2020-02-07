@@ -89,7 +89,7 @@
 
       .desc {
         width: 110px;
-        height: 28px;
+        height: 33px;
         font-family: "Roboto";
         font-size: 14px;
         font-weight: 300;
@@ -109,7 +109,7 @@
         border: 1px solid #d20000;
         border-right: 0;
         border-radius: 5px 0 0 0;
-        height: 36px;
+        height: 100%;
         background-color: #f04641;
 
         &:after {
@@ -186,7 +186,7 @@
           border: 1px solid #dddddd;
           border-left: 0;
           border-radius: 0 5px 0 0;
-          height: 37px;
+          height: 100%;
           background-color: #fff;
 
           &:after {

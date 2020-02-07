@@ -48,12 +48,4 @@ export const actions = {
     }).catch((err)=>{
     });
   },
-  async createCompany({commit}, companyData){
-    await this.$axios.post('company',companyData).then((response)=>{
-    console.log(response.data)
-    }).catch((err)=>{
-      console.log(err.data)
-
-    });
-  },
 };

@@ -1,11 +1,10 @@
 <template>
-  <form @submit.prevent="">
-    <div class="row">
-      <oy-input label="Запрос"></oy-input>
-      <oy-button title="Отправить" type="success"/>
-    </div>
-  </form>
-
+  <div>
+    <form @submit.prevent="">
+        <oy-input label="Запрос"></oy-input>
+        <oy-button title="Отправить" type="success"/>
+    </form>
+  </div>
 </template>
 
 <script>
