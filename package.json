@@ -16,11 +16,12 @@
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/dotenv": "^1.4.1",
     "@smartweb/vue-flash-message": "^0.5.3",
-    "bootstrap-scss": "^4.4.1",
+    "bootstrap": "^4.4.1",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.2",
+    "simple-line-icons": "^2.4.1",
     "vue": "latest",
     "vuex": "^3.1.2"
   },
@@ -31,6 +32,7 @@
     "babel-jest": "^24.1.0",
     "babel-plugin-import": "^1.13.0",
     "jest": "^24.1.0",
+    "postcss": "^7.0.26",
     "vue-jest": "^4.0.0-0"
   }
 }

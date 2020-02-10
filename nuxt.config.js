@@ -14,10 +14,6 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css'
-
-      },
       { rel: 'icon',  type: 'image/png',sizes:'16x16', href: '/favicon-16x16.png', },
       { rel: 'icon',  type: 'image/png',sizes:'32x32', href: '/favicon-32x32.png', },
       { rel: 'icon',  type: 'image/png',sizes:'96x96', href: '/favicon-96x96.png', },
@@ -31,9 +27,8 @@ export default {
   ** Global CSS
   */
   css: [
-    './assets/icofont/icofont.css',
     './assets/scss/main.scss',
-    {src:'bootstrap-scss', lang:'scss'},
+    'simple-line-icons/css/simple-line-icons.css'
   ],
   /*
   ** Plugins to load before mounting the App
