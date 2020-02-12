@@ -2,7 +2,7 @@
   <div slot="header" class="d-flex align-items-center">
     <oyAvatar :focused="focused" :title="title"/>
     <div class="ml-3">
-      <div :style="{ fontWeight: '600', fontSize: '95%' }">{{ this.$auth.user.name }} {{ this.$auth.user.surname }}</div>
+      <div :style="{ fontWeight: '600', fontSize: '95%' }">{{ this.user.name }} {{ this.user.surname }}</div>
       <div :style="{ fontSize: '80%' }">Администратор</div>
     </div>
   </div>
@@ -11,6 +11,11 @@
 <script>
 import oyAvatar from "../../oyUI/base/oyAvatar";
   export default {
+    data(){
+      return {
+        user:{}
+      }
+    },
   props: {
       focused: {
           type: Boolean,
@@ -24,6 +29,9 @@ import oyAvatar from "../../oyUI/base/oyAvatar";
   },
     components:{
       oyAvatar
+    },
+    mounted() {
+      this.user = this.$store.getters["users/user"]
     }
-};
+  };
 </script>

@@ -62,7 +62,7 @@
         async renameCompany(company_id){
           try {
             let payload = {
-              user_id: this.$auth.user.id,
+              user_id: this.user.id,
               name: this.newName
             }
             await this.$axios.put(`company/${company_id}`, payload).then((res)=>{

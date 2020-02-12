@@ -1,6 +1,7 @@
 export const state= ()=>({
   list:[],
-  roles:[]
+  roles:[],
+  user:{}
 });
 
 export const getters = {
@@ -9,6 +10,9 @@ export const getters = {
   },
   roles(state){
     return state.roles;
+  },
+  user(state){
+    return state.user
   }
 };
 
@@ -18,19 +22,27 @@ export const mutations = {
   },
   SET_ROLES(state,roles){
     state.roles = roles
+  },
+  SET_USER(state,user){
+    state.user = user
   }
 };
 
 export const actions = {
   async getUsers({commit}){
-    await this.$axios.get('users').then((response)=>{
+    await this.$axios.get('users', {headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((response)=>{
       commit('SET_USERS_LIST',response.data);
     });
   },
   async getRoles({commit}){
-    await this.$axios.get('roles').then((response)=>{
+    await this.$axios.get('roles',{headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((response)=>{
       commit('SET_ROLES',response.data);
     });
   },
+  async getUser({commit}){
+    await this.$axios.get('auth/user', {headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((res)=>{
+      commit('SET_USER',res.data);
+    })
+  }
 
 };

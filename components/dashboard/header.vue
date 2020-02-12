@@ -28,6 +28,7 @@
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
   import oyAvatar from "../oyUI/base/oyAvatar";
   import oyButton from "../oyUI/base/oyButton";
+  const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
     mounted() {
@@ -38,10 +39,11 @@
     },
     data: () => ({
       user_menu_opened: false,
+      user:{}
     }),
     computed: {
       avatar: function() {
-        return `${this.$auth.user.name[0]}${this.$auth.user.surname[0]}`;
+        return `${this.user.name}${this.user.surname}`;
       },
       set_password_mode: {
         get: function() {
@@ -74,10 +76,22 @@
           this.user_menu_opened = false;
         }
       },
+      async logout(){
+        try{
+          await this.$axios.get('auth/logout',{headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((res)=>{
+            console.log(res.data)
+            Cookie.remove('auth')
+            this.$store.commit('setAuth', null)
+            this.$router.push('/');
+          })
+        }catch (e) {
+
+        }
+      },
       onItemClick(name) {
         switch (name) {
           case "logout":
-            this.$auth.logout();
+            this.logout();
             break;
 
           case "password":
@@ -90,6 +104,9 @@
         }
         this.user_menu_opened = false;
       }
+    },
+    beforeMount(){
+      this.user = this.$store.getters["users/user"]
     }
   };
 </script>

@@ -30,10 +30,11 @@
   import bg from '@/static/bg.jpg';
   import logo from '@/static/logo.png';
   import Inputs from '../components/auth/inputs';
+  const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
     layout: 'auth',
-    middleware:'guest',
+    middleware: 'notAuthenticated',
     data: () => ({
       bg: bg,
       logo: logo,
@@ -48,13 +49,18 @@
     methods: {
       async login() {
         try {
-          await this.$auth.loginWith('local', {
-            data: {
-              login: this.form.username,
-              password: this.form.password
+          let data = {
+            login: this.form.username,
+            password: this.form.password
+          };
+          await this.$axios.post('auth/login', data).then((res)=> {
+            const auth = {
+              accessToken: res.data.access_token
             }
+            this.$store.commit('setAuth', auth)
+            Cookie.set('auth', auth)
+            this.$router.push('/dashboard/statistics')
           })
-          this.$router.push('/dashboard/statistics')
         } catch (e) {
           if (e.response.data.message){
             this.flashMessage.error({

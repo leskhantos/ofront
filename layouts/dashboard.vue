@@ -28,7 +28,7 @@
   import oyModal from "../components/oyUI/base/oyModal";
   import setPasswordForm from "../components/auth/set-password-form"
     export default {
-      middleware:'auth',
+      middleware: 'authenticated',
       name: "dashboard",
       components:{
         sidebar,
@@ -45,8 +45,11 @@
             this.$store.commit('app/SET_PASSWORD_MODE', value);
           }
         }
+    },
+      mounted() {
+        this.$store.dispatch('users/getUser')
+      }
     }
-  }
 </script>
 
 <style lang="scss" scoped>
