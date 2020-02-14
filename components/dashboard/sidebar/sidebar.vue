@@ -23,7 +23,7 @@
         />
         <menu-header title="Компании">
           <div slot="extra" class="add-company-button" @click="showModal">
-            <i class="icofont-plus"></i>
+            <i class="icon-plus"></i>
           </div>
         </menu-header>
       </div>
@@ -38,7 +38,7 @@
         />
       </div>
     </div>
-    <div class="dashboard-layout__sidebar--mobile-logout-bitton" @click="this.$auth.logout()">
+    <div class="dashboard-layout__sidebar--mobile-logout-bitton" @click="this.logout()">
       <i class="icon-power mr-3"></i>
       <span>Выйти</span>
     </div>
@@ -75,6 +75,18 @@ export default {
   methods:{
     showModal(){
       return  this.set_new_company = true;
+    },
+    async logout(){
+      try{
+        await this.$axios.get('auth/logout').then((res)=>{
+          console.log(res.data)
+          Cookie.remove('auth')
+          this.$store.commit('setAuth', null)
+          this.$router.push('/');
+        })
+      }catch (e) {
+
+      }
     }
   },
   computed:{

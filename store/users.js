@@ -1,6 +1,7 @@
 export const state= ()=>({
   list:[],
-  roles:[]
+  roles:[],
+  user:{}
 });
 
 export const getters = {
@@ -9,6 +10,9 @@ export const getters = {
   },
   roles(state){
     return state.roles;
+  },
+  user(state){
+    return state.user
   }
 };
 
@@ -18,6 +22,9 @@ export const mutations = {
   },
   SET_ROLES(state,roles){
     state.roles = roles
+  },
+  SET_USER(state,user){
+    state.user = user
   }
 };
 
@@ -32,5 +39,10 @@ export const actions = {
       commit('SET_ROLES',response.data);
     });
   },
+  async getUser({commit}){
+    await this.$axios.get('auth/user').then((res)=>{
+      commit('SET_USER',res.data);
+    })
+  }
 
 };

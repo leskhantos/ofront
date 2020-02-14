@@ -21,21 +21,6 @@
       </div>
 
     </div>
-    <transition name="fade">
-      <div v-if="form.user.user_type === 'company'">
-        <div class="row">
-          <oy-input label="Наименование компании" v-model="form.company.name" input-class="col-lg-12" />
-        </div>
-        <div class="row">
-          <oy-input label="Имя зоны" v-model="form.company.spot" input-class="col-lg-6" />
-          <oy-input label="Адрес подключения" v-model="form.company.address" input-class="col-lg-6" />
-        </div>
-        <div class="row">
-          <oy-input label="Идентификатор" v-model="form.company.interface" input-class="col-lg-6" />
-        </div>
-      </div>
-    </transition>
-
     <div class="row">
       <oy-input label="Пароль" v-model="form.user.password" input-class="col-lg-6" type="password" />
       <oy-input label="Подтвердите пароль" v-model="form.user.password" input-class="col-lg-6" type="password" />
@@ -61,12 +46,6 @@ import oyButton from "../../oyUI/base/oyButton";
         password:'',
         repeated_password:''
       },
-      company:{
-        name:'',
-        spot:'',
-        address:'',
-        interface:''
-      }
     }
   }),
     components:{

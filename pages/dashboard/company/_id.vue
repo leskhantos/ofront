@@ -1,30 +1,31 @@
   <template>
-    <transition name="page" mode="in-out">
-      <div>
-        <div>{{ company.name }}</div>
-
-        <p>Статус: {{Boolean(company.disabled) ? 'Отключен' : 'Активный'}}</p>
-        <button class="btn btn-danger" @click="deleteCompany(company.id)">Delete</button>
-        <form @submit.prevent="renameCompany(company.id)">
-          <div>
-            <h1>Rename</h1>
-            <oy-input type="text" :placeholder="company.name" v-model="newName" required></oy-input>
-          </div>
-        <button type="submit" class="btn btn-success">Rename</button>
-        </form>
-      </div>
-    </transition>
+    <div>
+    <nav class="nav nav-pills nav-fill">
+      <div class="nav-item nav-link border" @click="currentTabComponent='mainCompany'">Основное</div>
+      <div class="nav-item nav-link border" @click="currentTabComponent='guests'">Гости</div>
+      <div class="nav-item nav-link border" @click="currentTabComponent='zones'">Зоны</div>
+      <div class="nav-item nav-link border" @click="currentTabComponent='pages'">Страницы</div>
+      <div class="nav-item nav-link border" @click="currentTabComponent='accounts'">Аккаунты</div>
+    </nav>
+      <component :is="currentTabComponent" :name="company.name" :checked="company.enabled"/>
+    </div>
   </template>
 
   <script>
     import OyInput from "../../../components/oyUI/base/oyInput";
     import OyButton from "../../../components/oyUI/base/oyButton";
+    import mainCompany from "../../../components/dashboard/company/main";
+    import guests from "../../../components/dashboard/company/guests";
+    import zones from "../../../components/dashboard/company/zones";
+    import pages from "../../../components/dashboard/company/pages";
+    import accounts from "../../../components/dashboard/company/accounts";
     export default {
-      components: {OyButton, OyInput},
+      components: {OyButton, OyInput,mainCompany,guests,zones,pages,accounts},
       layout: "dashboard",
       data(){
         return{
-          newName:''
+          newName:'',
+          currentTabComponent: "mainCompany"
         }
       },
       validate ({ params }) {
@@ -61,11 +62,10 @@
         },
         async renameCompany(company_id){
           try {
-            let payload = {
-              user_id: this.$auth.user.id,
+            await this.$axios.put(`company/${company_id}`, {
+              user_id: this.$store.state.users.user.id,
               name: this.newName
-            }
-            await this.$axios.put(`company/${company_id}`, payload).then((res)=>{
+            }).then((res)=>{
               this.$store.dispatch("company/getCompanies");
               this.flashMessage.success({
                 title: "Компания обновлена",
@@ -83,3 +83,6 @@
       }
     };
   </script>
+  <style lang="scss" scoped>
+
+  </style>

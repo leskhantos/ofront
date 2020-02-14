@@ -6,11 +6,11 @@
     </div>
     <div class="right-buttons">
       <user-menu :visible="user_menu_opened">
-        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar" />
+        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar"/>
         <oyAvatar
           slot="trigger"
           :focused="user_menu_opened"
-          :title="avatar"
+          :title="avatar.name"
           @click="toggleUserMenu"
           cursor="pointer"
         />
@@ -28,6 +28,7 @@
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
   import oyAvatar from "../oyUI/base/oyAvatar";
   import oyButton from "../oyUI/base/oyButton";
+  const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
     mounted() {
@@ -41,7 +42,7 @@
     }),
     computed: {
       avatar: function() {
-        return `${this.$auth.user.name[0]}${this.$auth.user.surname[0]}`;
+        return this.$store.getters["users/user"];
       },
       set_password_mode: {
         get: function() {
@@ -50,7 +51,7 @@
         set: function (value) {
           this.$store.commit('app/SET_PASSWORD_MODE', value);
         }
-      }
+      },
     },
     components: {
       userMenu,
@@ -60,9 +61,6 @@
       oyButton,
     },
     methods: {
-      toggle(){
-
-      },
       toggleUserMenu() {
         this.user_menu_opened = !this.user_menu_opened;
       },
@@ -74,10 +72,22 @@
           this.user_menu_opened = false;
         }
       },
+      async logout(){
+        try{
+          await this.$axios.get('auth/logout').then((res)=>{
+            console.log(res.data)
+            Cookie.remove('auth')
+            this.$store.commit('setAuth', null)
+            this.$router.push('/');
+          })
+        }catch (e) {
+
+        }
+      },
       onItemClick(name) {
         switch (name) {
           case "logout":
-            this.$auth.logout();
+            this.logout();
             break;
 
           case "password":
@@ -90,6 +100,9 @@
         }
         this.user_menu_opened = false;
       }
+    },
+    beforeMount(){
+      this.user = this.$store.state.users.user
     }
   };
 </script>

@@ -17,6 +17,8 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "@smartweb/vue-flash-message": "^0.5.3",
     "bootstrap": "^4.4.1",
+    "cookieparser": "^0.1.0",
+    "js-cookie": "^2.2.1",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
