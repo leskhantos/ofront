@@ -8,6 +8,7 @@
         :error="errors['company.name']"
       />
     </div>
+    <hr>
     <div class="row">
       <oy-input
         label="Имя зоны"
@@ -66,7 +67,7 @@ export default {
           name: "",
           address: "",
           interface: "",
-          auth_type_id: 0
+          auth_type_id: 1
         }
       }
     }
@@ -83,7 +84,7 @@ export default {
   methods:{
     async storeCompany() {
       try {
-        await this.$axios.post('company', this.form).then((res)=>{
+        await this.$axios.post('company', this.form.company).then((res)=>{
           this.$store.dispatch("company/getCompanies");
           this.$store.commit("app/SET_NEW_COMPANY",false);
           this.flashMessage.success({

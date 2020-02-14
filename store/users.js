@@ -30,17 +30,17 @@ export const mutations = {
 
 export const actions = {
   async getUsers({commit}){
-    await this.$axios.get('users', {headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((response)=>{
+    await this.$axios.get('users').then((response)=>{
       commit('SET_USERS_LIST',response.data);
     });
   },
   async getRoles({commit}){
-    await this.$axios.get('roles',{headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((response)=>{
+    await this.$axios.get('roles').then((response)=>{
       commit('SET_ROLES',response.data);
     });
   },
   async getUser({commit}){
-    await this.$axios.get('auth/user', {headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((res)=>{
+    await this.$axios.get('auth/user').then((res)=>{
       commit('SET_USER',res.data);
     })
   }

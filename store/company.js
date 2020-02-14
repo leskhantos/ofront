@@ -30,20 +30,20 @@ export const mutations = {
 
 export const actions = {
   async getCompanies({commit}){
-    await this.$axios.get('companies',{headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((response)=>{
+    await this.$axios.get('companies').then((response)=>{
       commit('SET_COMPANIES_LIST',response.data);
     }).catch((err)=>{
 
     });
   },
   async getCompany({commit}, company_id){
-    await this.$axios.get(`company/${company_id}`,{headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((response)=>{
+    await this.$axios.get(`company/${company_id}`).then((response)=>{
       commit('SET_COMPANY',response.data);
     }).catch((err)=>{
     });
   },
   async getAuthTypes({commit}){
-    await this.$axios.get('spot/auth/types',{headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((response)=>{
+    await this.$axios.get('spot/auth/types').then((response)=>{
       commit('SET_AUTH_TYPES',response.data);
     }).catch((err)=>{
     });

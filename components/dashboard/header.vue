@@ -6,11 +6,11 @@
     </div>
     <div class="right-buttons">
       <user-menu :visible="user_menu_opened">
-        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar" />
+        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar"/>
         <oyAvatar
           slot="trigger"
           :focused="user_menu_opened"
-          :title="avatar"
+          :title="avatar.name"
           @click="toggleUserMenu"
           cursor="pointer"
         />
@@ -39,11 +39,10 @@
     },
     data: () => ({
       user_menu_opened: false,
-      user:{}
     }),
     computed: {
       avatar: function() {
-        return `${this.user.name}${this.user.surname}`;
+        return this.$store.getters["users/user"];
       },
       set_password_mode: {
         get: function() {
@@ -52,7 +51,7 @@
         set: function (value) {
           this.$store.commit('app/SET_PASSWORD_MODE', value);
         }
-      }
+      },
     },
     components: {
       userMenu,
@@ -62,9 +61,6 @@
       oyButton,
     },
     methods: {
-      toggle(){
-
-      },
       toggleUserMenu() {
         this.user_menu_opened = !this.user_menu_opened;
       },
@@ -78,7 +74,7 @@
       },
       async logout(){
         try{
-          await this.$axios.get('auth/logout',{headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((res)=>{
+          await this.$axios.get('auth/logout').then((res)=>{
             console.log(res.data)
             Cookie.remove('auth')
             this.$store.commit('setAuth', null)
@@ -106,7 +102,7 @@
       }
     },
     beforeMount(){
-      this.user = this.$store.getters["users/user"]
+      this.user = this.$store.state.users.user
     }
   };
 </script>

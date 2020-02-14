@@ -23,7 +23,7 @@
         />
         <menu-header title="Компании">
           <div slot="extra" class="add-company-button" @click="showModal">
-            <i class="icofont-plus"></i>
+            <i class="icon-plus"></i>
           </div>
         </menu-header>
       </div>
@@ -78,7 +78,7 @@ export default {
     },
     async logout(){
       try{
-        await this.$axios.get('auth/logout',{headers:{'Authorization': `Bearer ${this.$store.state.auth.accessToken}`}}).then((res)=>{
+        await this.$axios.get('auth/logout').then((res)=>{
           console.log(res.data)
           Cookie.remove('auth')
           this.$store.commit('setAuth', null)

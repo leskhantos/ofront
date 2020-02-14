@@ -7,7 +7,10 @@ export default function ({$axios,store}) {
     }
     return Promise.reject(error)
   })
-  $axios.onRequest(()=>{
+  $axios.onRequest(config => {
+    if (store.state.auth!==null){
+      config.headers.common['Authorization'] = `Bearer ${store.state.auth.accessToken}`
+    }
     store.dispatch('app/clearErrors');
   })
 }
