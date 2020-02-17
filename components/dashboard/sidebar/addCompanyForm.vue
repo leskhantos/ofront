@@ -51,8 +51,6 @@
 </template>
 
 <script>
-import oyButton from "../../oyUI/base/oyButton";
-import oyInput from "../../oyUI/base/oyInput";
 export default {
   props:{
     name:{
@@ -76,10 +74,6 @@ export default {
       company_id: null
     }
     },
-  components:{
-    oyButton,
-    oyInput
-  },
   computed:{
     types:function () {
       return this.$store.getters["company/auth_types"];

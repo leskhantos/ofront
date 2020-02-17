@@ -1,25 +1,25 @@
 <template>
-<div class="main-page">
-  <oy-page-header title="Гости"></oy-page-header>
-  <div class="guest-charts-card">
-    <guest/>
-  </div>
+    <oy-page>
+      <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
+        <oy-page-header title="Гости"></oy-page-header>
+        <div class="guest-charts-card">
+          <guest/>
+        </div>
 
-  <oy-page-header title="Звонки"></oy-page-header>
-  <div class="calls-charts-card">
-    <guest/>
-  </div>
-</div>
+        <oy-page-header title="Звонки"></oy-page-header>
+        <div class="calls-charts-card">
+          <guest/>
+        </div>
+      </oy-page-body>
+    </oy-page>
 </template>
 
 <script>
   import guest from "../statistics/guest";
-  import oyPageHeader from "../../oyUI/page/oyPageHeader";
     export default {
         name: "main",
       components:{
         guest,
-        oyPageHeader
       },
       props:{
 

@@ -29,8 +29,6 @@
   </template>
 
   <script>
-    import OyInput from "../../../components/oyUI/base/oyInput";
-    import OyButton from "../../../components/oyUI/base/oyButton";
     import mainCompany from "../../../components/dashboard/company/main";
     import guests from "../../../components/dashboard/company/guests";
     import spots from "../../../components/dashboard/company/spots";
@@ -38,7 +36,7 @@
     import accounts from "../../../components/dashboard/company/accounts";
     import control from "../../../components/dashboard/company/control";
     export default {
-      components: {OyButton, OyInput,mainCompany,guests,spots ,pages,accounts,control},
+      components: {mainCompany,guests,spots ,pages,accounts,control},
       layout: "dashboard",
       data(){
         return{

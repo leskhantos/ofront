@@ -1,20 +1,23 @@
 <template>
-  <div class="control-page">
-    <div class="row">
-      <div class="col-md-1">
-        <p>Включен:</p>
-      </div>
-      <div class="col-md-11">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="customSwitch1" :checked="checked">
-          <label class="custom-control-label" for="customSwitch1"></label>
+  <oy-page>
+    <oy-page-header title="Управление"/>
+    <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
+      <div class="row">
+        <div class="col-md-1">
+          <p>Включен:</p>
+        </div>
+        <div class="col-md-11">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1" :checked="checked">
+            <label class="custom-control-label" for="customSwitch1"></label>
+          </div>
         </div>
       </div>
-    </div>
-    <button class="btn btn-danger" @click="deleteCompany">
-      Удалить
-    </button>
-  </div>
+      <button class="btn btn-danger" @click="deleteCompany">
+        Удалить
+      </button>
+    </oy-page-body>
+  </oy-page>
 </template>
 
 <script>

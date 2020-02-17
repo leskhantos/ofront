@@ -37,6 +37,7 @@ export default {
     './plugins/mixins/validation',
     './plugins/axios',
     { src: './plugins/vue-flash-message', mode: 'client'},
+    { src: './plugins/oyUI/oyUI'},
 
   ],
   /*

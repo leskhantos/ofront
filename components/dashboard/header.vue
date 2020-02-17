@@ -26,8 +26,6 @@
   import userMenu from "@/components/dashboard/header/user-menu.vue";
   import userMenuItem from "@/components/dashboard/header/user-menu-item.vue";
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
-  import oyAvatar from "../oyUI/base/oyAvatar";
-  import oyButton from "../oyUI/base/oyButton";
   const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
@@ -57,8 +55,6 @@
       userMenu,
       userMenuItem,
       userMenuHeader,
-      oyAvatar,
-      oyButton,
     },
     methods: {
       toggleUserMenu() {

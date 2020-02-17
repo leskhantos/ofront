@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import oyAvatar from "../../oyUI/base/oyAvatar";
   export default {
     data(){
       return {
@@ -27,9 +26,6 @@ import oyAvatar from "../../oyUI/base/oyAvatar";
           required: true
       },
   },
-    components:{
-      oyAvatar
-    },
     mounted() {
       this.user = this.$store.getters["users/user"]
     }

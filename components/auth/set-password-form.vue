@@ -10,9 +10,6 @@
 </template>
 
 <script>
-  import oyButton from "../oyUI/base/oyButton";
-  import oyInput from "../oyUI/base/oyInput";
-
   export default {
     data: () => ({
       form: {
@@ -21,10 +18,6 @@
         new_password_confirmation: '',
       }
     }),
-    components:{
-      oyButton,
-      oyInput
-    },
     methods: {
       async updatePassword () {
         try {

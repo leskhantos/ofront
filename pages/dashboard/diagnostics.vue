@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <form @submit.prevent="">
-        <oy-input label="Запрос"></oy-input>
-        <oy-button title="Отправить" type="success"/>
-    </form>
-  </div>
+  <oy-page>
+    <oy-page-header title="Диагностика"/>
+    <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
+      <h1>Диагностика</h1>
+    </oy-page-body>
+  </oy-page>
 </template>
 
 <script>
-import OyInput from "../../components/oyUI/base/oyInput";
-import OyButton from "../../components/oyUI/base/oyButton";
+
 export default {
-  components: {OyButton, OyInput},
   layout: "dashboard",
   metaInfo() {
     return {

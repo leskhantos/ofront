@@ -45,11 +45,6 @@
 
 <script>
   import storeForm from "../../components/dashboard/users/storeForm";
-  import oyButton from "../../components/oyUI/base/oyButton";
-  import oyModal from "../../components/oyUI/base/oyModal";
-  import oyPage from "../../components/oyUI/page/oyPage";
-  import oyPageHeader from "../../components/oyUI/page/oyPageHeader";
-  import oyPageBody from "../../components/oyUI/page/oyPageBody";
   import moment from 'moment';
 
 
@@ -57,11 +52,6 @@
     layout: "dashboard",
     components: {
       storeForm,
-      oyButton,
-      oyModal,
-      oyPageHeader,
-      oyPageBody,
-      oyPage
     },
     methods:{
       showModal(){

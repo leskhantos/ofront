@@ -32,8 +32,6 @@
 
 
 <script>
-import oyInput from "../../oyUI/base/oyInput";
-import oyButton from "../../oyUI/base/oyButton";
   export default {
   data: () => ({
     form: {
@@ -46,10 +44,6 @@ import oyButton from "../../oyUI/base/oyButton";
       repeated_password:''
     }
   }),
-    components:{
-      oyInput,
-      oyButton
-    },
   methods: {
    async storeUser() {
      try {

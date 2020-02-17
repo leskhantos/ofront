@@ -25,7 +25,6 @@
 <script>
   import dashHeader from "@/components/dashboard/header.vue";
   import sidebar from "@/components/dashboard/sidebar/sidebar.vue";
-  import oyModal from "../components/oyUI/base/oyModal";
   import setPasswordForm from "../components/auth/set-password-form"
     export default {
       middleware: 'authenticated',
@@ -33,7 +32,6 @@
       components:{
         sidebar,
         dashHeader,
-        oyModal,
         setPasswordForm
       },
       computed: {

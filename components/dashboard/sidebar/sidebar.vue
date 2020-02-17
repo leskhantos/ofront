@@ -59,7 +59,6 @@ import logo from "@/static/logo.png";
 import addCompanyForm from './addCompanyForm.vue';
 import menuItem from "@/components/dashboard/sidebar/menu-item.vue";
 import menuHeader from "@/components/dashboard/sidebar/menu-header.vue";
-import oyModal from "../../oyUI/base/oyModal";
 
 export default {
   data: () => ({
@@ -69,8 +68,7 @@ export default {
   components: {
     menuItem,
     menuHeader,
-    addCompanyForm,
-    oyModal,
+    addCompanyForm
   },
   methods:{
     showModal(){

@@ -41,8 +41,7 @@
 
 
 <script>
-  import oyInput from "../../oyUI/base/oyInput";
-  import oyButton from "../../oyUI/base/oyButton";
+
   export default {
     props:{
       company_id:{
@@ -58,10 +57,6 @@
         settings: ''
       }
     }),
-    components:{
-      oyInput,
-      oyButton
-    },
     methods: {
       async storeSpot() {
         try {

@@ -41,14 +41,9 @@
 </template>
 
 <script>
-  import oyButton from "../../oyUI/base/oyButton";
-  import oyModal from "../../oyUI/base/oyModal";
-  import oyPage from "../../oyUI/page/oyPage";
-  import oyPageHeader from "../../oyUI/page/oyPageHeader";
-  import oyPageBody from  "../../oyUI/page/oyPageBody";
   import storeSpot from "./storeSpot";
     export default {
-      components:{oyButton,oyModal,oyPageHeader,oyPageBody,oyPage, storeSpot},
+      components:{storeSpot},
       props:{
         name: {
           type:String,
