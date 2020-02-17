@@ -4,6 +4,7 @@ export const state= ()=>({
   set_new_user:false,
   set_new_company:false,
   sidebar_opened: false,
+  set_new_spot:false,
   errors:{}
 });
 
@@ -22,9 +23,10 @@ export const getters = {
   },
   sidebar_opened(state){
     return state.sidebar_opened
-  }
-
-
+  },
+  set_new_spot(state){
+    return state.set_new_spot;
+  },
 };
 
 export const mutations = {
@@ -42,6 +44,9 @@ export const mutations = {
   },
   TOGGLE_SIDEBAR(state,sidebar_opened){
     state.sidebar_opened = sidebar_opened
+  },
+  SET_NEW_SPOT(state, set_new_spot){
+    state.set_new_spot = set_new_spot;
   },
 };
 

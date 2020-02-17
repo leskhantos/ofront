@@ -6,7 +6,7 @@
     </div>
     <div class="right-buttons">
       <user-menu :visible="user_menu_opened">
-        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar"/>
+        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar.name"/>
         <oyAvatar
           slot="trigger"
           :focused="user_menu_opened"

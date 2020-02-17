@@ -11,7 +11,7 @@
           <div class="oy-modal__header" v-if="title">
             <div class="oy-modal__header--title">{{ title }}</div>
             <div class="oy-modal__header--close-button" @click="$emit('close')">
-              <i class="icofont-close icofont-1x"></i>
+              <i class="icon-close"></i>
             </div>
           </div>
           <div class="oy-modal__body" :style="{

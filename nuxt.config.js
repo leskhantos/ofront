@@ -56,7 +56,6 @@ export default {
   modules: [
      '@nuxtjs/axios',
      '@nuxtjs/dotenv',
-     //'@nuxtjs/auth'
 
   ],
   /*
@@ -65,20 +64,6 @@ export default {
   axios:{
     baseURL: process.env.API_HOST
   },
-
-  // auth: {
-  //   strategies: {
-  //     local: {
-  //       endpoints: {
-  //         login: {url: 'auth/login', method: 'post', propertyName: 'access_token'},
-  //         user: {url: 'auth/user', method: 'get', propertyName: false},
-  //         logout: {
-  //           url: 'auth/logout', method: 'get'
-  //         }
-  //       }
-  //     }
-  //   }
-  // },
   build: {
     /*
     ** You can extend webpack config here

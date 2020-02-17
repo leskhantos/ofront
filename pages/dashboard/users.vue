@@ -31,10 +31,10 @@
         </thead>
         <tbody>
           <tr v-for="user of allUsers" :key="user.id">
-            <td data-label="Имя">{{ user.surname }} {{ user.name }}</td>
-            <td data-label="Последний вход">{{ dateTransform(user.last_login,true) }}</td>
+            <td data-label="Имя">{{ user.name }}</td>
+            <td data-label="Последний вход">{{ dateTransform(user.last_online, true) }}</td>
             <td data-label="IP">{{ user.last_ip }}</td>
-            <td data-label="Статус">{{ Boolean(user.disabled) ? 'Отключен' : 'Активный' }}</td>
+            <td data-label="Статус">{{ Boolean(user.enabled) ? 'Активный' : 'Отключен' }}</td>
 <!--            <td data-label="EDIT" :value="user.id"><button>Edit</button></td>-->
           </tr>
         </tbody>
@@ -66,6 +66,8 @@
     methods:{
       showModal(){
         this.$store.dispatch('users/getRoles');
+        console.log(this.set_new_user)
+
         return  this.set_new_user = true;
       },
       dateTransform(date,time){

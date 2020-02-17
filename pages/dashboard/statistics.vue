@@ -77,18 +77,6 @@ export default {
     background-color: rgba(0, 0, 0, 0.15);
   }
 
-  .metrics {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    margin-bottom: 1rem;
-    padding-top: 1rem;
-    -webkit-overflow-scrolling: touch;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
 
   .sms-charts-card,
   .calls-charts-card {

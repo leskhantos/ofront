@@ -1,25 +1,5 @@
 <template>
 <div class="main-page">
-  <div class="row">
-    <div class="col">
-      <p align="right">Наименование:</p>
-    </div>
-    <div class="col">
-      <input type="text" :value="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <p align="right">Включен</p>
-    </div>
-    <div class="col">
-      <div class="custom-control custom-switch">
-      <input type="checkbox" class="custom-control-input" id="customSwitch1" :checked="checked">
-      <label class="custom-control-label" for="customSwitch1"></label>
-    </div>
-    </div>
-  </div>
-
   <oy-page-header title="Гости"></oy-page-header>
   <div class="guest-charts-card">
     <guest/>
@@ -42,14 +22,6 @@
         oyPageHeader
       },
       props:{
-          name:{
-            type: String,
-            required:false
-          },
-        checked:{
-            type: Boolean,
-          required: false
-        }
 
       }
     }

@@ -11,6 +11,7 @@
       @input="$emit('input', $event.target.value)"
       :type="type"
       v-if="!options"
+      :required="required"
     />
     <transition name="input-error">
       <small v-if="error" class="oy-input__error">{{ error[0] }}</small>
@@ -54,6 +55,10 @@ export default {
     },
     error: {
       type: Array,
+      required: false
+    },
+    required:{
+      type: Boolean,
       required: false
     }
   },
