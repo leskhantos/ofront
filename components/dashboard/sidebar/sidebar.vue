@@ -33,7 +33,7 @@
         <menu-item
           v-for="company in allCompanies"
           :key="company.id"
-          :title="company.name"
+          :title="company.company_name"
           :route="{ name: 'dashboard-company-id', params: { id: company.id } }"
         />
       </div>
@@ -59,6 +59,7 @@ import logo from "@/static/logo.png";
 import addCompanyForm from './addCompanyForm.vue';
 import menuItem from "@/components/dashboard/sidebar/menu-item.vue";
 import menuHeader from "@/components/dashboard/sidebar/menu-header.vue";
+import oyModal from "../../../plugins/oyUI/base/oyModal";
 
 export default {
   data: () => ({
@@ -68,10 +69,12 @@ export default {
   components: {
     menuItem,
     menuHeader,
-    addCompanyForm
+    addCompanyForm,
+    oyModal
   },
   methods:{
     showModal(){
+      this.$store.dispatch('users/getTypes');
       return  this.set_new_company = true;
     },
     async logout(){

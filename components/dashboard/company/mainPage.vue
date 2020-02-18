@@ -8,7 +8,7 @@
 
         <oy-page-header title="Звонки"></oy-page-header>
         <div class="calls-charts-card">
-          <guest/>
+          <calls/>
         </div>
       </oy-page-body>
     </oy-page>
@@ -16,10 +16,11 @@
 
 <script>
   import guest from "../statistics/guest";
+  import calls from "../statistics/calls";
     export default {
-        name: "main",
+        name: "mainPage",
       components:{
-        guest,
+        guest,calls
       },
       props:{
 

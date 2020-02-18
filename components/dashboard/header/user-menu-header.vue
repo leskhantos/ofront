@@ -2,18 +2,22 @@
   <div slot="header" class="d-flex align-items-center">
     <oyAvatar :focused="focused" :title="title"/>
     <div class="ml-3">
-      <div :style="{ fontWeight: '600', fontSize: '95%' }">{{ this.user.name }} {{ this.user.surname }}</div>
+      <div :style="{ fontWeight: '600', fontSize: '95%' }">{{ this.user.name }}</div>
       <div :style="{ fontSize: '80%' }">Администратор</div>
     </div>
   </div>
 </template>
 
 <script>
+  import oyAvatar from "../../../plugins/oyUI/base/oyAvatar";
   export default {
     data(){
       return {
         user:{}
       }
+    },
+    components:{
+      oyAvatar
     },
   props: {
       focused: {

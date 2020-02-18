@@ -5,12 +5,12 @@
 
     </div>
     <div class="right-buttons">
-      <user-menu :visible="user_menu_opened">
-        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar.name"/>
+      <user-menu :visible="user_menu_opened" v-if="avatar.name">
+          <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar.name[0]"/>
         <oyAvatar
           slot="trigger"
           :focused="user_menu_opened"
-          :title="avatar.name"
+          :title="avatar.name[0]"
           @click="toggleUserMenu"
           cursor="pointer"
         />
@@ -26,6 +26,7 @@
   import userMenu from "@/components/dashboard/header/user-menu.vue";
   import userMenuItem from "@/components/dashboard/header/user-menu-item.vue";
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
+  import oyAvatar from "../../plugins/oyUI/base/oyAvatar";
   const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
@@ -36,6 +37,7 @@
       window.removeEventListener("click", this.menuClickHandler, true);
     },
     data: () => ({
+      user:'',
       user_menu_opened: false,
     }),
     computed: {
@@ -55,6 +57,7 @@
       userMenu,
       userMenuItem,
       userMenuHeader,
+      oyAvatar
     },
     methods: {
       toggleUserMenu() {

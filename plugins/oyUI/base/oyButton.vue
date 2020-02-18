@@ -4,8 +4,8 @@
     @click="$emit('click')"
     :class="[buttonClass, blockClass]"
   >
-    <div :class="{ 'mr-lg-2 mr-0': hasAntIconSlot }" class="anticon-wrapper">
-      <slot name="ant-icon">
+    <div :class="{ 'mr-lg-2 mr-0': hasAntIconSlot }" class="icon-plus-wrapper">
+      <slot name="icon">
         <i v-if="icon" :class="icon"></i>
       </slot>
     </div>
@@ -71,11 +71,11 @@ export default {
   display: flex;
   align-items: center;
 
-  .anticon {
+  .icon-plus {
     font-size: 16px;
 
     &-wrapper {
-      margin-top: -.2rem;
+      margin-top: .3rem;
     }
   }
 

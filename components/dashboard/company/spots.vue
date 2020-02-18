@@ -56,7 +56,7 @@
       },
       methods:{
         showModal(){
-          console.log(this.$store.getters['app/set_new_spot'])
+          this.$store.dispatch('users/getTypes');
           return  this.set_new_spot = true;
         },
       },

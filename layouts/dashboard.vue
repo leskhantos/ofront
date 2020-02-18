@@ -1,8 +1,7 @@
 <template>
   <div class="dashboard-layout">
-    <no-ssr>
+    <client-only>
       <FlashMessage :position="'right bottom'"/>
-    </no-ssr>
     <sidebar/>
     <oyModal
       :visible="set_password_mode"
@@ -19,20 +18,23 @@
         <nuxt></nuxt>
       </transition>
     </div>
+    </client-only>
   </div>
 </template>
 
 <script>
-  import dashHeader from "@/components/dashboard/header.vue";
-  import sidebar from "@/components/dashboard/sidebar/sidebar.vue";
+  import dashHeader from "../components/dashboard/header";
+  import sidebar from "../components/dashboard/sidebar/sidebar";
   import setPasswordForm from "../components/auth/set-password-form"
+  import oyModal from "../plugins/oyUI/base/oyModal";
     export default {
       middleware: 'authenticated',
       name: "dashboard",
       components:{
         sidebar,
         dashHeader,
-        setPasswordForm
+        setPasswordForm,
+        oyModal
       },
       computed: {
         set_password_mode: {

@@ -6,18 +6,14 @@
 
     <div class="row">
       <oy-input label="Имя пользователя" v-model="form.user.name" input-class="col-lg-6"  :error="errors['name']"/>
-      <div class="col-lg-6">
-        <label :style="{ marginBottom: '0.3rem' }">Тип пользователя</label>
-        <select
-          class="form-control form-control-sm"
-          v-model="form.user.type"
-        >
-          <option
-
-          >admin</option>
-        </select>
-      </div>
-
+      <oy-select class="col-lg-6"
+                 @childToParent="onChange"
+                 label="Тип пользователя"
+                 firstOption="Выберите тип"
+                 v-model="form.user.type"
+                 :error="errors['type']"
+                 :options="types"
+      />
     </div>
     <div class="row">
       <oy-input label="Пароль" v-model="form.user.password" input-class="col-lg-6" type="password" :error="errors['password']"/>
@@ -38,23 +34,30 @@
       user:{
         login: '',
         name:'',
-        user_type: 1,
+        type: null,
         password:'',
       },
       repeated_password:''
     }
   }),
+    computed:{
+        types:function () {
+          return this.$store.getters['users/types']
+        }
+    },
   methods: {
+    onChange(val){
+      this.form.user.type = val
+    },
    async storeUser() {
      try {
-       await this.$axios.post('users', this.form.user).then((res)=>{
-         this.$store.dispatch("users/getUsers");
+       await this.$axios.post('users', this.form.user)
+        await this.$store.dispatch("users/getUsers");
          this.$store.commit("app/SET_NEW_USER",false);
          this.flashMessage.success({
-           title: "User added",
+           title: "Пользователь добавлен",
          });
          this.$router.push({ name: "dashboard-users"});
-       })
      } catch (e) {
               console.log(e)
      }

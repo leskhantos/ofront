@@ -2,6 +2,7 @@
 export const state= ()=>({
   set_password_mode:false,
   set_new_user:false,
+  set_update_user:false,
   set_new_company:false,
   sidebar_opened: false,
   set_new_spot:false,
@@ -27,6 +28,9 @@ export const getters = {
   set_new_spot(state){
     return state.set_new_spot;
   },
+  set_update_user(state){
+    return state.set_update_user;
+  },
 };
 
 export const mutations = {
@@ -47,6 +51,9 @@ export const mutations = {
   },
   SET_NEW_SPOT(state, set_new_spot){
     state.set_new_spot = set_new_spot;
+  },
+  SET_UPDATE_USER(state, set_update_user){
+    state.set_update_user = set_update_user;
   },
 };
 

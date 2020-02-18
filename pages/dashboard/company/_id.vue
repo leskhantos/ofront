@@ -29,7 +29,7 @@
   </template>
 
   <script>
-    import mainCompany from "../../../components/dashboard/company/main";
+    import mainCompany from "../../../components/dashboard/company/mainPage";
     import guests from "../../../components/dashboard/company/guests";
     import spots from "../../../components/dashboard/company/spots";
     import pages from "../../../components/dashboard/company/pages";
@@ -75,18 +75,17 @@
         },
         async renameCompany(company_id){
           try {
-            await this.$axios.put(`company/${company_id}`, {
-              user_id: this.$store.state.users.user.id,
+            let data = await this.$axios.put(`company/${company_id}`, {
               name: this.newName
-            }).then((res)=>{
-              this.$store.dispatch("company/getCompanies");
+            })
+             await this.$store.dispatch("company/getCompanies");
               this.flashMessage.success({
                 title: "Компания обновлена",
               });
-              this.$store.dispatch("company/getCompany", this.$route.params.id);
-              this.$router.push({ name: "dashboard-company-id",params:{ id:res.data.id }});
+              console.log(data)
+             await this.$store.dispatch("company/getCompany", this.$route.params.id);
+              this.$router.push({ name: "dashboard-company-id",params:{ id: data.data.id }});
               this.newName = ""
-            })
           } catch (e) {
             this.flashMessage.error({
               title: e.response.data.message,
