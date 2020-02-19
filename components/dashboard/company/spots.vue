@@ -7,7 +7,7 @@
           type="success"
           icon="icon-plus"
           @click="showModal"
-        >+</oy-button>
+        ></oy-button>
         <oy-modal
           title="Добавить зону"
           padding="1rem"
@@ -42,54 +42,55 @@
 
 <script>
   import storeSpot from "./storeSpot";
-    export default {
-      components:{storeSpot},
-      props:{
-        name: {
-          type:String,
-          required: false
+
+  export default {
+    components: {storeSpot},
+    props: {
+      name: {
+        type: String,
+        required: false
+      },
+      company_id: {
+        type: Number,
+        required: false
+      }
+    },
+    methods: {
+      showModal() {
+        this.$store.dispatch('users/getTypes');
+        return this.set_new_spot = true;
+      },
+    },
+    computed: {
+      spots: function () {
+        return this.$store.getters['company/spots']
+      },
+      set_new_spot: {
+        get: function () {
+          return this.$store.getters['app/set_new_spot'];
         },
-        company_id:{
-          type: Number,
-          required: false
+        set: function (value) {
+          this.$store.commit('app/SET_NEW_SPOT', value);
         }
       },
-      methods:{
-        showModal(){
-          this.$store.dispatch('users/getTypes');
-          return  this.set_new_spot = true;
-        },
-      },
-      computed:{
-        spots:function () {
-          return this.$store.getters['company/spots']
-        },
-        set_new_spot: {
-          get: function() {
-            return this.$store.getters['app/set_new_spot'];
-          },
-          set: function (value) {
-            this.$store.commit('app/SET_NEW_SPOT', value);
-          }
-        },
-      },
-      mounted() {
+    },
+    mounted() {
+      this.$store.dispatch('company/getSpots', this.company_id)
+    },
+    watch: {
+      company_id: function () {
         this.$store.dispatch('company/getSpots', this.company_id)
-      },
-      watch:{
-        company_id:function () {
-          this.$store.dispatch('company/getSpots', this.company_id)
-        }
       }
     }
+  }
 </script>
 
 <style scoped>
-.dot{
-  height: 25px;
-  width: 25px;
-  background-color: green;
-  border-radius: 50%;
-  display: inline-block;
-}
+  .dot {
+    height: 25px;
+    width: 25px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+  }
 </style>

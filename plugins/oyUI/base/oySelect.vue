@@ -9,6 +9,7 @@
       <option
         :key="option.id"
         :value="option.id"
+        :selected="option.id === selected"
         v-for="option in options"
       >{{ option.name }}
       </option>
@@ -38,6 +39,10 @@
       options: {
         type: Array,
         required: false
+      },
+      selected: {
+        type: String,
+        required: false
       }
     },
     computed: {
@@ -48,9 +53,10 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   .oy-select {
     position: relative;
+    margin-bottom: 1.2rem;
 
     label {
       margin-bottom: 0.3rem;
@@ -67,5 +73,4 @@
       border-color: #dc3545 !important;
     }
   }
-
 </style>

@@ -12,14 +12,16 @@
                  firstOption="Выберите тип"
                  v-model="form.user.type"
                  :error="errors['type']"
-                 :options="types"
+                 :options="options"
       />
     </div>
     <div class="row">
       <oy-input label="Пароль" v-model="form.user.password" input-class="col-lg-6" type="password" :error="errors['password']"/>
-      <oy-input label="Подтвердите пароль" v-model="form.repeated_password" input-class="col-lg-6" type="password" />
+      <oy-input label="Подтвердите пароль" v-model="repeated_password" input-class="col-lg-6" type="password"/>
     </div>
-
+    <transition class="row">
+      <p v-if="notSamePasswords" class="col-xs-12 center-block text-center">Пароли не совпадают.</p>
+    </transition>
     <div class="mb-0">
       <oy-button buttonType="submit" type="submit" title="Сохранить" class="btn btn-success" :block="true" />
     </div>
@@ -37,13 +39,27 @@
         type: null,
         password:'',
       },
-      repeated_password:''
-    }
+    },
+    options:[
+      { id:'admin', name: 'Администратор'},
+      { id:'manager', name: 'Менеджер'},
+      { id:'support', name: 'Support'},
+    ],
+    repeated_password:'',
+    submitted:false,
+    passwordVisible:false,
   }),
     computed:{
-        types:function () {
-          return this.$store.getters['users/types']
+      notSamePasswords () {
+        if (this.passwordsFilled) {
+          return (this.form.user.password !== this.repeated_password)
+        } else {
+          return false
         }
+      },
+      passwordsFilled () {
+        return (this.password !== '' && this.repeated_password !== '')
+      },
     },
   methods: {
     onChange(val){
@@ -51,13 +67,16 @@
     },
    async storeUser() {
      try {
-       await this.$axios.post('users', this.form.user)
-        await this.$store.dispatch("users/getUsers");
+       if(!this.notSamePasswords){
+         await this.$axios.post('users', this.form.user)
+         await this.$store.dispatch("users/getUsers");
          this.$store.commit("app/SET_NEW_USER",false);
          this.flashMessage.success({
            title: "Пользователь добавлен",
          });
          this.$router.push({ name: "dashboard-users"});
+       }
+
      } catch (e) {
               console.log(e)
      }
@@ -65,3 +84,9 @@
   }
 };
 </script>
+<style lang="scss" scoped>
+  p{
+    color: #dc3545;
+    bottom: -1.1rem;
+  }
+</style>
