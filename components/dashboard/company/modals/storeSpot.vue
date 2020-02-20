@@ -4,31 +4,35 @@
       <oy-input
         label="Адрес подключения"
         v-model="form.address"
-        input-class="col-lg-6"
+        input-class="col-lg-12"
         :error="errors['address']"
-      />
-      <oy-input
-        label="Настройки"
-        v-model="form.settings"
-        input-class="col-lg-6"
-        :error="errors['settings']"
       />
     </div>
     <div class="row">
       <oy-input
         v-model="form.ident"
-        input-class="col-lg-6"
+        input-class="col-lg-12"
         label="Идентификатор"
         :error="errors['ident']"
 
       />
-      <oy-select class="col-lg-6"
+    </div>
+    <div class="row">
+      <oy-select class="col-lg-12"
                  @childToParent="onChange"
                  label="Тип зоны"
                  firstOption="Выберите тип"
                  v-model="form.type"
                  :error="errors['type']"
                  :options="types"
+      />
+    </div>
+    <div class="row" v-show="form.type">
+      <oy-input
+        label="Настройки"
+        v-model="form.settings"
+        input-class="col-lg-12"
+        :error="errors['settings']"
       />
     </div>
 
@@ -87,4 +91,3 @@
     }
   };
 </script>
-123

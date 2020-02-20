@@ -4,14 +4,13 @@
       <form @submit.prevent="sendRequest">
         <div class="row">
           <div class="col-md-8">
-            <oy-input :placeholder="'Запрос'"/>
+            <oy-input :placeholder="'Запрос'" v-model="request"/>
           </div>
           <div class="col-md-4">
             <oy-button buttonType="submit" type="submit" title="Отправить" class="btn btn-success" :block="true" />
           </div>
         </div>
       </form>
-
     </oy-page-body>
   </oy-page>
 </template>
@@ -24,6 +23,11 @@ export default {
   layout: "dashboard",
   components:{
     oyPage,oyPageHeader,oyPageBody
+  },
+  data(){
+    return{
+      request:''
+    }
   },
   metaInfo() {
     return {

@@ -4,11 +4,11 @@
       <div class="nav-item nav-link border" :class="{active: isActive('mainCompany')}" @click="switchComponents('mainCompany')">Основное</div>
       <div class="nav-item nav-link border" :class="{active: isActive('guests')}" @click="switchComponents('guests')">Гости</div>
       <div class="nav-item nav-link border" :class="{active: isActive('spots')}" @click="switchComponents('spots')">Зоны</div>
-      <div class="nav-item nav-link border" :class="{active: isActive('pages')}" @click="switchComponents('pages')">Страницы</div>
+      <div class="nav-item nav-link border" :class="{active: isActive('styles')}" @click="switchComponents('styles')">Стили</div>
       <div class="nav-item nav-link border" :class="{active: isActive('accounts')}" @click="switchComponents('accounts')">Аккаунты</div>
       <div class="nav-item nav-link border" :class="{active: isActive('control')}" @click="switchComponents('control')">Управление</div>
     </nav>
-      <div class="row">
+      <div class="row company-page__title">
         <div class="col" v-if="this.currentTabComponent==='control'">
           <h1>{{ company.name }} <i class="icon icon-pencil" @click="edit=!edit"></i></h1>
           <form @submit.prevent="renameCompany(company.id)" v-show="edit">
@@ -20,9 +20,6 @@
             </div>
           </form>
         </div>
-        <div class="col" v-else>
-          <h1>{{ company.name }}</h1>
-        </div>
       </div>
       <component :is="currentTabComponent" :name="company.name" :checked="checked" :company_id="company.id"/>
     </div>
@@ -32,11 +29,11 @@
     import mainCompany from "../../../components/dashboard/company/mainPage";
     import guests from "../../../components/dashboard/company/guests";
     import spots from "../../../components/dashboard/company/spots";
-    import pages from "../../../components/dashboard/company/pages";
+    import styles from "../../../components/dashboard/company/styles";
     import accounts from "../../../components/dashboard/company/accounts";
     import control from "../../../components/dashboard/company/control";
     export default {
-      components: {mainCompany,guests,spots ,pages,accounts,control},
+      components: {mainCompany,guests,spots ,styles,accounts,control},
       layout: "dashboard",
       data(){
         return{
@@ -76,7 +73,8 @@
         async renameCompany(company_id){
           try {
             let data = await this.$axios.put(`company/${company_id}`, {
-              name: this.newName
+              name: this.newName,
+              enabled: this.company.enabled
             })
              await this.$store.dispatch("company/getCompanies");
               this.flashMessage.success({
@@ -97,11 +95,14 @@
   </script>
   <style lang="scss" scoped>
     .company-page{
-      padding: 1rem;
       flex: 1;
       overflow-x: hidden;
       overflow-y: auto;
-
+      &__title{
+        margin-top: .5rem;
+        margin-right: .1rem;
+        margin-left: .1rem;
+      }
       &::-webkit-scrollbar {
         width: 0.3rem;
       }
@@ -114,13 +115,6 @@
         background-color: rgba(0, 0, 0, 0.15);
       }
 
-      .guest-charts-card,
-      .calls-charts-card {
-        padding: 1rem;
-        background-color: #ffffff;
-        box-shadow: 0px 1px 22px -12px #607d8b;
-        margin: 1rem 0;
-      }
       .active{
         background-color: #575962;
       }

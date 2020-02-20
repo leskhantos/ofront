@@ -2,7 +2,8 @@ export const state= ()=>({
   companies:[],
   company:[],
   auth_types:[],
-  spots:[]
+  spots:[],
+  styles:[]
 });
 
 export const getters = {
@@ -17,6 +18,9 @@ export const getters = {
   },
   spots(state){
     return state.spots
+  },
+  styles(state){
+    return state.styles
   }
 };
 
@@ -30,8 +34,11 @@ export const mutations = {
   SET_AUTH_TYPES(state,auth_types){
     state.auth_types = auth_types;
   },
-  SET_SPOTS(state, spots){
+  SET_SPOTS_LIST(state, spots){
     state.spots = spots
+  },
+  SET_STYLES_LIST(state, styles){
+    state.styles = styles
   }
 };
 
@@ -57,7 +64,14 @@ export const actions = {
   },
   async getSpots({commit},company_id){
     await this.$axios.get(`company/${company_id}/spots`).then((response)=>{
-      commit('SET_SPOTS',response.data);
+      commit('SET_SPOTS_LIST',response.data);
+    }).catch((err)=>{
+
+    });
+  },
+  async getStyles({commit},company_id){
+    await this.$axios.get(`company/${company_id}/pages`).then((response)=>{
+      commit('SET_STYLES_LIST',response.data);
     }).catch((err)=>{
 
     });

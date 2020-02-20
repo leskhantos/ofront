@@ -1,6 +1,6 @@
 <template>
     <oy-page>
-      <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
+      <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
         <oy-page-header title="Гости"></oy-page-header>
         <div class="guest-charts-card">
           <guest/>

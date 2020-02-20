@@ -28,22 +28,22 @@
       </div>
     </oy-page-header>
     <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
-      <table class="responsive-table">
+      <table class="table table-striped">
         <thead>
         <tr>
           <th scope="col">Имя</th>
-          <th scope="col">Последний вход</th>
           <th scope="col">IP</th>
-          <th scope="col" :style="{ width: '10%' }">Статус</th>
+          <th scope="col">Последний вход</th>
+          <th scope="col" :style="{ width: '10%', textAlign:'center'}">Статус</th>
           <!--            <th scope="col">EDIT</th>-->
         </tr>
         </thead>
         <tbody>
         <tr v-for="user of allUsers" :key="user.id" @click="showUpdate(user)">
           <td data-label="Имя">{{ user.name }}</td>
-          <td data-label="Последний вход">{{ dateTransform(user.last_online, true) }}</td>
           <td data-label="IP">{{ user.last_ip }}</td>
-          <td data-label="Статус">{{ Boolean(user.enabled) ? 'Активный' : 'Отключен' }}</td>
+          <td data-label="Последний вход">{{ dateTransform(user.last_online, true) }}</td>
+          <td data-label="Статус" style="text-align: center">{{ Boolean(user.enabled) ? 'Активный' : 'Отключен' }}</td>
         </tr>
         </tbody>
       </table>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-  import storeForm from "../../components/dashboard/users/storeForm";
+  import storeForm from "../../components/dashboard/users/storeUser";
   import updateUser from "../../components/dashboard/users/updateUser";
   import moment from 'moment';
 
@@ -73,7 +73,7 @@
       },
       dateTransform(date, time) {
         if (moment(date, 'YYYY-MM-DD H:mm:ss').isValid()) {
-          return moment(date, 'YYYY-MM-DD H:mm:ss').format(time ? 'DD.MM.YYYY H:mm' : 'DD.MM.YYYY');
+          return moment(date, 'YYYY-MM-DD H:mm:ss').format(time ? 'DD.MM.YYYY H:mm:ss' : 'DD.MM.YYYY');
         } else {
           return 'не заходил'
         }

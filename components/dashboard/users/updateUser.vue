@@ -1,13 +1,12 @@
 <template>
   <form @submit.prevent="updateUser">
     <div class="row">
-      <oy-input label="Логин" v-model="payload.login" input-class="col-lg-12" :error="errors['login']"/>
-    </div>
-
-    <div class="row">
       <oy-input label="Имя пользователя" v-model="payload.name" input-class="col-lg-12" :error="errors['name']"/>
     </div>
 
+    <div class="row">
+      <oy-input label="Логин" v-model="payload.login" input-class="col-lg-12" :error="errors['login']"/>
+    </div>
     <div class="row">
       <oy-select class="col-lg-12"
                  @childToParent="onChange"
@@ -21,10 +20,10 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-6">
+      <div class="col-lg-10">
         <p>Включен:</p>
       </div>
-      <div class="col-lg-6">
+      <div class="col-auto">
         <div class="custom-control custom-switch">
           <input type="checkbox" class="custom-control-input" id="customSwitch1" v-model="payload.enabled"
                  :checked="this.user.enabled">
@@ -87,3 +86,8 @@
     }
   };
 </script>
+<style lang="scss" scoped>
+  /*.custom-switch .custom-control-input:checked ~ .custom-control-label::after {*/
+  /*  transform: translateX(1.5rem);*/
+  /*}*/
+</style>

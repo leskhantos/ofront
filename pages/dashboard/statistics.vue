@@ -1,22 +1,21 @@
 <template>
   <div class="statistics-page">
-    <oy-page-header title="Общая статистика"></oy-page-header>
     <div class="metrics" ref="metrics">
-      <metrica title="Компании" number="83" />
-      <metrica title="Зон" number="115" />
-      <metrica title="Персональных страниц" number="56" />
-      <metrica title="Сохраненных устройств" number="156469" />
-      <metrica title="Новых устройств" number="7131" />
-      <metrica title="Авторизованных гостей" number="100000" />
-      <metrica title="Актуальных сейссий" number="38045" />
+      <metric title="Компании" :number="stats.count_company" />
+      <metric title="Зон" :number="stats.count_spot" />
+      <metric title="Персональных страниц" :number="stats.pages" />
+      <metric title="Сохраненных устройств" :number="stats.count_all_device" />
+      <metric title="Новых устройств" :number="stats.count_new_device" />
+      <metric title="Авторизованных гостей" :number="stats.auth_guest" />
+      <metric title="Актуальных сессий" :number="stats.session" />
     </div>
 
-    <oy-page-header title="Статистика звонков"></oy-page-header>
+    <oy-page-header title="Звонки"></oy-page-header>
     <div class="calls-charts-card">
       <calls />
     </div>
 
-    <oy-page-header title="Статистика CMC"></oy-page-header>
+    <oy-page-header title="CMC"></oy-page-header>
     <div class="sms-charts-card">
       <sms />
     </div>
@@ -26,7 +25,7 @@
 <script>
 import sms from "@/components/dashboard/statistics/sms.vue";
 import calls from "@/components/dashboard/statistics/calls.vue";
-import metrica from "@/components/dashboard/statistics/metrica.vue";
+import metric from "@/components/dashboard/statistics/metrica.vue";
 
 export default {
   layout: "dashboard",
@@ -37,6 +36,7 @@ export default {
   },
   created () {
     window.addEventListener('wheel', this.horizontalScrollListener, true);
+    this.$store.dispatch('statistics/getStats');
   },
   beforeDestroy () {
     window.removeEventListener('wheel', this.horizontalScrollListener, true);
@@ -49,10 +49,15 @@ export default {
       }
     }
   },
+  computed:{
+    stats:function () {
+        return this.$store.getters['statistics/stats']
+    }
+  },
   components: {
     sms,
     calls,
-    metrica
+    metric
   }
 };
 </script>

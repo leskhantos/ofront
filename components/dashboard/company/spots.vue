@@ -1,6 +1,6 @@
 <template>
   <oy-page>
-    <oy-page-header title="Зоны">
+    <oy-page-header >
       <div slot="actions">
         <oy-button
           title="Добавить зону"
@@ -18,21 +18,23 @@
         </oy-modal>
       </div>
     </oy-page-header>
-    <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <table class="table table-striped">
         <thead>
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Зона</th>
           <th scope="col">Страница</th>
+          <th scope="col">Последняя активность зоны</th>
+          <th scope="col"></th>
+
         </tr>
         </thead>
         <tbody>
         <tr v-for="spot in spots" :key="spot.id">
-          <th scope="row">{{ spot.id }}</th>
           <td>{{ spot.address }}</td>
           <td>{{ spot.page_id }}</td>
-          <td><span class="dot"></span></td>
+          <td>{{ spot.last_active }}</td>
+          <td style="text-align: right"><span class="dot"></span></td>
         </tr>
         </tbody>
       </table>
@@ -41,7 +43,7 @@
 </template>
 
 <script>
-  import storeSpot from "./storeSpot";
+  import storeSpot from "./modals/storeSpot";
 
   export default {
     components: {storeSpot},
