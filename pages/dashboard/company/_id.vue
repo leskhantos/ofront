@@ -121,5 +121,8 @@
         box-shadow: 0px 1px 22px -12px #607d8b;
         margin: 1rem 0;
       }
+      .active{
+        background-color: #575962;
+      }
     }
   </style>

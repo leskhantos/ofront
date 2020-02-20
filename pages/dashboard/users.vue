@@ -1,6 +1,6 @@
 <template>
   <oy-page>
-    <oy-page-header title="Пользователи">
+    <oy-page-header>
       <div slot="actions">
         <oy-button
           title="Добавить пользователя"

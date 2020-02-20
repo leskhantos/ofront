@@ -33,7 +33,7 @@
         <menu-item
           v-for="company in allCompanies"
           :key="company.id"
-          :title="company.company_name"
+          :title="company.name"
           :route="{ name: 'dashboard-company-id', params: { id: company.id } }"
         />
       </div>

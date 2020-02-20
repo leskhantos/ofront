@@ -11,6 +11,7 @@
       @input="$emit('input', $event.target.value)"
       :type="type"
       v-if="!options"
+      :placeholder="placeholder"
       :required="required"
     />
     <transition name="input-error">
@@ -59,6 +60,10 @@ export default {
     },
     required:{
       type: Boolean,
+      required: false
+    },
+    placeholder:{
+      type:String,
       required: false
     }
   },

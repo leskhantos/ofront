@@ -11,7 +11,6 @@ export default {
         title: {
             type: String,
             required: false,
-            default: 'Новая страница'
         }
     }
 }

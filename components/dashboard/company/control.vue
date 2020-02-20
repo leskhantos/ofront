@@ -37,6 +37,10 @@
       company_id: {
         type: Number,
         required: true
+      },
+      name:{
+        type: String,
+        required: true
       }
     },
     methods: {
@@ -60,13 +64,12 @@
       async changeStatus() {
         try {
           await this.$axios.put(`company/${this.company_id}`, {
+            name: this.name,
             enabled: this.checkVal
           })
           await this.$store.dispatch("company/getCompanies");
         } catch (e) {
-          this.flashMessage.error({
-            title: e.response.data.message,
-          });
+          console.log(e.response)
         }
       }
     },

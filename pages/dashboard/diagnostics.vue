@@ -1,8 +1,17 @@
 <template>
   <oy-page>
-    <oy-page-header title="Диагностика"/>
-    <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
-      <h1>Диагностика</h1>
+    <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
+      <form @submit.prevent="sendRequest">
+        <div class="row">
+          <div class="col-md-8">
+            <oy-input :placeholder="'Запрос'"/>
+          </div>
+          <div class="col-md-4">
+            <oy-button buttonType="submit" type="submit" title="Отправить" class="btn btn-success" :block="true" />
+          </div>
+        </div>
+      </form>
+
     </oy-page-body>
   </oy-page>
 </template>
@@ -20,6 +29,11 @@ export default {
     return {
       titleTemplate: '%s | Диагностика'
     };
+  },
+  methods:{
+    sendRequest(){
+      console.log('request send')
+    }
   }
 };
 </script>

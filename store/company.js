@@ -56,7 +56,7 @@ export const actions = {
     });
   },
   async getSpots({commit},company_id){
-    await this.$axios.get(`spot/?company=${company_id}`).then((response)=>{
+    await this.$axios.get(`company/${company_id}/spots`).then((response)=>{
       commit('SET_SPOTS',response.data);
     }).catch((err)=>{
 

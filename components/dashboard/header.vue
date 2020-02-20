@@ -1,9 +1,12 @@
 <template>
   <header class="application-header">
+    <div class="page-header">
+      <div class="page-header__title"><h4><b>{{ title }}</b></h4></div>
+    </div>
     <div class="mobile-buttons">
       <i class="icon icon-list mr-3"  @click="$store.commit('app/TOGGLE_SIDEBAR',true)"></i>
-
     </div>
+
     <div class="right-buttons">
       <user-menu :visible="user_menu_opened" v-if="avatar.name">
           <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar.name[0]"/>
@@ -31,14 +34,15 @@
 
   export default {
     mounted() {
+      this.toggleTitle()
       window.addEventListener("click", this.menuClickHandler, true);
     },
     beforeDestroy() {
       window.removeEventListener("click", this.menuClickHandler, true);
     },
     data: () => ({
-      user:'',
       user_menu_opened: false,
+      title:''
     }),
     computed: {
       avatar: function() {
@@ -80,7 +84,29 @@
             this.$router.push('/');
           })
         }catch (e) {
-
+            console.log(e.response)
+        }
+      },
+      toggleTitle(){
+        switch (this.$route.name) {
+          case 'dashboard-users':
+            this.title = 'Пользователи';
+            break;
+          case 'dashboard-statistics':
+            this.title = 'Статистика';
+            break;
+          case 'dashboard-settings':
+            this.title = 'Настройки';
+            break;
+          case 'dashboard-diagnostics':
+            this.title = 'Диагностика';
+            break;
+          case 'dashboard-company-id':
+            this.title = 'Компании';
+            break;
+          default:
+            this.title = '';
+            break;
         }
       },
       onItemClick(name) {
@@ -100,8 +126,10 @@
         this.user_menu_opened = false;
       }
     },
-    beforeMount(){
-      this.user = this.$store.state.users.user
+    watch:{
+      '$route.name':function () {
+        this.toggleTitle()
+      }
     }
   };
 </script>
