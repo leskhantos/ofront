@@ -56,7 +56,7 @@
 <style lang="scss" scoped>
   .oy-select {
     position: relative;
-    margin-bottom: 1.2rem;
+    /*margin-bottom: 1.2rem;*/
 
     label {
       margin-bottom: 0.3rem;

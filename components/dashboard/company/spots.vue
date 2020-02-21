@@ -5,7 +5,7 @@
         <oy-button
           title="Добавить зону"
           type="success"
-          icon="icon-plus"
+          :svgIcon="'addIcon'"
           @click="showModal"
         ></oy-button>
         <oy-modal
@@ -24,17 +24,17 @@
         <tr>
           <th scope="col">Зона</th>
           <th scope="col">Страница</th>
-          <th scope="col">Последняя активность зоны</th>
+          <th scope="col">Последняя активность</th>
           <th scope="col"></th>
 
         </tr>
         </thead>
         <tbody>
         <tr v-for="spot in spots" :key="spot.id">
-          <td>{{ spot.address }}</td>
-          <td>{{ spot.page_id }}</td>
+          <td><spot-icon/> {{spot.address }}</td>
+          <td>{{ spot.page_name }}</td>
           <td>{{ spot.last_active }}</td>
-          <td style="text-align: right"><span class="dot"></span></td>
+          <td style="text-align: right"><oy-dot :active-color="spot.enabled ? '#37a967': 'red'"/></td>
         </tr>
         </tbody>
       </table>
@@ -44,9 +44,10 @@
 
 <script>
   import storeSpot from "./modals/storeSpot";
+  import SpotIcon from "../../icons/spotIcon";
 
   export default {
-    components: {storeSpot},
+    components: {SpotIcon, storeSpot},
     props: {
       name: {
         type: String,
@@ -88,11 +89,7 @@
 </script>
 
 <style scoped>
-  .dot {
-    height: 25px;
-    width: 25px;
-    background-color: green;
-    border-radius: 50%;
-    display: inline-block;
+  .icon-speedometer{
+    padding-right: 10px;
   }
 </style>

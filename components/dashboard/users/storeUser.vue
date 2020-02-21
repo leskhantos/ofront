@@ -6,11 +6,11 @@
     <div class="row">
       <oy-input label="Логин" v-model="form.user.login" input-class="col-lg-12" :error="errors['login']"/>
     </div>
-    <div class="row">
-      <oy-input label="Пароль" v-model="form.user.password" input-class="col-lg-8" type="text" :error="errors['password']"/>
-      <oy-button buttonType="button" title="Генерировать пароль" class="btn btn-success col-lg-4"/>
+    <div class="row" style="padding-right: 16px">
+      <oy-input label="Пароль" v-model="form.user.password" input-class="col-lg-10" type="text" :error="errors['password']"/>
+      <oy-button buttonType="button" alt="Сгенерировать пароль" :svgIcon="'passGenerateIcon'" class="col-lg-2" @click="generatePass"/>
     </div>
-    <div class="row">
+    <div class="row" :style="{ marginBottom: '1.5rem' }">
       <oy-select class="col-lg-12"
                  @childToParent="onChange"
                  label="Тип пользователя"
@@ -46,6 +46,9 @@
   }),
 
   methods: {
+    generatePass(){
+      this.form.user.password = Math.random().toString(36).slice(-8);
+    },
     onChange(val){
       this.form.user.type = val
     },
@@ -66,4 +69,9 @@
 };
 </script>
 <style lang="scss" scoped>
+  .row button{
+    margin-bottom: 18px;
+    margin-top: 25px;
+    padding: 0 0 0 30px;
+  }
 </style>

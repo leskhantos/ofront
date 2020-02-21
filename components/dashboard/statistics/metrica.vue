@@ -1,6 +1,9 @@
 <template>
   <div class="metric-item">
     <div class="metric-item__card">
+      <div class="metric-item__card-icon">
+        <spot-icon/>
+      </div>
       <div class="metric-item__card--number">{{ number }}</div>
       <div class="metric-item__card--title">{{ title }}</div>
     </div>
@@ -8,8 +11,10 @@
 </template>
 
 <script>
+import SpotIcon from "../../icons/spotIcon";
 export default {
-    props: {
+  components: {SpotIcon},
+  props: {
         title: {
             type: String,
             required: false,
@@ -36,7 +41,6 @@ export default {
     background-color: #ffffff;
     box-shadow: 0px 1px 22px -12px #607d8b;
     margin: 0 1rem 1rem 0;
-
     &--title {
       font-size: 14px;
       text-anchor: start;
@@ -45,6 +49,7 @@ export default {
     }
 
     &--number {
+      padding-left: 50%;
       font-size: 24px;
       text-anchor: start;
       fill: rgb(55, 61, 63);

@@ -10,7 +10,7 @@
     </nav>
       <div class="row company-page__title">
         <div class="col" v-if="this.currentTabComponent==='control'">
-          <h1>{{ company.name }} <i class="icon icon-pencil" @click="edit=!edit"></i></h1>
+          <h1>{{ company.name }} <span @click="edit=!edit"><edit-company-icon /></span></h1>
           <form @submit.prevent="renameCompany(company.id)" v-show="edit">
             <div class="input-group mb-3">
               <input type="text" class="form-control" :placeholder="company.name" v-model="newName" aria-describedby="basic-addon2">
@@ -21,6 +21,24 @@
           </form>
         </div>
       </div>
+      <div v-show="this.currentTabComponent==='mainCompany'">
+        <div class="row">
+          <div class="col-lg-8">
+          </div>
+          <div class="col-lg-4 float-right row">
+            <oy-select class="col"
+              firstOption="Месяц"
+              :options="months"
+            />
+
+            <oy-select class="col"
+              first-option="Год"
+              :options="years"
+            />
+          </div>
+        </div>
+      </div>
+
       <component :is="currentTabComponent" :name="company.name" :checked="checked" :company_id="company.id"/>
     </div>
   </template>
@@ -32,15 +50,35 @@
     import styles from "../../../components/dashboard/company/styles";
     import accounts from "../../../components/dashboard/company/accounts";
     import control from "../../../components/dashboard/company/control";
+    import EditCompanyIcon from "../../../components/icons/editCompanyIcon";
     export default {
-      components: {mainCompany,guests,spots ,styles,accounts,control},
+      components: {EditCompanyIcon, mainCompany,guests,spots ,styles,accounts,control},
       layout: "dashboard",
       data(){
         return{
           newName:'',
           currentTabComponent: "mainCompany",
           isActiveItem: 'mainCompany',
-          edit: false
+          edit: false,
+          years:[
+            {name:2018},
+            {name:2019},
+            {name:2020}
+          ],
+          months:[
+            {id:'january', name:'Январь'},
+            {id:'february', name:'Февраль'},
+            {id:'march', name:'Март'},
+            {id:'april', name:'Апрель'},
+            {id:'may', name:'Май'},
+            {id:'june', name:'Июнь'},
+            {id:'july', name:'Июль'},
+            {id:'august', name:'Август'},
+            {id:'september', name:'Сентябрь'},
+            {id:'october', name:'Октябрь'},
+            {id:'november', name:'Ноябрь'},
+            {id:'december', name:'Декабрь'},
+          ]
         }
       },
       validate ({ params }) {

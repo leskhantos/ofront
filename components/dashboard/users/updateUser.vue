@@ -7,7 +7,7 @@
     <div class="row">
       <oy-input label="Логин" v-model="payload.login" input-class="col-lg-12" :error="errors['login']"/>
     </div>
-    <div class="row">
+    <div class="row" :style="{ marginBottom: '1.5rem' }">
       <oy-select class="col-lg-12"
                  @childToParent="onChange"
                  label="Тип пользователя"
@@ -20,18 +20,20 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-10">
+      <div class="col-lg-9">
         <p>Включен:</p>
       </div>
-      <div class="col-auto">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="customSwitch1" v-model="payload.enabled"
-                 :checked="this.user.enabled">
-          <label class="custom-control-label" for="customSwitch1"></label>
+      <div class="col-lg-3">
+        <div class="switch float-right">
+          <input class="switch" id="switch" name="switch" type="checkbox" v-model="payload.enabled"  :checked="this.user.enabled"/>
+          <label data-off="" data-on="" for="switch"></label>
         </div>
       </div>
     </div>
-    <br>
+    <div class="row" style="padding-right: 16px">
+      <oy-input label="Пароль" v-model="payload.password" input-class="col-lg-10" type="text" :error="errors['password']"/>
+      <oy-button buttonType="button" alt="Сгенерировать пароль" :svgIcon="'passGenerateIcon'" class="col-lg-2" @click="generatePass"/>
+    </div>
     <div class="mb-0">
       <oy-button buttonType="submit" type="submit" title="Сохранить" class="btn btn-success" :block="true"/>
     </div>
@@ -52,7 +54,8 @@
         name: '',
         login: '',
         type: '',
-        enabled: ''
+        enabled: '',
+        password: ''
       },
       options: [
         {id: 'admin', name: 'Администратор'},
@@ -61,6 +64,9 @@
       ],
     }),
     methods: {
+      generatePass(){
+        this.payload.password = Math.random().toString(36).slice(-8);
+      },
       onChange(val) {
         this.payload.type = val
       },
@@ -87,7 +93,72 @@
   };
 </script>
 <style lang="scss" scoped>
-  /*.custom-switch .custom-control-input:checked ~ .custom-control-label::after {*/
-  /*  transform: translateX(1.5rem);*/
-  /*}*/
+  $gray: lightgray;
+  $blue: #007bff;
+  $height: 28px;
+  $width: $height * 2;
+
+  .row button{
+    margin-bottom: 18px;
+    margin-top: 25px;
+    padding: 0 0 0 30px;
+  }
+  .switch input[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  div.switch.float-right {
+    margin-top: -15px;
+  }
+
+  .switch label {
+    cursor: pointer;
+    width: $width;
+    height: $height;
+    background: $gray;
+    display: block;
+    border-radius: $height / 4;
+    position: relative;
+    margin:0px;
+  }
+
+  .switch label:before {
+    content: attr(data-off);
+    position: absolute;
+    top: $height * .05;
+    right: 0;
+    font-size: $height * .3;
+    padding: ($height / 4) ($height / 4);
+    color: white;
+  }
+
+  .switch input:checked + label:before {
+    content: attr(data-on);
+    position: absolute;
+    left: 0;
+    font-size: $height * .3;
+    padding-left: $height / 4;
+    color: white;
+  }
+
+  .switch label:after {
+    content: '';
+    position: absolute;
+    top: $height * .05;
+    left: $height * .05;
+    width: $height * .9;
+    height: $height * .9;
+    background: #fff;
+    border-radius: $height / 5;
+  }
+
+  .switch input:checked + label {
+    background: $blue;
+  }
+
+  .switch input:checked + label:after {
+    transform: translateX($width - $height);
+  }
+
 </style>

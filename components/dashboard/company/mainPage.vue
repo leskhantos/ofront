@@ -22,9 +22,6 @@
       components:{
         guest,calls
       },
-      props:{
-
-      }
     }
 </script>
 

@@ -3,29 +3,32 @@
     :type="buttonType"
     @click="$emit('click')"
     :class="[buttonClass, blockClass]"
+    :title="alt"
   >
-    <div :class="{ 'mr-lg-2 mr-0': hasAntIconSlot }" class="icon-plus-wrapper">
+    <div class="icon-plus-wrapper">
       <slot name="icon">
         <i v-if="icon" :class="icon"></i>
+        <pass-generate-icon v-else-if="svgIcon==='passGenerateIcon'"/>
+        <add-user-icon v-else-if="svgIcon==='addUserIcon'"/>
+        <add-icon v-else-if="svgIcon==='addIcon'"/>
       </slot>
     </div>
     <span
       v-if="title"
-      :class="{
-        'd-lg-inline d-none': titleHidden,
-        'ml-2': !hasAntIconSlot && icon
-    }"
     >{{ title }}</span>
   </button>
 </template>
 
 <script>
+import PassGenerateIcon from "../../../components/icons/passGenerateIcon";
+import AddUserIcon from "../../../components/icons/addUserIcon";
+import AddIcon from "../../../components/icons/addIcon";
 export default {
+  components: {AddIcon, AddUserIcon, PassGenerateIcon},
   props: {
     title: {
       type: String,
       required: false,
-      default: "Новая кнопка"
     },
     titleHidden: {
       type: Boolean,
@@ -44,13 +47,21 @@ export default {
     type: {
       type: String,
       required: false,
-      default: "default"
+      default: "primary"
     },
     buttonType: {
       type: String,
       required: false,
       default: "button"
-    }
+    },
+    alt:{
+      type: String,
+      required: false
+    },
+    svgIcon:{
+      type: String,
+      required:false
+    },
   },
   computed: {
     buttonClass: function() {
@@ -58,9 +69,6 @@ export default {
     },
     blockClass: function() {
       if (this.block) return "btn-block";
-    },
-    hasAntIconSlot() {
-      return !!this.$slots["ant-icon"];
     }
   }
 };
@@ -75,7 +83,6 @@ export default {
     font-size: 16px;
 
     &-wrapper {
-      margin-top: .3rem;
     }
   }
 

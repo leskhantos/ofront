@@ -1,6 +1,6 @@
 <template>
   <div class="statistics-page">
-    <div class="metrics" ref="metrics">
+    <div class="row" ref="metrics">
       <metric title="Компании" :number="stats.count_company" />
       <metric title="Зон" :number="stats.count_spot" />
       <metric title="Персональных страниц" :number="stats.pages" />
@@ -9,13 +9,27 @@
       <metric title="Авторизованных гостей" :number="stats.auth_guest" />
       <metric title="Актуальных сессий" :number="stats.session" />
     </div>
+    <div class="row">
+      <div class="col-lg-8">
+      </div>
+      <div class="col-lg-4 float-right row">
+        <oy-select class="col"
+                   firstOption="Месяц"
+                   :options="months"
+        />
 
+        <oy-select class="col"
+                   first-option="Год"
+                   :options="years"
+        />
+      </div>
+    </div>
     <oy-page-header title="Звонки"></oy-page-header>
     <div class="calls-charts-card">
       <calls />
     </div>
 
-    <oy-page-header title="CMC"></oy-page-header>
+    <oy-page-header title="SMS"></oy-page-header>
     <div class="sms-charts-card">
       <sms />
     </div>
@@ -29,6 +43,29 @@ import metric from "@/components/dashboard/statistics/metrica.vue";
 
 export default {
   layout: "dashboard",
+  data(){
+    return{
+      years:[
+        {name:2018},
+        {name:2019},
+        {name:2020}
+      ],
+      months:[
+        {id:'january', name:'Январь'},
+        {id:'february', name:'Февраль'},
+        {id:'march', name:'Март'},
+        {id:'april', name:'Апрель'},
+        {id:'may', name:'Май'},
+        {id:'june', name:'Июнь'},
+        {id:'july', name:'Июль'},
+        {id:'august', name:'Август'},
+        {id:'september', name:'Сентябрь'},
+        {id:'october', name:'Октябрь'},
+        {id:'november', name:'Ноябрь'},
+        {id:'december', name:'Декабрь'},
+      ]
+    }
+  },
   metaInfo() {
     return {
       titleTemplate: "%s | Статистика"

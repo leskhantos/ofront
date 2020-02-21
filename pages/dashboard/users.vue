@@ -2,13 +2,23 @@
   <oy-page>
     <oy-page-header>
       <div slot="actions">
-        <oy-button
-          title="Добавить пользователя"
-          type="success"
-          icon="icon-plus"
-          @click="showModal"
-        >
-        </oy-button>
+        <div class="row">
+          <div class="col">
+            <label>
+              <input type="checkbox"  v-model="showDisabledUsers"/>
+              <span>Показывать отключенных</span>
+            </label>
+          </div>
+          <div class="col">
+            <oy-button
+              title="Добавить пользователя"
+              type="success"
+              @click="showModal"
+              :svgIcon="'addUserIcon'"
+            >
+            </oy-button>
+          </div>
+        </div>
         <oy-modal
           title="Добавить пользователя"
           padding="1rem"
@@ -43,7 +53,7 @@
           <td data-label="Имя">{{ user.name }}</td>
           <td data-label="IP">{{ user.last_ip }}</td>
           <td data-label="Последний вход">{{ dateTransform(user.last_online, true) }}</td>
-          <td data-label="Статус" style="text-align: center">{{ Boolean(user.enabled) ? 'Активный' : 'Отключен' }}</td>
+          <td data-label="Статус" style="text-align: center"><oy-dot :active-color="user.enabled ? '#37a967': 'red'"/></td>
         </tr>
         </tbody>
       </table>
@@ -61,7 +71,8 @@
     layout: "dashboard",
     data() {
       return {
-        user: null
+        user: null,
+        showDisabledUsers: false
       }
     },
     components: {
@@ -102,7 +113,11 @@
         }
       },
       allUsers: function () {
-        return this.$store.getters["users/list"];
+        if (this.showDisabledUsers){
+          return this.$store.getters["users/list"];
+        }else {
+          return this.$store.getters["users/activeUsers"];
+        }
       },
 
     },
@@ -111,3 +126,9 @@
     }
   };
 </script>
+<style lang="scss" scoped>
+  input[type='checkbox'] {
+    position: relative;
+    top: 1px;
+  }
+</style>

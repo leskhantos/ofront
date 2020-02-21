@@ -2,7 +2,7 @@
   <form @submit.prevent="storeStyle">
     <div class="row">
       <oy-input
-        label="Название страницы"
+        label="Название"
         v-model="form.name"
         input-class="col-lg-12"
         :error="errors['name']"
@@ -10,7 +10,7 @@
     </div>
     <div class="row">
       <oy-input
-        label="Тема страницы"
+        label="Тема"
         v-model="form.title"
         input-class="col-lg-12"
         :error="errors['title']"
@@ -19,7 +19,7 @@
     <div class="row">
       <oy-select class="col-lg-12"
                  @childToParent="onChange"
-                 label="Тип зоны"
+                 label="Тип"
                  firstOption="Выберите тип"
                  v-model="form.type"
                  :error="errors['type']"

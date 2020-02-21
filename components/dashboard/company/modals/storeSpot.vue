@@ -17,7 +17,7 @@
 
       />
     </div>
-    <div class="row">
+    <div class="row" :style="{ marginBottom: '1.5rem' }">
       <oy-select class="col-lg-12"
                  @childToParent="onChange"
                  label="Тип зоны"

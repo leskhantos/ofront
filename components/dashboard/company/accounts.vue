@@ -5,7 +5,7 @@
         <oy-button
           title="Добавить аккаунт"
           type="success"
-          icon="icon-plus"
+          :svgIcon="'addIcon'"
           @click=""
         >+</oy-button>
         <oy-modal
@@ -20,23 +20,27 @@
       <table class="table table-striped">
         <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col"> <i class="icon-envelope-letter"></i> Email</th>
-          <th scope="col"><i class="icon-pencil"></i></th>
+          <th scope="col">Email</th>
+          <th scope="col">Последний вход</th>
+          <th scope="col">IP</th>
+          <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr>
-          <th scope="row">1</th>
           <td>test@mail.com</td>
+          <td>19.02.2020 17:40:44</td>
+          <td>127.0.0.1</td>
           <td class="row">
             <div class="col"><i class="icon-refresh"></i> Сбросить пароль</div>
             <div class="col"><i class="icon-ban"></i> Удалить</div>
             <div class="col"><i class="icon-login"></i> Вход</div>
-          </td>    </tr>
+          </td>
+        </tr>
         <tr>
-          <th scope="row">2</th>
           <td>testovich@gmail.com</td>
+          <td>19.02.2020 17:40:44</td>
+          <td>127.0.0.1</td>
           <td class="row">
             <div class="col"><i class="icon-refresh"></i> Сбросить пароль</div>
             <div class="col"><i class="icon-ban"></i> Удалить</div>
