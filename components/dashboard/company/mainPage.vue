@@ -1,5 +1,26 @@
 <template>
     <oy-page>
+      <div class="row">
+        <div class="col-lg-8">
+        </div>
+        <div class="col-lg-4 float-right row">
+          <oy-select class="col"
+                     firstOption="Месяц"
+                     @childToParent="onChangeMonth"
+                     :options="months"
+                     :selected="form.month"
+                     v-model="form.month"
+          />
+
+          <oy-select class="col"
+                     first-option="Год"
+                     @childToParent="onChangeYear"
+                     :options="years"
+                     :selected="form.year"
+                     v-model="form.year"
+          />
+        </div>
+      </div>
       <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
         <oy-page-header title="Гости"></oy-page-header>
         <div class="guest-charts-card">
@@ -22,6 +43,51 @@
       components:{
         guest,calls
       },
+      data(){
+          return{
+            form:{
+              year: null,
+              month: null
+            },
+            months:[
+              {id:1, name:'Январь'},
+              {id:2, name:'Февраль'},
+              {id:3, name:'Март'},
+              {id:4, name:'Апрель'},
+              {id:5, name:'Май'},
+              {id:6, name:'Июнь'},
+              {id:7, name:'Июль'},
+              {id:8, name:'Август'},
+              {id:9, name:'Сентябрь'},
+              {id:10, name:'Октябрь'},
+              {id:11, name:'Ноябрь'},
+              {id:12, name:'Декабрь'},
+            ]
+        }
+      },
+      computed:{
+        years:function () {
+          let currentYear = new Date().getFullYear(), years = [], startYear=2018;
+          while ( startYear <= currentYear ) {
+            years.push({id:startYear++});
+          }
+          return years;
+        }
+      },
+      methods:{
+        onChangeMonth(val) {
+          this.form.month = val
+        },
+        onChangeYear(val) {
+          this.form.year = val
+        },
+      },
+      created() {
+        let date = new Date();
+
+        this.form.month = date.getMonth()+1
+        this.form.year = date.getFullYear()
+      }
     }
 </script>
 

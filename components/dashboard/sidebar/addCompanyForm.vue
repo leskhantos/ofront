@@ -84,14 +84,14 @@ export default {
     async storeCompany() {
       try {
          const company = await this.$axios.post('company', this.form.company)
-          const payload = {
-            company_id: company.data.id,
-            address: this.form.spot.address,
-            ident: this.form.spot.ident,
-            type: this.form.spot.type,
-            settings: this.form.spot.settings
-          };
-         if (this.form.spot.address || this.form.spot.ident || this.form.spot.type || this.form.spot.settings){
+          if (this.form.spot.address || this.form.spot.ident || this.form.spot.type || this.form.spot.settings){
+           const payload = {
+             company_id: company.data.id,
+             address: this.form.spot.address,
+             ident: this.form.spot.ident,
+             type: this.form.spot.type,
+             settings: this.form.spot.settings
+           };
            await this.$axios.post('company/spot', payload)
          }
            await this.$store.dispatch("company/getCompanies");

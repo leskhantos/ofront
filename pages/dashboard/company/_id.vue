@@ -21,23 +21,6 @@
           </form>
         </div>
       </div>
-      <div v-show="this.currentTabComponent==='mainCompany'">
-        <div class="row">
-          <div class="col-lg-8">
-          </div>
-          <div class="col-lg-4 float-right row">
-            <oy-select class="col"
-              firstOption="Месяц"
-              :options="months"
-            />
-
-            <oy-select class="col"
-              first-option="Год"
-              :options="years"
-            />
-          </div>
-        </div>
-      </div>
 
       <component :is="currentTabComponent" :name="company.name" :checked="checked" :company_id="company.id"/>
     </div>
@@ -59,26 +42,7 @@
           newName:'',
           currentTabComponent: "mainCompany",
           isActiveItem: 'mainCompany',
-          edit: false,
-          years:[
-            {name:2018},
-            {name:2019},
-            {name:2020}
-          ],
-          months:[
-            {id:'january', name:'Январь'},
-            {id:'february', name:'Февраль'},
-            {id:'march', name:'Март'},
-            {id:'april', name:'Апрель'},
-            {id:'may', name:'Май'},
-            {id:'june', name:'Июнь'},
-            {id:'july', name:'Июль'},
-            {id:'august', name:'Август'},
-            {id:'september', name:'Сентябрь'},
-            {id:'october', name:'Октябрь'},
-            {id:'november', name:'Ноябрь'},
-            {id:'december', name:'Декабрь'},
-          ]
+          edit: false
         }
       },
       validate ({ params }) {

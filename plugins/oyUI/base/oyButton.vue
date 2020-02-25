@@ -8,9 +8,7 @@
     <div class="icon-plus-wrapper">
       <slot name="icon">
         <i v-if="icon" :class="icon"></i>
-        <pass-generate-icon v-else-if="svgIcon==='passGenerateIcon'"/>
-        <add-user-icon v-else-if="svgIcon==='addUserIcon'"/>
-        <add-icon v-else-if="svgIcon==='addIcon'"/>
+        <component :is="svgIcon"/>
       </slot>
     </div>
     <span
@@ -83,6 +81,7 @@ export default {
     font-size: 16px;
 
     &-wrapper {
+      padding-right: .5rem;
     }
   }
 

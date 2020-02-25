@@ -90,10 +90,11 @@
             console.log(e.response)
         }
       },
-      toggleTitle(){
+      async toggleTitle(){
         if (this.$route.params.id){
-          this.$store.dispatch("company/getCompany", this.$route.params.id);
-        }
+          await this.$store.dispatch('company/getCompany',this.$route.params.id)
+          this.title = this.company.name;
+        }else {
           switch (this.$route.name) {
             case 'dashboard-users':
               this.title = 'Пользователи';
@@ -108,10 +109,10 @@
               this.title = 'Диагностика';
               break;
             default:
-              this.title = this.company.name;
+              this.title = 'default';
               break;
+          }
         }
-
       },
       onItemClick(name) {
         switch (name) {
@@ -131,7 +132,7 @@
       }
     },
     watch:{
-      '$route.name':function () {
+      '$route':function () {
         this.toggleTitle()
       }
     }

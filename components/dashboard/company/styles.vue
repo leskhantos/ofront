@@ -5,7 +5,7 @@
         <oy-button
           title="Создать стиль"
           type="success"
-          :svgIcon="'addIcon'"
+          :svgIcon="'AddIcon'"
           @click="showModal"
         ></oy-button>
         <oy-modal
@@ -24,14 +24,14 @@
         <tr>
           <th scope="col">Страница</th>
           <th scope="col">Зона</th>
-          <th></th>
+<!--          <th></th>-->
         </tr>
         </thead>
         <tbody>
         <tr v-for="style in styles" :key="style.id">
           <td>{{ style.name }}</td>
           <td>{{ style.title }}</td>
-          <td style="text-align: right"><oy-dot :active-color="style.enabled ? '#37a967':'red'"/></td>
+<!--          <td style="text-align: right"><oy-dot :active-color="style.enabled ? '#37a967':'red'"/></td>-->
         </tr>
         </tbody>
       </table>
@@ -85,11 +85,5 @@
 </script>
 
 <style scoped>
-  .dot {
-    height: 25px;
-    width: 25px;
-    background-color: green;
-    border-radius: 50%;
-    display: inline-block;
-  }
+
 </style>

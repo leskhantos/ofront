@@ -11,7 +11,7 @@
         :value="option.id"
         :selected="option.id === selected"
         v-for="option in options"
-      >{{ option.name }}
+      >{{ option.name || option.id}}
       </option>
     </select>
     <transition name="select-error">
@@ -41,7 +41,7 @@
         required: false
       },
       selected: {
-        type: String,
+        type: [String,Number],
         required: false
       }
     },

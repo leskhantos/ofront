@@ -5,7 +5,7 @@
         <oy-button
           title="Добавить зону"
           type="success"
-          :svgIcon="'addIcon'"
+          :svgIcon="'AddIcon'"
           @click="showModal"
         ></oy-button>
         <oy-modal

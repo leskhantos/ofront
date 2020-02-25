@@ -18,7 +18,6 @@ export const getters = {
     let activeUsers = state.list.filter(function (val) {
       return val.enabled === 1
     })
-    console.log(activeUsers)
     return activeUsers;
   }
 };

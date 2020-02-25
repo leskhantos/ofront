@@ -7,6 +7,7 @@ export const state= ()=>({
   sidebar_opened: false,
   set_new_spot:false,
   set_new_style:false,
+  set_new_account: false,
   errors:{}
 });
 
@@ -35,6 +36,9 @@ export const getters = {
   set_new_style(state){
     return state.set_new_style;
   },
+  set_new_account(state){
+    return state.set_new_account;
+  },
 };
 
 export const mutations = {
@@ -61,6 +65,9 @@ export const mutations = {
   },
   SET_NEW_STYLE(state, set_new_style){
     state.set_new_style = set_new_style;
+  },
+  SET_NEW_ACCOUNT(state, set_new_account){
+    state.set_new_account = set_new_account;
   },
 };
 

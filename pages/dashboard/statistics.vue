@@ -1,13 +1,13 @@
 <template>
   <div class="statistics-page">
     <div class="row" ref="metrics">
-      <metric title="Компании" :number="stats.count_company" />
-      <metric title="Зон" :number="stats.count_spot" />
-      <metric title="Персональных страниц" :number="stats.pages" />
-      <metric title="Сохраненных устройств" :number="stats.count_all_device" />
-      <metric title="Новых устройств" :number="stats.count_new_device" />
-      <metric title="Авторизованных гостей" :number="stats.auth_guest" />
-      <metric title="Актуальных сессий" :number="stats.session" />
+      <metric title="Компании" :number="stats.count_company" :currentIcon="'companyIcon'"/>
+      <metric title="Зон" :number="stats.count_spot" :currentIcon="'SpotIcon'"/>
+      <metric title="Персональных страниц" :number="stats.pages" :currentIcon="'pageIcon'"/>
+      <metric title="Сохраненных устройств" :number="stats.count_all_device" :currentIcon="'devicesIcon'"/>
+      <metric title="Новых устройств" :number="stats.count_new_device" :currentIcon="'newDeviceIcon'"/>
+      <metric title="Авторизованных гостей" :number="stats.auth_guest" :currentIcon="'authGuestIcon'"/>
+      <metric title="Актуальных сессий" :number="stats.session" :currentIcon="'actualSessionIcon'"/>
     </div>
     <div class="row">
       <div class="col-lg-8">
@@ -15,18 +15,24 @@
       <div class="col-lg-4 float-right row">
         <oy-select class="col"
                    firstOption="Месяц"
+                   @childToParent="onChangeMonth"
                    :options="months"
+                   :selected="form.month"
+                   v-model="form.month"
         />
 
         <oy-select class="col"
                    first-option="Год"
+                   @childToParent="onChangeYear"
                    :options="years"
+                   :selected="form.year"
+                   v-model="form.year"
         />
       </div>
     </div>
     <oy-page-header title="Звонки"></oy-page-header>
     <div class="calls-charts-card">
-      <calls />
+        <calls />
     </div>
 
     <oy-page-header title="SMS"></oy-page-header>
@@ -45,24 +51,23 @@ export default {
   layout: "dashboard",
   data(){
     return{
-      years:[
-        {name:2018},
-        {name:2019},
-        {name:2020}
-      ],
+      form:{
+        year:null,
+        month:null,
+      },
       months:[
-        {id:'january', name:'Январь'},
-        {id:'february', name:'Февраль'},
-        {id:'march', name:'Март'},
-        {id:'april', name:'Апрель'},
-        {id:'may', name:'Май'},
-        {id:'june', name:'Июнь'},
-        {id:'july', name:'Июль'},
-        {id:'august', name:'Август'},
-        {id:'september', name:'Сентябрь'},
-        {id:'october', name:'Октябрь'},
-        {id:'november', name:'Ноябрь'},
-        {id:'december', name:'Декабрь'},
+        {id:1, name:'Январь'},
+        {id:2, name:'Февраль'},
+        {id:3, name:'Март'},
+        {id:4, name:'Апрель'},
+        {id:5, name:'Май'},
+        {id:6, name:'Июнь'},
+        {id:7, name:'Июль'},
+        {id:8, name:'Август'},
+        {id:9, name:'Сентябрь'},
+        {id:10, name:'Октябрь'},
+        {id:11, name:'Ноябрь'},
+        {id:12, name:'Декабрь'},
       ]
     }
   },
@@ -72,29 +77,50 @@ export default {
     };
   },
   created () {
-    window.addEventListener('wheel', this.horizontalScrollListener, true);
+    let date = new Date();
+
+    this.form.month = date.getMonth()+1
+    this.form.year = date.getFullYear()
     this.$store.dispatch('statistics/getStats');
+    this.$store.dispatch('statistics/getSmsPerMonth',this.form);
   },
-  beforeDestroy () {
-    window.removeEventListener('wheel', this.horizontalScrollListener, true);
-  },
+
   methods: {
-    horizontalScrollListener(event) {
-      if (event.target.closest('.metrics') !== null && this.$refs['metrics']) {
-        if (event.deltaY > 0) this.$refs['metrics'].scrollLeft += 50;
-        else this.$refs['metrics'].scrollLeft -= 50;
-      }
-    }
+    onChangeMonth(val) {
+      console.log(Object.keys(this.smsPerMonth.sms)) // get categories for apexchart test
+      this.form.month = val
+    },
+    onChangeYear(val) {
+      this.form.year = val
+    },
   },
   computed:{
     stats:function () {
         return this.$store.getters['statistics/stats']
+    },
+    years:function () {
+      let currentYear = new Date().getFullYear(), years = [], startYear=2018;
+      while ( startYear <= currentYear ) {
+        years.push({id:startYear++});
+      }
+      return years;
+    },
+    smsPerMonth:function () {
+      return this.$store.getters['statistics/smsPerMonth']
     }
   },
   components: {
     sms,
     calls,
     metric
+  },
+  watch:{
+    'form.month':function () {
+      this.$store.dispatch('statistics/getSmsPerMonth',this.form);
+    },
+    'form.year':function () {
+      this.$store.dispatch('statistics/getSmsPerMonth',this.form);
+    }
   }
 };
 </script>

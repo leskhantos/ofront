@@ -14,7 +14,7 @@
               title="Добавить пользователя"
               type="success"
               @click="showModal"
-              :svgIcon="'addUserIcon'"
+              :svgIcon="'AddUserIcon'"
             >
             </oy-button>
           </div>

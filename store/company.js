@@ -3,7 +3,8 @@ export const state= ()=>({
   company:[],
   auth_types:[],
   spots:[],
-  styles:[]
+  styles:[],
+  accounts:[]
 });
 
 export const getters = {
@@ -21,6 +22,9 @@ export const getters = {
   },
   styles(state){
     return state.styles
+  },
+  accounts(state){
+    return state.accounts
   }
 };
 
@@ -39,6 +43,9 @@ export const mutations = {
   },
   SET_STYLES_LIST(state, styles){
     state.styles = styles
+  },
+  SET_ACCOUNTS_LIST(state, accounts){
+    state.accounts = accounts
   }
 };
 
@@ -72,6 +79,13 @@ export const actions = {
   async getStyles({commit},company_id){
     await this.$axios.get(`company/${company_id}/pages`).then((response)=>{
       commit('SET_STYLES_LIST',response.data);
+    }).catch((err)=>{
+
+    });
+  },
+  async getAccounts({commit},company_id){
+    await this.$axios.get(`company/${company_id}/accounts`).then((response)=>{
+      commit('SET_ACCOUNTS_LIST',response.data);
     }).catch((err)=>{
 
     });

@@ -8,8 +8,8 @@ export default function ({$axios,store, app}) {
       store.dispatch('app/setErrors',error.response.data)
     }else if (error.response.status===401){
       if (
-        error.config.url === 'auth/user' &&
-        error.response.statusText === 'Unauthorized'
+        // error.config.url === 'auth/user' &&
+        error.response.status === 401
       ) {
         store.commit('setAuth', null);
         app.router.push({ name: 'index' });
@@ -17,7 +17,7 @@ export default function ({$axios,store, app}) {
       store.dispatch('app/setErrors',error.response.data)
     }else if (error.response.status === 404) {
       console.log(error.response.data)
-      app.router.push({ name: 'not-found' });
+      app.router.push({ name: 'dashboard-not-found' });
 
       store.dispatch('app/setErrors', error.response.data)
     }

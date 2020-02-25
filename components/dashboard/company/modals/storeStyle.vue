@@ -60,7 +60,7 @@
         onChange(val) {
           this.form.type = val
         },
-        async storePage() {
+        async storeStyle() {
           try {
             const payload = {
               company_id: this.company_id,
@@ -69,11 +69,11 @@
               type: this.form.type,
             };
             await this.$axios.post('page', payload)
-            this.$store.commit("app/SET_NEW_PAGE", false);
+            this.$store.commit("app/SET_NEW_STYLE", false);
+            await this.$store.dispatch('company/getStyles', this.company_id)
             this.flashMessage.success({
               title: "Страница добавлена",
             });
-            await this.$store.dispatch('company/getPages', this.company_id)
           } catch (e) {
             console.log(e)
           }

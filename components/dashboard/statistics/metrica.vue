@@ -1,10 +1,11 @@
 <template>
   <div class="metric-item">
     <div class="metric-item__card">
-      <div class="metric-item__card-icon">
-        <spot-icon/>
+
+      <div class="metric-item__card--number">
+          <component :is="currentIcon"/>
+          {{ number }}
       </div>
-      <div class="metric-item__card--number">{{ number }}</div>
       <div class="metric-item__card--title">{{ title }}</div>
     </div>
   </div>
@@ -12,8 +13,14 @@
 
 <script>
 import SpotIcon from "../../icons/spotIcon";
+import companyIcon from "../../icons/companyIcon";
+import pageIcon from "../../icons/pageIcon";
+import devicesIcon from "../../icons/devicesIcon";
+import newDeviceIcon from "../../icons/newDeviceIcon";
+import authGuestIcon from "../../icons/authGuestIcon";
+import actualSessionIcon from "../../icons/actualSessionIcon";
 export default {
-  components: {SpotIcon},
+  components: {SpotIcon, companyIcon, pageIcon, devicesIcon,newDeviceIcon, authGuestIcon, actualSessionIcon},
   props: {
         title: {
             type: String,
@@ -24,8 +31,12 @@ export default {
             type: [String, Number],
             required: false,
             default: 0
+        },
+        currentIcon:{
+            type:String,
+            required: false
         }
-    }
+      }
 }
 </script>
 
@@ -33,7 +44,7 @@ export default {
 .metric-item {
   flex: 0 0 auto;
   display: inline-block;
-  padding: 0 0.5rem 0.5rem 0;
+  padding: 0 1rem;
   width: 20%;
 
   &__card {
@@ -47,9 +58,12 @@ export default {
       fill: rgb(55, 61, 63);
       text-align: right;
     }
-
     &--number {
-      padding-left: 50%;
+      svg{
+        float: left;
+        width: 36px;
+        height: 36px;
+      }
       font-size: 24px;
       text-anchor: start;
       fill: rgb(55, 61, 63);
