@@ -8,28 +8,33 @@
                      firstOption="Месяц"
                      @childToParent="onChangeMonth"
                      :options="months"
-                     :selected="form.month"
-                     v-model="form.month"
+                     :selected="month"
+                     v-model="month"
           />
 
           <oy-select class="col"
                      first-option="Год"
                      @childToParent="onChangeYear"
                      :options="years"
-                     :selected="form.year"
-                     v-model="form.year"
+                     :selected="year"
+                     v-model="year"
           />
         </div>
       </div>
       <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
         <oy-page-header title="Гости"></oy-page-header>
         <div class="guest-charts-card">
-          <guest/>
+          <guest :series="guestsSeries" :chartOptions="guestsChartOptions"/>
         </div>
 
         <oy-page-header title="Звонки"></oy-page-header>
         <div class="calls-charts-card">
-          <calls/>
+          <calls :series="callsSeries" :chartOptions="callsChartOptions"/>
+        </div>
+
+        <oy-page-header title="Ваучеры"></oy-page-header>
+        <div class="voucher-charts-card">
+          <voucher/>
         </div>
       </oy-page-body>
     </oy-page>
@@ -38,17 +43,22 @@
 <script>
   import guest from "../statistics/guest";
   import calls from "../statistics/calls";
+  import voucher from '../statistics/voucher'
     export default {
+      props: {
+        company_id: {
+          type: Number,
+          required: true
+        }
+      },
         name: "mainPage",
       components:{
-        guest,calls
+        guest,calls,voucher
       },
       data(){
           return{
-            form:{
               year: null,
               month: null
-            },
         }
       },
       computed:{
@@ -75,7 +85,7 @@
             {id:12, name:'Декабрь'},
           ]
           let curYear = new Date().getFullYear()
-          if(this.form.year == curYear){
+          if(this.year == curYear){
             let currentYearsMonths=[]
             let currentMonth = new Date().getMonth()+1
             months.forEach(function (item) {
@@ -87,20 +97,140 @@
           }else
             return months
         },
+        callsSeries:function () {
+          let data = this.$store.getters['statistics/callsByCompanyPerMonth']
+          let map = new Map(Object.entries(data))
+          let requests = []
+          let checked = []
+          map.forEach(value => {
+            requests.push(value.requests)
+            checked.push(value.checked)
+          })
+          return [
+            {
+              name: "Запросов",
+              data: requests
+            },
+            {
+              name: "Авторизаций",
+              data: checked
+            },
+          ]
+
+        },
+        callsChartOptions:function () {
+          return {
+            chart: {
+              height: 240,
+              width:'100%',
+              type: 'area'
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'smooth'
+            },
+            xaxis: {
+              categories: Object.keys(this.$store.getters['statistics/callsByCompanyPerMonth'])
+            },
+          }
+        },
+        guestsSeries:function () {
+          let data = this.$store.getters['statistics/guestsByCompanyPerMonth']
+          let map = new Map(Object.entries(data))
+          let load = []
+          let auth = []
+          let newOnes = []
+          let old = []
+          map.forEach(value => {
+            load.push(value.load)
+            auth.push(value.auth)
+            newOnes.push(value.new)
+            old.push(value.old)
+          })
+          return [
+            {
+              name: "Загрузки",
+              data: load
+            },
+            {
+              name: "Авторизаций",
+              data: auth
+            },
+            {
+              name: "Новые",
+              data: newOnes
+            },
+            {
+              name: "Постоянные",
+              data: old
+            },
+          ]
+
+        },
+        guestsChartOptions:function () {
+          return {
+            chart: {
+              height: 240,
+              width:'100%',
+              type: 'area'
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'smooth'
+            },
+            xaxis: {
+              categories: Object.keys(this.$store.getters['statistics/guestsByCompanyPerMonth'])
+            },
+          }
+        }
       },
       methods:{
         onChangeMonth(val) {
-          this.form.month = val
+          this.month = val
         },
         onChangeYear(val) {
-          this.form.year = val
+          this.year = val
         },
       },
       created() {
         let date = new Date();
 
-        this.form.month = date.getMonth()+1
-        this.form.year = date.getFullYear()
+        this.month = date.getMonth()+1
+        this.year = date.getFullYear()
+        let data = {
+          month:  this.month,
+          year:  this.year,
+          company_id: this.company_id
+        }
+        this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
+        this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
+      },
+      watch:{
+        month:function () {
+          let data = {
+            month:  this.month,
+            year:  this.year,
+            company_id: this.company_id
+          }
+          this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
+          this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
+
+
+        },
+        year:function () {
+          let data = {
+            month:  this.month,
+            year:  this.year,
+            company_id: this.company_id
+          }
+          this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
+          this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
+
+        }
       }
     }
 </script>
@@ -125,6 +255,7 @@
     }
 
   .guest-charts-card,
+  .voucher-charts-card,
   .calls-charts-card {
     padding: 1rem;
     background-color: #ffffff;

@@ -32,17 +32,23 @@
     </div>
     <oy-page-header title="Звонки"></oy-page-header>
     <div class="calls-charts-card">
-        <calls />
+        <calls :series="callsSeries" :chartOptions="callsChartOptions"/>
     </div>
 
     <oy-page-header title="SMS"></oy-page-header>
     <div class="sms-charts-card">
-      <sms :series="series" :chartOptions="chartOptions"/>
+      <sms :series="smsSeries" :chartOptions="smsChartOptions"/>
     </div>
 
-    <oy-page-header title="Воучеры"></oy-page-header>
-    <div class="sms-charts-card">
+    <oy-page-header title="Ваучеры"></oy-page-header>
+    <div class="voucher-charts-card">
       <voucher/>
+    </div>
+
+
+    <oy-page-header title=""></oy-page-header>
+    <div class="donuts-charts-card">
+      <main-pie-charts/>
     </div>
   </div>
 </template>
@@ -52,6 +58,7 @@ import sms from "@/components/dashboard/statistics/sms.vue";
 import calls from "@/components/dashboard/statistics/calls.vue";
 import metric from "@/components/dashboard/statistics/metrica.vue";
 import voucher from "@/components/dashboard/statistics/voucher.vue";
+import MainPieCharts from "@/components/dashboard/statistics/mainPieCharts.vue";
 
 export default {
   layout: "dashboard",
@@ -75,6 +82,7 @@ export default {
     this.form.year = date.getFullYear()
     this.$store.dispatch('statistics/getStats');
     this.$store.dispatch('statistics/getSmsPerMonth',this.form);
+    this.$store.dispatch('statistics/getCallsPerMonth',this.form);
   },
 
   methods: {
@@ -124,7 +132,7 @@ export default {
       }else
       return months
     },
-    series:function(){
+    smsSeries:function(){
       let data = this.$store.getters['statistics/smsPerMonth']
       let map = new Map(Object.entries(data))
       let all = []
@@ -150,7 +158,7 @@ export default {
           }
         ]
     },
-    chartOptions:function(){
+    smsChartOptions:function(){
       return {
         chart: {
           height: 240,
@@ -168,8 +176,48 @@ export default {
         },
       }
     },
+    callsSeries:function () {
+      let data = this.$store.getters['statistics/callsPerMonth']
+      let map = new Map(Object.entries(data))
+      let requests = []
+      let checked = []
+      map.forEach(value => {
+        requests.push(value.requests)
+        checked.push(value.checked)
+      })
+      return [
+        {
+          name: "Запросов",
+          data: requests
+        },
+        {
+          name: "Авторизаций",
+          data: checked
+        },
+      ]
+
+    },
+    callsChartOptions:function () {
+      return {
+        chart: {
+          height: 240,
+          width:'100%',
+          type: 'area'
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        xaxis: {
+          categories: Object.keys(this.$store.getters['statistics/callsPerMonth'])
+        },
+      }
+    }
   },
   components: {
+    MainPieCharts,
     sms,
     calls,
     metric,
@@ -178,9 +226,12 @@ export default {
   watch:{
     'form.month':function () {
       this.$store.dispatch('statistics/getSmsPerMonth',this.form);
+      this.$store.dispatch('statistics/getCallsPerMonth',this.form);
+
     },
     'form.year':function () {
       this.$store.dispatch('statistics/getSmsPerMonth',this.form);
+      this.$store.dispatch('statistics/getCallsPerMonth',this.form);
     }
   }
 };
@@ -209,6 +260,8 @@ export default {
 
 
   .sms-charts-card,
+  .voucher-charts-card,
+  .donuts-charts-card,
   .calls-charts-card {
     padding: 1rem;
     background-color: #ffffff;

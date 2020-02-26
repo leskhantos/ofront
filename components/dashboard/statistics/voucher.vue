@@ -3,9 +3,6 @@
     <div class="col-lg-12">
       <apexchart type="area" height="240" :options="chartOptions" :series="series"/>
     </div>
-    <!-- <div class="col-lg-3">
-      <div ref="calls_pie_chart"></div>
-    </div> -->
   </div>
 </template>
 
@@ -21,14 +18,6 @@
           {
             name: "Авторизаций",
             data: [31, 40, 28, 51, 42, 109, 100]
-          },
-          {
-            name: "Новые",
-            data: [3, 50, 58, 11, 52, 10, 10]
-          },
-          {
-            name: "Постоянные",
-            data: [33, 30, 48, 16, 12, 20, 0]
           },
         ],
         chartOptions: {
