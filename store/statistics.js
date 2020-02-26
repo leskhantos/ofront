@@ -29,7 +29,7 @@ export const actions = {
   },
   async getSmsPerMonth({commit},payload){
     await this.$axios.get(`sms/stats?month=${payload.month}&year=${payload.year}`).then((response)=>{
-      commit('SET_ALL_SMS_PER_MONTH',response.data);
+      commit('SET_ALL_SMS_PER_MONTH',response.data.sms);
     });
   },
 };

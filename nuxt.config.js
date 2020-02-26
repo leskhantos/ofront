@@ -41,6 +41,7 @@ export default {
     './plugins/axios',
     {src: './plugins/vue-flash-message', mode: 'client'},
     {src: './plugins/oyUI/oyUI', ssr: false},
+    {src: './plugins/apexchart', ssr: false}
 
   ],
   /*
@@ -69,6 +70,7 @@ export default {
     baseURL: process.env.API_HOST
   },
   build: {
+    vendor:['vue-apexcharts'],
     /*
     ** You can extend webpack config here
     */

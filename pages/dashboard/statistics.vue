@@ -1,6 +1,6 @@
 <template>
   <div class="statistics-page">
-    <div class="row" ref="metrics">
+    <div class="statistics-page_metric-items">
       <metric title="Компании" :number="stats.count_company" :currentIcon="'companyIcon'"/>
       <metric title="Зон" :number="stats.count_spot" :currentIcon="'SpotIcon'"/>
       <metric title="Персональных страниц" :number="stats.pages" :currentIcon="'pageIcon'"/>
@@ -37,7 +37,12 @@
 
     <oy-page-header title="SMS"></oy-page-header>
     <div class="sms-charts-card">
-      <sms />
+      <sms :series="series" :chartOptions="chartOptions"/>
+    </div>
+
+    <oy-page-header title="Воучеры"></oy-page-header>
+    <div class="sms-charts-card">
+      <voucher/>
     </div>
   </div>
 </template>
@@ -46,6 +51,7 @@
 import sms from "@/components/dashboard/statistics/sms.vue";
 import calls from "@/components/dashboard/statistics/calls.vue";
 import metric from "@/components/dashboard/statistics/metrica.vue";
+import voucher from "@/components/dashboard/statistics/voucher.vue";
 
 export default {
   layout: "dashboard",
@@ -54,21 +60,7 @@ export default {
       form:{
         year:null,
         month:null,
-      },
-      months:[
-        {id:1, name:'Январь'},
-        {id:2, name:'Февраль'},
-        {id:3, name:'Март'},
-        {id:4, name:'Апрель'},
-        {id:5, name:'Май'},
-        {id:6, name:'Июнь'},
-        {id:7, name:'Июль'},
-        {id:8, name:'Август'},
-        {id:9, name:'Сентябрь'},
-        {id:10, name:'Октябрь'},
-        {id:11, name:'Ноябрь'},
-        {id:12, name:'Декабрь'},
-      ]
+      }
     }
   },
   metaInfo() {
@@ -87,7 +79,6 @@ export default {
 
   methods: {
     onChangeMonth(val) {
-      console.log(Object.keys(this.smsPerMonth.sms)) // get categories for apexchart test
       this.form.month = val
     },
     onChangeYear(val) {
@@ -105,14 +96,84 @@ export default {
       }
       return years;
     },
-    smsPerMonth:function () {
-      return this.$store.getters['statistics/smsPerMonth']
-    }
+    months:function(){
+     let months = [
+        {id:1, name:'Январь'},
+        {id:2, name:'Февраль'},
+        {id:3, name:'Март'},
+        {id:4, name:'Апрель'},
+        {id:5, name:'Май'},
+        {id:6, name:'Июнь'},
+        {id:7, name:'Июль'},
+        {id:8, name:'Август'},
+        {id:9, name:'Сентябрь'},
+        {id:10, name:'Октябрь'},
+        {id:11, name:'Ноябрь'},
+        {id:12, name:'Декабрь'},
+      ]
+      let curYear = new Date().getFullYear()
+      if(this.form.year == curYear){
+        let currentYearsMonths=[]
+        let currentMonth = new Date().getMonth()+1
+        months.forEach(function (item) {
+            if (item.id<=currentMonth){
+              currentYearsMonths.push(item)
+            }
+        })
+        return currentYearsMonths
+      }else
+      return months
+    },
+    series:function(){
+      let data = this.$store.getters['statistics/smsPerMonth']
+      let map = new Map(Object.entries(data))
+      let all = []
+      let resend = []
+      let delivered = []
+      map.forEach(value => {
+        all.push(value.all)
+        resend.push(value.resend)
+        delivered.push(value.delivered)
+      })
+      return [
+          {
+            name: "Доставлено",
+            data: delivered
+          },
+          {
+            name: "Всего",
+            data: all
+          },
+          {
+            name: "Повтор",
+            data: resend
+          }
+        ]
+    },
+    chartOptions:function(){
+      return {
+        chart: {
+          height: 240,
+          width:'100%',
+            type: 'area'
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        xaxis: {
+          categories: Object.keys(this.$store.getters['statistics/smsPerMonth'])
+        },
+      }
+    },
   },
   components: {
     sms,
     calls,
-    metric
+    metric,
+    voucher
   },
   watch:{
     'form.month':function () {
@@ -128,10 +189,12 @@ export default {
 <style lang="scss" scoped>
 .statistics-page {
   padding: 1rem;
-  flex: 1;
   overflow-x: hidden;
   overflow-y: auto;
-
+  &_metric-items{
+    display: flex;
+    flex-wrap: wrap;
+  }
   &::-webkit-scrollbar {
     width: 0.3rem;
   }

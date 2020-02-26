@@ -42,7 +42,6 @@ export default {
 
 <style lang="scss" scoped>
 .metric-item {
-  flex: 0 0 auto;
   display: inline-block;
   padding: 0 1rem;
   width: 20%;

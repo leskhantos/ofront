@@ -3,8 +3,8 @@
     <div class="page-header">
       <div class="page-header__title">{{ title }}</div>
     </div>
-    <div class="mobile-buttons">
-      <i class="icon icon-list mr-3"  @click="$store.commit('app/TOGGLE_SIDEBAR',true)"></i>
+    <div class="mobile-buttons" @click="$store.commit('app/TOGGLE_SIDEBAR',true)">
+      <menu-open-icon />
     </div>
 
     <div class="right-buttons">
@@ -30,6 +30,7 @@
   import userMenuItem from "@/components/dashboard/header/user-menu-item.vue";
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
   import oyAvatar from "../../plugins/oyUI/base/oyAvatar";
+  import MenuOpenIcon from "../icons/menuOpenIcon";
   const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
@@ -61,6 +62,7 @@
       }
     },
     components: {
+      MenuOpenIcon,
       userMenu,
       userMenuItem,
       userMenuHeader,

@@ -52,7 +52,7 @@
             this.flashMessage.warning({
               title: "Компания удалена",
             });
-            this.$router.push({name: "dashboard-users"});
+            this.$router.push({name: "dashboard-statistics"});
           } catch (e) {
             this.flashMessage.error({
               title: e.response.data.message,
