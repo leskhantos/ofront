@@ -53,6 +53,19 @@
           titleTemplate: `%s | ${this.company.name}`
         };
       },
+      created() {
+        let date = new Date();
+
+        let month = date.getMonth()+1
+        let year = date.getFullYear()
+        let data = {
+          month:  month,
+          year:  year,
+          company_id: this.$route.params.id
+        }
+        this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
+        this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
+      },
       computed: {
         company: function() {
           return this.$store.getters["company/company"];
@@ -82,7 +95,6 @@
               this.flashMessage.success({
                 title: "Компания обновлена",
               });
-              console.log(data)
              await this.$store.dispatch("company/getCompany", this.$route.params.id);
               this.$router.push({ name: "dashboard-company-id",params:{ id: data.data.id }});
               this.newName = ""

@@ -48,7 +48,7 @@
       props: {
         company_id: {
           type: Number,
-          required: true
+          required: false
         }
       },
         name: "mainPage",
@@ -57,15 +57,15 @@
       },
       data(){
           return{
-              year: null,
-              month: null
+              year: new Date().getFullYear(),
+              month: new Date().getMonth()+1
         }
       },
       computed:{
         years:function () {
           let currentYear = new Date().getFullYear(), years = [], startYear=2018;
           while ( startYear <= currentYear ) {
-            years.push({id:startYear++});
+            years.push({id: startYear++});
           }
           return years;
         },
@@ -85,9 +85,9 @@
             {id:12, name:'Декабрь'},
           ]
           let curYear = new Date().getFullYear()
+          let currentMonth = new Date().getMonth()+1
           if(this.year == curYear){
             let currentYearsMonths=[]
-            let currentMonth = new Date().getMonth()+1
             months.forEach(function (item) {
               if (item.id<=currentMonth){
                 currentYearsMonths.push(item)
@@ -196,40 +196,30 @@
           this.year = val
         },
       },
-      created() {
-        let date = new Date();
-
-        this.month = date.getMonth()+1
-        this.year = date.getFullYear()
-        let data = {
-          month:  this.month,
-          year:  this.year,
-          company_id: this.company_id
-        }
-        this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
-        this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
-      },
       watch:{
-        month:function () {
-          let data = {
-            month:  this.month,
-            year:  this.year,
-            company_id: this.company_id
+        month:{
+          immediate: false,
+          handler () {
+            let data = {
+              month:  this.month,
+              year:  this.year,
+              company_id: this.company_id
+            }
+            this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
+            this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
           }
-          this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
-          this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
-
-
         },
-        year:function () {
-          let data = {
-            month:  this.month,
-            year:  this.year,
-            company_id: this.company_id
+        year:{
+          immediate: false,
+          handler () {
+            let data = {
+              month:  this.month,
+              year:  this.year,
+              company_id: this.company_id
+            }
+            this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
+            this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
           }
-          this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
-          this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
-
         }
       }
     }

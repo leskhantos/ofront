@@ -9,6 +9,7 @@
       <metric title="Авторизованных гостей" :number="stats.auth_guest" :currentIcon="'authGuestIcon'"/>
       <metric title="Актуальных сессий" :number="stats.session" :currentIcon="'actualSessionIcon'"/>
     </div>
+    <oy-page>
     <div class="row">
       <div class="col-lg-8">
       </div>
@@ -30,6 +31,7 @@
         />
       </div>
     </div>
+      <oy-page-body>
     <oy-page-header title="Звонки"></oy-page-header>
     <div class="calls-charts-card">
         <calls :series="callsSeries" :chartOptions="callsChartOptions"/>
@@ -50,6 +52,8 @@
     <div class="donuts-charts-card">
       <main-pie-charts/>
     </div>
+      </oy-page-body>
+    </oy-page>
   </div>
 </template>
 
@@ -59,7 +63,7 @@ import calls from "@/components/dashboard/statistics/calls.vue";
 import metric from "@/components/dashboard/statistics/metrica.vue";
 import voucher from "@/components/dashboard/statistics/voucher.vue";
 import MainPieCharts from "@/components/dashboard/statistics/mainPieCharts.vue";
-
+import { mapGetters } from 'vuex'
 export default {
   layout: "dashboard",
   data(){
@@ -224,14 +228,19 @@ export default {
     voucher
   },
   watch:{
-    'form.month':function () {
-      this.$store.dispatch('statistics/getSmsPerMonth',this.form);
-      this.$store.dispatch('statistics/getCallsPerMonth',this.form);
-
+    'form.month':{
+      immediate:false,
+      handler () {
+        this.$store.dispatch('statistics/getSmsPerMonth',this.form);
+        this.$store.dispatch('statistics/getCallsPerMonth',this.form);
+      }
     },
-    'form.year':function () {
-      this.$store.dispatch('statistics/getSmsPerMonth',this.form);
-      this.$store.dispatch('statistics/getCallsPerMonth',this.form);
+    'form.year':{
+      immediate:false,
+      handler () {
+        this.$store.dispatch('statistics/getSmsPerMonth',this.form);
+        this.$store.dispatch('statistics/getCallsPerMonth',this.form);
+      }
     }
   }
 };
