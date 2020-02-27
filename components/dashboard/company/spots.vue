@@ -31,7 +31,7 @@
         </thead>
         <tbody>
         <tr v-for="spot in spots" :key="spot.id">
-          <td><spot-icon/> {{spot.address }}</td>
+          <td><spot-icon/>   <nuxt-link :to="{name: 'dashboard-company-spot-id', params: { id: spot.id } }">{{spot.address }} </nuxt-link></td>
           <td>{{ spot.page_name }}</td>
           <td>{{ spot.last_active }}</td>
           <td style="text-align: right"><oy-dot :active-color="spot.enabled ? '#37a967': 'red'"/></td>

@@ -34,7 +34,7 @@
 
         <oy-page-header title="Ваучеры"></oy-page-header>
         <div class="voucher-charts-card">
-          <voucher/>
+          <voucher :series="vouchersSeries" :chartOptions="vouchersChartOptions" />
         </div>
       </oy-page-body>
     </oy-page>
@@ -186,6 +186,45 @@
               categories: Object.keys(this.$store.getters['statistics/guestsByCompanyPerMonth'])
             },
           }
+        },
+        vouchersSeries:function () {
+          let data = this.$store.getters['statistics/vouchersByCompanyPerMonth']
+          let map = new Map(Object.entries(data))
+          let all = []
+          let auth = []
+          map.forEach(value => {
+            all.push(value.all)
+            auth.push(value.auth)
+          })
+          return [
+            {
+              name: "Всего",
+              data: all
+            },
+            {
+              name: "Авторизаций",
+              data: auth
+            }
+          ]
+
+        },
+        vouchersChartOptions:function () {
+          return {
+            chart: {
+              height: 240,
+              width:'100%',
+              type: 'area'
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'smooth'
+            },
+            xaxis: {
+              categories: Object.keys(this.$store.getters['statistics/vouchersByCompanyPerMonth'])
+            },
+          }
         }
       },
       methods:{
@@ -205,8 +244,9 @@
               year:  this.year,
               company_id: this.company_id
             }
-            this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
-            this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
+            this.$store.dispatch('statistics/getCallsByCompanyPerMonth',data);
+            this.$store.dispatch('statistics/getGuestsByCompanyPerMonth',data);
+            this.$store.dispatch('statistics/getVouchersByCompanyPerMonth',data);
           }
         },
         year:{
@@ -217,8 +257,9 @@
               year:  this.year,
               company_id: this.company_id
             }
-            this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
-            this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
+            this.$store.dispatch('statistics/getCallsByCompanyPerMonth',data);
+            this.$store.dispatch('statistics/getGuestsByCompanyPerMonth',data);
+            this.$store.dispatch('statistics/getVouchersByCompanyPerMonth',data);
           }
         }
       }

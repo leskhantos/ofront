@@ -44,13 +44,13 @@
 
     <oy-page-header title="Ваучеры"></oy-page-header>
     <div class="voucher-charts-card">
-      <voucher/>
+      <voucher :series="vouchersSeries" :chartOptions="vouchersChartOptions"/>
     </div>
 
 
     <oy-page-header title=""></oy-page-header>
     <div class="donuts-charts-card">
-      <main-pie-charts/>
+      <main-pie-charts :callsSeries="calls" :smsSeries="sms" :vouchersSeries="vouchers"/>
     </div>
       </oy-page-body>
     </oy-page>
@@ -63,7 +63,6 @@ import calls from "@/components/dashboard/statistics/calls.vue";
 import metric from "@/components/dashboard/statistics/metrica.vue";
 import voucher from "@/components/dashboard/statistics/voucher.vue";
 import MainPieCharts from "@/components/dashboard/statistics/mainPieCharts.vue";
-import { mapGetters } from 'vuex'
 export default {
   layout: "dashboard",
   data(){
@@ -85,8 +84,12 @@ export default {
     this.form.month = date.getMonth()+1
     this.form.year = date.getFullYear()
     this.$store.dispatch('statistics/getStats');
+    this.$store.dispatch('statistics/getCalls');
+    this.$store.dispatch('statistics/getSms');
+    this.$store.dispatch('statistics/getVouchers');
     this.$store.dispatch('statistics/getSmsPerMonth',this.form);
     this.$store.dispatch('statistics/getCallsPerMonth',this.form);
+    this.$store.dispatch('statistics/getVouchersPerMonth',this.form);
   },
 
   methods: {
@@ -100,6 +103,20 @@ export default {
   computed:{
     stats:function () {
         return this.$store.getters['statistics/stats']
+    },
+    sms:function () {
+      let sms = this.$store.getters['statistics/sms']
+      console.log(sms)
+      return [sms.delivered, sms.all,sms.resend]
+
+    },
+    calls:function(){
+      let call = this.$store.getters['statistics/calls']
+      return  [call.requests, call.checked]
+    },
+    vouchers:function(){
+      let vouchers = this.$store.getters['statistics/vouchers']
+      return [vouchers.all, vouchers.auth]
     },
     years:function () {
       let currentYear = new Date().getFullYear(), years = [], startYear=2018;
@@ -218,6 +235,45 @@ export default {
           categories: Object.keys(this.$store.getters['statistics/callsPerMonth'])
         },
       }
+    },
+    vouchersSeries:function () {
+      let data = this.$store.getters['statistics/vouchersPerMonth']
+      let map = new Map(Object.entries(data))
+      let all = []
+      let auth = []
+      map.forEach(value => {
+        all.push(value.all)
+        auth.push(value.auth)
+      })
+      return [
+        {
+          name: "Всего",
+          data: all
+        },
+        {
+          name: "Авторизаций",
+          data: auth
+        },
+      ]
+
+    },
+    vouchersChartOptions:function () {
+      return {
+        chart: {
+          height: 240,
+          width:'100%',
+          type: 'area'
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        xaxis: {
+          categories: Object.keys(this.$store.getters['statistics/vouchersPerMonth'])
+        },
+      }
     }
   },
   components: {
@@ -233,6 +289,7 @@ export default {
       handler () {
         this.$store.dispatch('statistics/getSmsPerMonth',this.form);
         this.$store.dispatch('statistics/getCallsPerMonth',this.form);
+        this.$store.dispatch('statistics/getVouchersPerMonth',this.form);
       }
     },
     'form.year':{
@@ -240,6 +297,7 @@ export default {
       handler () {
         this.$store.dispatch('statistics/getSmsPerMonth',this.form);
         this.$store.dispatch('statistics/getCallsPerMonth',this.form);
+        this.$store.dispatch('statistics/getVouchersPerMonth',this.form);
       }
     }
   }

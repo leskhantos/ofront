@@ -63,8 +63,9 @@
           year:  year,
           company_id: this.$route.params.id
         }
-        this.$store.dispatch('statistics/getCallsByMonthPerMonth',data);
-        this.$store.dispatch('statistics/getGuestsByMonthPerMonth',data);
+        this.$store.dispatch('statistics/getCallsByCompanyPerMonth',data);
+        this.$store.dispatch('statistics/getGuestsByCompanyPerMonth',data);
+        this.$store.dispatch('statistics/getVouchersByCompanyPerMonth',data);
       },
       computed: {
         company: function() {
