@@ -1,7 +1,9 @@
 <template>
   <header class="application-header">
     <div class="page-header">
-      <div class="page-header__title">{{ title }}</div>
+      <div class="page-header__title">
+      {{ title }}
+      </div>
     </div>
     <div class="mobile-buttons" @click="$store.commit('app/TOGGLE_SIDEBAR',true)">
       <menu-open-icon />
@@ -17,7 +19,6 @@
           @click="toggleUserMenu"
           cursor="pointer"
         />
-        <!-- menu items -->
         <user-menu-item title="Сменить пароль" icon="icon-lock" @click="onItemClick('password')" />
         <user-menu-item title="Выйти" icon="icon-power" @click="onItemClick('logout')" />
       </user-menu>
@@ -43,7 +44,9 @@
     },
     data: () => ({
       user_menu_opened: false,
-      title:''
+      title:'',
+      route:'',
+      spotName:''
     }),
     computed: {
       avatar: function() {
@@ -59,7 +62,10 @@
       },
       company:function () {
         return this.$store.getters["company/company"];
-      }
+      },
+      spot:function () {
+        return this.$store.getters["company/spot"];
+      },
     },
     components: {
       MenuOpenIcon,
@@ -95,7 +101,12 @@
       async toggleTitle(){
         if (this.$route.params.id){
           await this.$store.dispatch('company/getCompany',this.$route.params.id)
+          this.route = { name: 'dashboard-company-id', params: { id: this.$route.params.id } }
           this.title = this.company.name;
+          // if (this.$route.name === 'dashboard-company-spot-id'){
+          //   await this.$store.dispatch('company/getSpot',this.$route.params.id)
+          //   this.spotName = this.spot.address
+          // }
         }else {
           switch (this.$route.name) {
             case 'dashboard-users':

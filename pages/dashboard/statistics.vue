@@ -106,9 +106,7 @@ export default {
     },
     sms:function () {
       let sms = this.$store.getters['statistics/sms']
-      console.log(sms)
       return [sms.delivered, sms.all,sms.resend]
-
     },
     calls:function(){
       let call = this.$store.getters['statistics/calls']

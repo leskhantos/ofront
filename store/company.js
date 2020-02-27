@@ -4,7 +4,8 @@ export const state= ()=>({
   auth_types:[],
   spots:[],
   styles:[],
-  accounts:[]
+  accounts:[],
+  spot:{}
 });
 
 export const getters = {
@@ -25,6 +26,9 @@ export const getters = {
   },
   accounts(state){
     return state.accounts
+  },
+  spot(state){
+    return state.spot
   }
 };
 
@@ -46,6 +50,9 @@ export const mutations = {
   },
   SET_ACCOUNTS_LIST(state, accounts){
     state.accounts = accounts
+  },
+  SET_SPOT(state, spot){
+    state.spot = spot
   }
 };
 
@@ -87,7 +94,12 @@ export const actions = {
     await this.$axios.get(`company/${company_id}/accounts`).then((response)=>{
       commit('SET_ACCOUNTS_LIST',response.data);
     }).catch((err)=>{
-
+    });
+  },
+  async getSpot({commit},spot_id){
+    await this.$axios.get(`spot/${spot_id}`).then((response)=>{
+      commit('SET_SPOT',response.data);
+    }).catch((err)=>{
     });
   },
 };

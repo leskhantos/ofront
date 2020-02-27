@@ -23,19 +23,21 @@
       </div>
       <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
         <oy-page-header title="Гости"></oy-page-header>
-        <div class="guest-charts-card">
+        <div class="guest-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
           <guest :series="guestsSeries" :chartOptions="guestsChartOptions"/>
         </div>
 
         <oy-page-header title="Звонки"></oy-page-header>
-        <div class="calls-charts-card">
+        <div class="calls-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
           <calls :series="callsSeries" :chartOptions="callsChartOptions"/>
         </div>
 
         <oy-page-header title="Ваучеры"></oy-page-header>
-        <div class="voucher-charts-card">
+        <div class="voucher-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
           <voucher :series="vouchersSeries" :chartOptions="vouchersChartOptions" />
         </div>
+
+        <company-pie-charts :callSeries="calls" :guest-series="guests" :device-series="devices" :browser-series="browsers" :os-series="os"/>
       </oy-page-body>
     </oy-page>
 </template>
@@ -44,6 +46,7 @@
   import guest from "../statistics/guest";
   import calls from "../statistics/calls";
   import voucher from '../statistics/voucher'
+  import companyPieCharts from "../statistics/companyPieCharts";
     export default {
       props: {
         company_id: {
@@ -53,7 +56,7 @@
       },
         name: "mainPage",
       components:{
-        guest,calls,voucher
+        guest,calls,voucher,companyPieCharts
       },
       data(){
           return{
@@ -96,6 +99,26 @@
             return currentYearsMonths
           }else
             return months
+        },
+        calls:function(){
+          let call = this.$store.getters['statistics/allCallsByCompany']
+          return [call.requests, call.checked]
+        },
+        guests:function(){
+          let guest = this.$store.getters['statistics/allGuestsByCompany']
+          return [guest.load, guest.auth,guest.new, guest.old]
+        },
+        devices:function(){
+          let device = this.$store.getters['statistics/allDevicesByCompany']
+          return [device.mobile, device.tablet, device.computer, device.type_other]
+        },
+        browsers:function(){
+          let browser = this.$store.getters['statistics/allBrowsersByCompany']
+          return [browser.android_browser, browser.edge, browser.firefox, browser.chrome,browser.opera,browser.safari,browser.yandex_browser,browser.webkit,browser.browser_other]
+        },
+        os:function(){
+          let os = this.$store.getters['statistics/allOsByCompany']
+          return [os.android, os.linux, os.ios, os.windows, os.windows_phone,os.os_other]
         },
         callsSeries:function () {
           let data = this.$store.getters['statistics/callsByCompanyPerMonth']

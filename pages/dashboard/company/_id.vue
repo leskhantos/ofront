@@ -66,6 +66,7 @@
         this.$store.dispatch('statistics/getCallsByCompanyPerMonth',data);
         this.$store.dispatch('statistics/getGuestsByCompanyPerMonth',data);
         this.$store.dispatch('statistics/getVouchersByCompanyPerMonth',data);
+        this.$store.dispatch('statistics/getAllDataByCompany',{ company_id: this.$route.params.id });
       },
       computed: {
         company: function() {
