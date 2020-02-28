@@ -1,13 +1,13 @@
 <template>
   <div class="row ">
     <div class="col-lg-4" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-      <apexchart height="240" :options="calls.chartOptions" :series="callsSeries"/>
+      <apexchart height="240" :options="callsChartOptions" :series="callsSeries"/>
     </div>
     <div class="col-lg-4" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-      <apexchart height="240" :options="sms.chartOptions" :series="smsSeries"/>
+      <apexchart height="240" :options="smsChartOptions" :series="smsSeries"/>
     </div>
     <div class="col-lg-4">
-      <apexchart height="240" :options="vouchers.chartOptions" :series="vouchersSeries"/>
+      <apexchart height="240" :options="vouchersChartOptions" :series="vouchersSeries"/>
     </div>
   </div>
 </template>
@@ -17,21 +17,20 @@
       props:{
         callsSeries:{
           type: Array,
-          required:false
+          required:true
         },
         smsSeries: {
           type: Array,
-          required:false
+          required:true
         },
         vouchersSeries: {
           type: Array,
-          required:false
+          required:true
         },
       },
       data(){
         return {
-          sms:{
-            chartOptions: {
+            smsChartOptions: {
               labels: ["Доставлено","Всего","Повтор"],
               chart: {
                 type: 'donut',
@@ -64,9 +63,7 @@
                 }
               }]
             },
-          },
-          calls:{
-            chartOptions: {
+            callsChartOptions: {
               chart: {
                 type: 'donut',
               },
@@ -99,9 +96,7 @@
                 }
               }]
             },
-          },
-          vouchers:{
-            chartOptions: {
+            vouchersChartOptions: {
               labels: ["Всего","Авторизаций"],
               chart: {
                 type: 'donut',
@@ -136,7 +131,6 @@
             },
           }
         }
-      }
     }
 </script>
 

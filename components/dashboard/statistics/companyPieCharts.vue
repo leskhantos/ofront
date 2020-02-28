@@ -2,23 +2,23 @@
   <div>
     <div class="row ">
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart height="240" :options="device.chartOptions" :series="deviceSeries"/>
+        <apexchart height="240" :options="deviceChartOptions" :series="deviceSeries"/>
       </div>
 
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart height="240" :options="call.chartOptions" :series="callSeries"/>
+        <apexchart height="240" :options="callChartOptions" :series="callSeries"/>
       </div>
 
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart height="240" :options="guest.chartOptions" :series="guestSeries"/>
+        <apexchart height="240" :options="guestChartOptions" :series="guestSeries"/>
       </div>
     </div>
     <div class="row" :style="{ borderTop: '1px solid rgba(0,0,0,.1)'}">
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart height="240" :options="os.chartOptions" :series="osSeries"/>
+        <apexchart height="240" :options="osChartOptions" :series="osSeries"/>
       </div>
       <div class="col">
-        <apexchart height="240" :options="browser.chartOptions" :series="browserSeries"/>
+        <apexchart height="240" :options="browserChartOptions" :series="browserSeries"/>
       </div>
     </div>
   </div>
@@ -50,8 +50,7 @@
       },
       data(){
         return{
-          device:{
-            chartOptions: {
+            deviceChartOptions: {
               labels: ["Мобильные","Планшеты","Компьютеры","Другое"],
               chart: {
                 type: 'donut',
@@ -91,9 +90,7 @@
                 offsetY: 0
               }
             },
-          },
-          call:{
-            chartOptions: {
+            callChartOptions: {
               chart: {
                 type: 'donut',
               },
@@ -133,9 +130,7 @@
                 offsetY: 0
               }
             },
-          },
-          guest:{
-            chartOptions: {
+            guestChartOptions: {
               labels: ["Загрузки","Авторизации","Новые","Постоянные"],
               chart: {
                 type: 'donut',
@@ -175,9 +170,7 @@
                 offsetY: 0
               }
             },
-          },
-          os:{
-            chartOptions: {
+            osChartOptions: {
               labels: ["Android","Linux","iOS","Windows","Windows Phone","Другое"],
               chart: {
                 type: 'donut',
@@ -218,9 +211,7 @@
                 offsetY: 0
               }
             },
-          },
-          browser:{
-            chartOptions: {
+            browserChartOptions: {
               labels: ["Android","Edge","Firefox","Chrome","Opera","Safari","Yandex","Webkit","Другое"],
               chart: {
                 type: 'donut',
@@ -263,7 +254,6 @@
             },
           }
         }
-      }
    }
 </script>
 
