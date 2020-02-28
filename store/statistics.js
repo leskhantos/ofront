@@ -11,8 +11,6 @@ export const state= ()=>({
   vouchersByCompanyPerMonth:[],
   allGuestsByCompany:{},
   allCallsByCompany:{},
-  allDevicesByCompany:{},
-  allBrowsersByCompany:{},
   allOsByCompany:{}
 });
 
@@ -52,12 +50,6 @@ export const getters = {
   },
   allCallsByCompany(state){
     return state.allCallsByCompany;
-  },
-  allDevicesByCompany(state){
-    return state.allDevicesByCompany;
-  },
-  allBrowsersByCompany(state){
-    return state.allBrowsersByCompany;
   },
   allOsByCompany(state){
     return state.allOsByCompany;
@@ -100,12 +92,6 @@ export const mutations = {
   },
   SET_ALL_CALLS_BY_COMPANY(state,allCallsByCompany){
     state.allCallsByCompany = allCallsByCompany;
-  },
-  SET_ALL_DEVICES_BY_COMPANY(state,allDevicesByCompany){
-    state.allDevicesByCompany = allDevicesByCompany;
-  },
-  SET_ALL_BROWSERS_BY_COMPANY(state,allBrowsersByCompany){
-    state.allBrowsersByCompany = allBrowsersByCompany;
   },
   SET_ALL_OS_BY_COMPANY(state,allOsByCompany){
     state.allOsByCompany = allOsByCompany;
@@ -156,14 +142,8 @@ export const actions = {
         await this.$axios.get(`company/${payload.company_id}/stats/calls`).then((response)=>{
           commit('SET_ALL_CALLS_BY_COMPANY',response.data);
         });
-        await this.$axios.get(`company/${payload.company_id}/stats/browser`).then((response)=>{
-          commit('SET_ALL_BROWSERS_BY_COMPANY',response.data);
-        });
         await this.$axios.get(`company/${payload.company_id}/stats/os`).then((response)=>{
           commit('SET_ALL_OS_BY_COMPANY',response.data);
-        });
-        await this.$axios.get(`company/${payload.company_id}/stats/device`).then((response)=>{
-          commit('SET_ALL_DEVICES_BY_COMPANY',response.data);
         });
   },
 };

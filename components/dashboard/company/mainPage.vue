@@ -121,7 +121,7 @@
           }
         },
         devices:function(){
-          let device = this.$store.getters['statistics/allDevicesByCompany']
+          let device = this.$store.getters['statistics/allOsByCompany']
           let arr = [device.mobile, device.tablet, device.computer, device.type_other]
           const isAllZero = arr.every(item => item === 0);
           if (isAllZero){
@@ -131,7 +131,7 @@
           }
         },
         browsers:function(){
-          let browser = this.$store.getters['statistics/allBrowsersByCompany']
+          let browser = this.$store.getters['statistics/allOsByCompany']
           let arr = [browser.android_browser, browser.edge, browser.firefox, browser.chrome,browser.opera,browser.safari,browser.yandex_browser,browser.webkit,browser.browser_other]
           const isAllZero = arr.every(item => item === 0);
           if (isAllZero){
