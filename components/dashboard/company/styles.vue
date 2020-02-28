@@ -24,14 +24,14 @@
         <tr>
           <th scope="col">Страница</th>
           <th scope="col">Зона</th>
-<!--          <th></th>-->
+          <!--          <th></th>-->
         </tr>
         </thead>
         <tbody>
         <tr v-for="style in styles" :key="style.id">
           <td>{{ style.name }}</td>
           <td>{{ style.title }}</td>
-<!--          <td style="text-align: right"><oy-dot :active-color="style.enabled ? '#37a967':'red'"/></td>-->
+          <!--          <td style="text-align: right"><oy-dot :active-color="style.enabled ? '#37a967':'red'"/></td>-->
         </tr>
         </tbody>
       </table>
@@ -40,48 +40,49 @@
 </template>
 
 <script>
-    import storeStyle from "./modals/storeStyle";
-    export default {
-        name: "styles",
-      components: {storeStyle},
-      props: {
-        name: {
-          type: String,
-          required: false
+  import storeStyle from "./modals/storeStyle";
+
+  export default {
+    name: "styles",
+    components: {storeStyle},
+    props: {
+      name: {
+        type: String,
+        required: false
+      },
+      company_id: {
+        type: Number,
+        required: false
+      }
+    },
+    methods: {
+      showModal() {
+        this.$store.dispatch('users/getTypes');
+        return this.set_new_style = true;
+      },
+    },
+    computed: {
+      styles: function () {
+        return this.$store.getters['company/styles']
+      },
+      set_new_style: {
+        get: function () {
+          return this.$store.getters['app/set_new_style'];
         },
-        company_id: {
-          type: Number,
-          required: false
+        set: function (value) {
+          this.$store.commit('app/SET_NEW_STYLE', value);
         }
       },
-      methods: {
-        showModal() {
-          this.$store.dispatch('users/getTypes');
-          return this.set_new_style = true;
-        },
-      },
-      computed: {
-        styles: function () {
-          return this.$store.getters['company/styles']
-        },
-        set_new_style: {
-          get: function () {
-            return this.$store.getters['app/set_new_style'];
-          },
-          set: function (value) {
-            this.$store.commit('app/SET_NEW_STYLE', value);
-          }
-        },
-      },
-      mounted() {
+    },
+    mounted() {
+      this.$store.dispatch('company/getStyles', this.company_id)
+    },
+    watch: {
+      company_id: function () {
         this.$store.dispatch('company/getStyles', this.company_id)
-      },
-      watch: {
-        company_id: function () {
-          this.$store.dispatch('company/getStyles', this.company_id)
-        }
       }
     }
+  }
 </script>
 
 <style scoped>

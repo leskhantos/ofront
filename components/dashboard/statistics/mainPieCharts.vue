@@ -13,125 +13,125 @@
 </template>
 
 <script>
-    export default {
-      props:{
-        callsSeries:{
-          type: Array,
-          required:true
-        },
-        smsSeries: {
-          type: Array,
-          required:true
-        },
-        vouchersSeries: {
-          type: Array,
-          required:true
-        },
+  export default {
+    props: {
+      callsSeries: {
+        type: Array,
+        required: true
       },
-      data(){
-        return {
-            smsChartOptions: {
-              labels: ["Доставлено","Всего","Повтор"],
-              chart: {
-                type: 'donut',
-              },
-              title: {
-                text: "SMS",
-                margin:30,
-                style: {
-                  fontSize:  '20px',
-                  fontWeight:  'bold',
-                },
-              },
-              plotOptions:{
-                pie:{
-                  expandOnClick: true,
-                  donut:{
-                    size:'40%'
-                  }
-                }
-              },
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }]
+      smsSeries: {
+        type: Array,
+        required: true
+      },
+      vouchersSeries: {
+        type: Array,
+        required: true
+      },
+    },
+    data() {
+      return {
+        smsChartOptions: {
+          labels: ["Доставлено", "Всего", "Повтор"],
+          chart: {
+            type: 'donut',
+          },
+          title: {
+            text: "SMS",
+            margin: 30,
+            style: {
+              fontSize: '20px',
+              fontWeight: 'bold',
             },
-            callsChartOptions: {
+          },
+          plotOptions: {
+            pie: {
+              expandOnClick: true,
+              donut: {
+                size: '40%'
+              }
+            }
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
               chart: {
-                type: 'donut',
+                width: 200
               },
-              title: {
-                text: "Звонки",
-                margin:30,
-                style: {
-                  fontSize:  '20px',
-                  fontWeight:  'bold',
-                },
-              },
-              plotOptions:{
-                pie:{
-                  expandOnClick: true,
-                  donut:{
-                    size:'40%'
-                  }
-                }
-              },
-              labels: ["Запросов","Авторизаций"],
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }]
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+        },
+        callsChartOptions: {
+          chart: {
+            type: 'donut',
+          },
+          title: {
+            text: "Звонки",
+            margin: 30,
+            style: {
+              fontSize: '20px',
+              fontWeight: 'bold',
             },
-            vouchersChartOptions: {
-              labels: ["Всего","Авторизаций"],
+          },
+          plotOptions: {
+            pie: {
+              expandOnClick: true,
+              donut: {
+                size: '40%'
+              }
+            }
+          },
+          labels: ["Запросов", "Авторизаций"],
+          responsive: [{
+            breakpoint: 480,
+            options: {
               chart: {
-                type: 'donut',
+                width: 200
               },
-              title: {
-                text: "Ваучеры",
-                margin:30,
-                style: {
-                  fontSize:  '20px',
-                  fontWeight:  'bold',
-                },
-              },
-              plotOptions:{
-                pie:{
-                  expandOnClick: true,
-                  donut:{
-                    size:'40%'
-                  }
-                }
-              },
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }]
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+        },
+        vouchersChartOptions: {
+          labels: ["Всего", "Авторизаций"],
+          chart: {
+            type: 'donut',
+          },
+          title: {
+            text: "Ваучеры",
+            margin: 30,
+            style: {
+              fontSize: '20px',
+              fontWeight: 'bold',
             },
-          }
-        }
+          },
+          plotOptions: {
+            pie: {
+              expandOnClick: true,
+              donut: {
+                size: '40%'
+              }
+            }
+          },
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }]
+        },
+      }
     }
+  }
 </script>
 
 <style scoped>

@@ -2,6 +2,7 @@
 .fade-leave-active {
   transition: opacity 0.2s;
 }
+
 .fade-enter,
 .fade-leave-active {
   opacity: 0;
@@ -11,6 +12,7 @@
 .page-leave-active {
   transition: opacity 0.2s;
 }
+
 .page-enter,
 .page-leave-active {
   opacity: 0;
@@ -20,6 +22,7 @@
 .header-transition-leave-active {
   transition: 0.2s;
 }
+
 .header-transition-enter,
 .header-transition-leave-active {
   opacity: 0;
@@ -30,6 +33,7 @@
 .input-error-leave-active {
   transition: 0.2s;
 }
+
 .input-error-enter,
 .input-error-leave-active {
   opacity: 0;
@@ -40,6 +44,7 @@
 .user-menu-fade-leave-active {
   transition: 0.2s;
 }
+
 .user-menu-fade-enter,
 .user-menu-fade-leave-active {
   opacity: 0;
@@ -50,6 +55,7 @@
 .oy-modal-leave-active {
   transition: 0.2s;
 }
+
 .oy-modal-enter,
 .oy-modal-leave-active {
   opacity: 0;

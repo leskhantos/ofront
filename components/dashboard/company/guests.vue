@@ -14,21 +14,30 @@
         <tbody>
         <tr>
           <td>14.02.2020 08:45:49</td>
-          <td><devices-icon/>  6C:C7:EC:8E:B8:37</td>
+          <td>
+            <devices-icon/>
+            6C:C7:EC:8E:B8:37
+          </td>
           <td>@session</td>
-          <td  style="text-align: center">2</td>
+          <td style="text-align: center">2</td>
         </tr>
         <tr>
           <td>14.02.2020 08:45:49</td>
-          <td><devices-icon/>  6C:C7:EC:8E:B8:37</td>
+          <td>
+            <devices-icon/>
+            6C:C7:EC:8E:B8:37
+          </td>
           <td>@session</td>
-          <td  style="text-align: center">2</td>
+          <td style="text-align: center">2</td>
         </tr>
         <tr>
           <td>14.02.2020 08:45:49</td>
-          <td><devices-icon/>  6C:C7:EC:8E:B8:37</td>
+          <td>
+            <devices-icon/>
+            6C:C7:EC:8E:B8:37
+          </td>
           <td>@session</td>
-          <td  style="text-align: center">2</td>
+          <td style="text-align: center">2</td>
         </tr>
         </tbody>
       </table>
@@ -37,11 +46,12 @@
 </template>
 
 <script>
-    import DevicesIcon from "../../icons/devicesIcon";
-    export default {
-        name: "guests",
-      components: {DevicesIcon}
-    }
+  import DevicesIcon from "../../icons/devicesIcon";
+
+  export default {
+    name: "guests",
+    components: {DevicesIcon}
+  }
 </script>
 
 <style scoped>

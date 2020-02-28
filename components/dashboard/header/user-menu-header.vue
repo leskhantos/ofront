@@ -10,26 +10,27 @@
 
 <script>
   import oyAvatar from "../../../plugins/oyUI/base/oyAvatar";
+
   export default {
-    data(){
+    data() {
       return {
-        user:{}
+        user: {}
       }
     },
-    components:{
+    components: {
       oyAvatar
     },
-  props: {
+    props: {
       focused: {
-          type: Boolean,
-          required: false,
-          default: Boolean(0)
+        type: Boolean,
+        required: false,
+        default: Boolean(0)
       },
       title: {
-          type: String,
-          required: true
+        type: String,
+        required: true
       },
-  },
+    },
     mounted() {
       this.user = this.$store.getters["users/user"]
     }

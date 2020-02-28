@@ -8,13 +8,13 @@
 
 <script>
   export default {
-    props:{
-      chartOptions:{
+    props: {
+      chartOptions: {
         type: Object,
-        required:false
+        required: false
       },
       series: {
-        type:Array,
+        type: Array,
         required: false
       }
     },

@@ -23,35 +23,35 @@
 </template>
 
 <script>
-    export default {
-        name: "inputs",
-      props: {
-        marginBottom: {
-          type: String,
-          required: false,
-          default: "1.5rem"
-        },
-        error: {
-          type: Array,
-          required: false
-        },
-        type: {
-          type: String,
-          required: false,
-          default: "text"
-        },
-        label: {
-          type: String,
-          required: true
-        },
-        value: {
-          type: String,
-          required: false,
-          default: ""
-        }
+  export default {
+    name: "inputs",
+    props: {
+      marginBottom: {
+        type: String,
+        required: false,
+        default: "1.5rem"
+      },
+      error: {
+        type: Array,
+        required: false
+      },
+      type: {
+        type: String,
+        required: false,
+        default: "text"
+      },
+      label: {
+        type: String,
+        required: true
+      },
+      value: {
+        type: String,
+        required: false,
+        default: ""
       }
-
     }
+
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -203,6 +203,7 @@
           &-error {
             border: 1px solid #d20000;
             background-color: #d20000;
+
             &:after {
               border-color: #d20000 transparent transparent transparent;
             }

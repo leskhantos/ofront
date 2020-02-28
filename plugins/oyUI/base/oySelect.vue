@@ -41,7 +41,7 @@
         required: false
       },
       selected: {
-        type: [String,Number],
+        type: [String, Number],
         required: false
       }
     },

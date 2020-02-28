@@ -1,13 +1,14 @@
 <template>
   <oy-page>
-    <oy-page-header >
+    <oy-page-header>
       <div slot="actions">
         <oy-button
           title="Добавить аккаунт"
           type="success"
           :svgIcon="'AddIcon'"
           @click="showModal"
-        >+</oy-button>
+        >+
+        </oy-button>
         <oy-modal
           title="Добавить аккаунт"
           padding="1rem"
@@ -48,55 +49,56 @@
 <script>
   import storeAccount from "./modals/storeAccount";
   import moment from "moment";
-    export default {
-      components:{
-        storeAccount
+
+  export default {
+    components: {
+      storeAccount
+    },
+    name: "accounts",
+    props: {
+      name: {
+        type: String,
+        required: false
       },
-        name: "accounts",
-      props: {
-        name: {
-          type: String,
-          required: false
-        },
-        company_id: {
-          type: Number,
-          required: false
+      company_id: {
+        type: Number,
+        required: false
+      }
+    },
+    methods: {
+      showModal() {
+        return this.set_new_account = true;
+      },
+      dateTransform(date, time) {
+        if (moment(date, 'YYYY-MM-DD H:mm:ss').isValid()) {
+          return moment(date, 'YYYY-MM-DD H:mm:ss').format(time ? 'DD.MM.YYYY H:mm:ss' : 'DD.MM.YYYY');
+        } else {
+          return 'не заходил'
         }
       },
-      methods: {
-        showModal() {
-          return this.set_new_account = true;
-        },
-        dateTransform(date, time) {
-          if (moment(date, 'YYYY-MM-DD H:mm:ss').isValid()) {
-            return moment(date, 'YYYY-MM-DD H:mm:ss').format(time ? 'DD.MM.YYYY H:mm:ss' : 'DD.MM.YYYY');
-          } else {
-            return 'не заходил'
-          }
-        },
+    },
+    computed: {
+      accounts: function () {
+        return this.$store.getters['company/accounts']
       },
-      computed: {
-        accounts: function () {
-          return this.$store.getters['company/accounts']
+      set_new_account: {
+        get: function () {
+          return this.$store.getters['app/set_new_account'];
         },
-        set_new_account: {
-          get: function () {
-            return this.$store.getters['app/set_new_account'];
-          },
-          set: function (value) {
-            this.$store.commit('app/SET_NEW_ACCOUNT', value);
-          }
-        },
+        set: function (value) {
+          this.$store.commit('app/SET_NEW_ACCOUNT', value);
+        }
       },
-      mounted() {
+    },
+    mounted() {
+      this.$store.dispatch('company/getAccounts', this.company_id)
+    },
+    watch: {
+      company_id: function () {
         this.$store.dispatch('company/getAccounts', this.company_id)
-      },
-      watch: {
-        company_id: function () {
-          this.$store.dispatch('company/getAccounts', this.company_id)
-        }
       }
     }
+  }
 </script>
 
 <style scoped>

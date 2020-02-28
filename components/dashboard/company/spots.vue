@@ -1,6 +1,6 @@
 <template>
   <oy-page>
-    <oy-page-header >
+    <oy-page-header>
       <div slot="actions">
         <oy-button
           title="Добавить зону"
@@ -31,10 +31,15 @@
         </thead>
         <tbody>
         <tr v-for="spot in spots" :key="spot.id">
-          <td><spot-icon/>   <nuxt-link :to="{name: 'dashboard-company-spot-id', params: { id: spot.id } }">{{spot.address }} </nuxt-link></td>
+          <td>
+            <spot-icon/>
+            <nuxt-link :to="{name: 'dashboard-company-spot-id', params: { id: spot.id } }">{{spot.address }}</nuxt-link>
+          </td>
           <td>{{ spot.page_name }}</td>
           <td>{{ spot.last_active }}</td>
-          <td style="text-align: right"><oy-dot :active-color="spot.enabled ? '#37a967': 'red'"/></td>
+          <td style="text-align: right">
+            <oy-dot :active-color="spot.enabled ? '#37a967': 'red'"/>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -89,7 +94,7 @@
 </script>
 
 <style scoped>
-  .icon-speedometer{
+  .icon-speedometer {
     padding-right: 10px;
   }
 </style>

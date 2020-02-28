@@ -1,4 +1,4 @@
-$border-color: rgba(0,0,0,.1);
+$border-color: rgba(0, 0, 0, .1);
 
 .responsive-table {
   // border: 1px solid #ccc;
@@ -25,7 +25,7 @@ $border-color: rgba(0,0,0,.1);
 
   tr {
     // background-color: #f8f8f8;
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid rgba(0, 0, 0, .1);
     padding: 0.35em;
 
     &:first-child {
@@ -36,7 +36,7 @@ $border-color: rgba(0,0,0,.1);
   th,
   td {
     padding: 0.5rem 1rem;
-    border-left: 1px solid rgba(0,0,0,.1);
+    border-left: 1px solid rgba(0, 0, 0, .1);
   }
 
   th {
@@ -73,12 +73,12 @@ $border-color: rgba(0,0,0,.1);
       margin-bottom: 0.625em;
 
       &:first-child {
-        border-top: 1px solid rgba(0,0,0,.1);
+        border-top: 1px solid rgba(0, 0, 0, .1);
       }
     }
 
     td {
-      border-bottom: 1px solid rgba(0,0,0,.1);
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
       display: block;
       font-size: 0.8em;
       text-align: right;

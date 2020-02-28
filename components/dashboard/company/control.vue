@@ -1,6 +1,6 @@
 <template>
   <oy-page>
-    <oy-page-header />
+    <oy-page-header/>
     <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <div class="row" :style="{paddingBottom: '2rem'}">
         <div class="col-md-1">
@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-11">
           <div class="switch">
-            <input class="switch" id="switch" name="switch" type="checkbox" v-model="checkVal"  :checked="checked"/>
+            <input class="switch" id="switch" name="switch" type="checkbox" v-model="checkVal" :checked="checked"/>
             <label data-off="" data-on="" for="switch"></label>
           </div>
         </div>
@@ -37,7 +37,7 @@
         type: Number,
         required: true
       },
-      name:{
+      name: {
         type: String,
         required: true
       }
@@ -90,16 +90,18 @@
   $height: 28px;
   $width: $height * 2;
 
-  .row button{
+  .row button {
     margin-bottom: 18px;
     margin-top: 25px;
     padding: 0 0 0 30px;
   }
-  .switch input[type=checkbox]{
+
+  .switch input[type=checkbox] {
     height: 0;
     width: 0;
     visibility: hidden;
   }
+
   div.switch.float-right {
     margin-top: -15px;
   }

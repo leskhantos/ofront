@@ -8,6 +8,7 @@
 <style lang="scss" scoped>
   .not-found-page {
     text-align: center;
+
     .title {
       font-size: 120%;
       font-weight: 600;

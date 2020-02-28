@@ -34,53 +34,53 @@
 </template>
 
 <script>
-    export default {
-        name: "storePage",
-      props: {
-        company_id: {
-          type: Number,
-          required: true
-        },
+  export default {
+    name: "storePage",
+    props: {
+      company_id: {
+        type: Number,
+        required: true
       },
-      data(){
-          return {
-            form: {
-              name: '',
-              type: '',
-              title: '',
-            }
-          }
-      },
-      computed: {
-        types: function () {
-          return this.$store.getters['users/types']
-        }
-      },
-      methods: {
-        onChange(val) {
-          this.form.type = val
-        },
-        async storeStyle() {
-          try {
-            const payload = {
-              company_id: this.company_id,
-              name: this.form.name,
-              title: this.form.title,
-              type: this.form.type,
-            };
-            await this.$axios.post('page', payload)
-            this.$store.commit("app/SET_NEW_STYLE", false);
-            await this.$store.dispatch('company/getStyles', this.company_id)
-            this.flashMessage.success({
-              title: "Страница добавлена",
-            });
-          } catch (e) {
-            console.log(e)
-          }
+    },
+    data() {
+      return {
+        form: {
+          name: '',
+          type: '',
+          title: '',
         }
       }
-
+    },
+    computed: {
+      types: function () {
+        return this.$store.getters['users/types']
+      }
+    },
+    methods: {
+      onChange(val) {
+        this.form.type = val
+      },
+      async storeStyle() {
+        try {
+          const payload = {
+            company_id: this.company_id,
+            name: this.form.name,
+            title: this.form.title,
+            type: this.form.type,
+          };
+          await this.$axios.post('page', payload)
+          this.$store.commit("app/SET_NEW_STYLE", false);
+          await this.$store.dispatch('company/getStyles', this.company_id)
+          this.flashMessage.success({
+            title: "Страница добавлена",
+          });
+        } catch (e) {
+          console.log(e)
+        }
+      }
     }
+
+  }
 </script>
 
 <style scoped>

@@ -2,16 +2,16 @@
   <header class="application-header">
     <div class="page-header">
       <div class="page-header__title">
-      {{ title }}
+        {{ title }}
       </div>
     </div>
     <div class="mobile-buttons" @click="$store.commit('app/TOGGLE_SIDEBAR',true)">
-      <menu-open-icon />
+      <menu-open-icon/>
     </div>
 
     <div class="right-buttons">
       <user-menu :visible="user_menu_opened" v-if="avatar.name">
-          <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar.name[0]"/>
+        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar.name[0]"/>
         <oyAvatar
           slot="trigger"
           :focused="user_menu_opened"
@@ -19,8 +19,8 @@
           @click="toggleUserMenu"
           cursor="pointer"
         />
-        <user-menu-item title="Сменить пароль" icon="icon-lock" @click="onItemClick('password')" />
-        <user-menu-item title="Выйти" icon="icon-power" @click="onItemClick('logout')" />
+        <user-menu-item title="Сменить пароль" icon="icon-lock" @click="onItemClick('password')"/>
+        <user-menu-item title="Выйти" icon="icon-power" @click="onItemClick('logout')"/>
       </user-menu>
     </div>
   </header>
@@ -32,6 +32,7 @@
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
   import oyAvatar from "../../plugins/oyUI/base/oyAvatar";
   import MenuOpenIcon from "../icons/menuOpenIcon";
+
   const Cookie = process.client ? require('js-cookie') : undefined
 
   export default {
@@ -44,26 +45,26 @@
     },
     data: () => ({
       user_menu_opened: false,
-      title:'',
-      route:'',
-      spotName:''
+      title: '',
+      route: '',
+      spotName: ''
     }),
     computed: {
-      avatar: function() {
+      avatar: function () {
         return this.$store.getters["users/user"];
       },
       set_password_mode: {
-        get: function() {
+        get: function () {
           return this.$store.getters["app/set_password_mode"];
         },
         set: function (value) {
           this.$store.commit('app/SET_PASSWORD_MODE', value);
         }
       },
-      company:function () {
+      company: function () {
         return this.$store.getters["company/company"];
       },
-      spot:function () {
+      spot: function () {
         return this.$store.getters["company/spot"];
       },
     },
@@ -86,28 +87,28 @@
           this.user_menu_opened = false;
         }
       },
-      async logout(){
-        try{
-          await this.$axios.get('auth/logout').then((res)=>{
+      async logout() {
+        try {
+          await this.$axios.get('auth/logout').then((res) => {
             console.log(res.data)
             Cookie.remove('auth')
             this.$store.commit('setAuth', null)
             this.$router.push('/');
           })
-        }catch (e) {
-            console.log(e.response)
+        } catch (e) {
+          console.log(e.response)
         }
       },
-      async toggleTitle(){
-        if (this.$route.params.id){
-          await this.$store.dispatch('company/getCompany',this.$route.params.id)
-          this.route = { name: 'dashboard-company-id', params: { id: this.$route.params.id } }
+      async toggleTitle() {
+        if (this.$route.params.id) {
+          await this.$store.dispatch('company/getCompany', this.$route.params.id)
+          this.route = {name: 'dashboard-company-id', params: {id: this.$route.params.id}}
           this.title = this.company.name;
           // if (this.$route.name === 'dashboard-company-spot-id'){
           //   await this.$store.dispatch('company/getSpot',this.$route.params.id)
           //   this.spotName = this.spot.address
           // }
-        }else {
+        } else {
           switch (this.$route.name) {
             case 'dashboard-users':
               this.title = 'Пользователи';
@@ -138,14 +139,14 @@
             break;
 
           default:
-            this.$router.push({ name: name });
+            this.$router.push({name: name});
             break;
         }
         this.user_menu_opened = false;
       }
     },
-    watch:{
-      '$route':function () {
+    watch: {
+      '$route': function () {
         this.toggleTitle()
       }
     }
@@ -170,7 +171,8 @@
       -webkit-box-pack: end;
       justify-content: flex-end;
     }
-    .page-header__title{
+
+    .page-header__title {
       font-weight: bold;
       font-size: x-large;
     }

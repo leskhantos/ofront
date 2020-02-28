@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col">
             <label>
-              <input type="checkbox"  v-model="showDisabledUsers"/>
+              <input type="checkbox" v-model="showDisabledUsers"/>
               <span>Показывать отключенных</span>
             </label>
           </div>
@@ -53,7 +53,9 @@
           <td data-label="Имя">{{ user.name }}</td>
           <td data-label="IP">{{ user.last_ip }}</td>
           <td data-label="Последний вход">{{ dateTransform(user.last_online, true) }}</td>
-          <td data-label="Статус" style="text-align: center"><oy-dot :active-color="user.enabled ? '#37a967': 'red'"/></td>
+          <td data-label="Статус" style="text-align: center">
+            <oy-dot :active-color="user.enabled ? '#37a967': 'red'"/>
+          </td>
         </tr>
         </tbody>
       </table>
@@ -113,9 +115,9 @@
         }
       },
       allUsers: function () {
-        if (this.showDisabledUsers){
+        if (this.showDisabledUsers) {
           return this.$store.getters["users/list"];
-        }else {
+        } else {
           return this.$store.getters["users/activeUsers"];
         }
       },

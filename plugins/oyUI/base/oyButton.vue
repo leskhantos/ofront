@@ -18,76 +18,78 @@
 </template>
 
 <script>
-import PassGenerateIcon from "../../../components/icons/passGenerateIcon";
-import AddUserIcon from "../../../components/icons/addUserIcon";
-import AddIcon from "../../../components/icons/addIcon";
-export default {
-  components: {AddIcon, AddUserIcon, PassGenerateIcon},
-  props: {
-    title: {
-      type: String,
-      required: false,
+  import PassGenerateIcon from "../../../components/icons/passGenerateIcon";
+  import AddUserIcon from "../../../components/icons/addUserIcon";
+  import AddIcon from "../../../components/icons/addIcon";
+
+  export default {
+    components: {AddIcon, AddUserIcon, PassGenerateIcon},
+    props: {
+      title: {
+        type: String,
+        required: false,
+      },
+      titleHidden: {
+        type: Boolean,
+        required: false,
+        default: () => Boolean(0)
+      },
+      block: {
+        type: Boolean,
+        required: false,
+        default: () => Boolean(0)
+      },
+      icon: {
+        type: String,
+        required: false
+      },
+      type: {
+        type: String,
+        required: false,
+        default: "primary"
+      },
+      buttonType: {
+        type: String,
+        required: false,
+        default: "button"
+      },
+      alt: {
+        type: String,
+        required: false
+      },
+      svgIcon: {
+        type: String,
+        required: false
+      },
     },
-    titleHidden: {
-      type: Boolean,
-      required: false,
-      default: () => Boolean(0)
-    },
-    block: {
-      type: Boolean,
-      required: false,
-      default: () => Boolean(0)
-    },
-    icon: {
-      type: String,
-      required: false
-    },
-    type: {
-      type: String,
-      required: false,
-      default: "primary"
-    },
-    buttonType: {
-      type: String,
-      required: false,
-      default: "button"
-    },
-    alt:{
-      type: String,
-      required: false
-    },
-    svgIcon:{
-      type: String,
-      required:false
-    },
-  },
-  computed: {
-    buttonClass: function() {
-      return `btn btn-${this.type}`;
-    },
-    blockClass: function() {
-      if (this.block) return "btn-block";
+    computed: {
+      buttonClass: function () {
+        return `btn btn-${this.type}`;
+      },
+      blockClass: function () {
+        if (this.block) return "btn-block";
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.btn {
-  display: flex;
-  align-items: center;
-  padding: 0.25rem 0.5rem;
-  .icon-plus {
-    font-size: 16px;
+  .btn {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
 
-    &-wrapper {
-      padding-right: .5rem;
+    .icon-plus {
+      font-size: 16px;
+
+      &-wrapper {
+        padding-right: .5rem;
+      }
+    }
+
+    &-block {
+      width: 100%;
+      justify-content: center;
     }
   }
-
-  &-block {
-    width: 100%;
-    justify-content: center;
-  }
-}
 </style>

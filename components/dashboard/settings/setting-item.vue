@@ -26,8 +26,8 @@
 </script>
 
 <style scoped lang="scss">
-.setting-item{
-  border-bottom: 1px solid rgba(0,0,0,.1);
-  margin-top: 1rem;
-}
+  .setting-item {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    margin-top: 1rem;
+  }
 </style>

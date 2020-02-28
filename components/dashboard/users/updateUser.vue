@@ -25,14 +25,17 @@
       </div>
       <div class="col-lg-3">
         <div class="switch float-right">
-          <input class="switch" id="switch" name="switch" type="checkbox" v-model="payload.enabled"  :checked="this.user.enabled"/>
+          <input class="switch" id="switch" name="switch" type="checkbox" v-model="payload.enabled"
+                 :checked="this.user.enabled"/>
           <label data-off="" data-on="" for="switch"></label>
         </div>
       </div>
     </div>
     <div class="row" style="padding-right: 16px">
-      <oy-input label="Пароль" v-model="payload.password" input-class="col-lg-10" type="text" :error="errors['password']"/>
-      <oy-button buttonType="button" alt="Сгенерировать пароль" :svgIcon="'passGenerateIcon'" class="col-lg-2" @click="generatePass"/>
+      <oy-input label="Пароль" v-model="payload.password" input-class="col-lg-10" type="text"
+                :error="errors['password']"/>
+      <oy-button buttonType="button" alt="Сгенерировать пароль" :svgIcon="'passGenerateIcon'" class="col-lg-2"
+                 @click="generatePass"/>
     </div>
     <div class="mb-0">
       <oy-button buttonType="submit" type="submit" title="Сохранить" class="btn btn-success" :block="true"/>
@@ -64,7 +67,7 @@
       ],
     }),
     methods: {
-      generatePass(){
+      generatePass() {
         this.payload.password = Math.random().toString(36).slice(-8);
       },
       onChange(val) {
@@ -98,16 +101,18 @@
   $height: 28px;
   $width: $height * 2;
 
-  .row button{
+  .row button {
     margin-bottom: 18px;
     margin-top: 25px;
     padding: 0 0 0 30px;
   }
-  .switch input[type=checkbox]{
+
+  .switch input[type=checkbox] {
     height: 0;
     width: 0;
     visibility: hidden;
   }
+
   div.switch.float-right {
     margin-top: -15px;
   }
@@ -120,7 +125,7 @@
     display: block;
     border-radius: $height / 4;
     position: relative;
-    margin:0px;
+    margin: 0px;
   }
 
   .switch label:before {

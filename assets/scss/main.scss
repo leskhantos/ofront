@@ -9,23 +9,23 @@
 // @import 'fluid-font';
 
 body {
-    font-size: 14px;
-	font-family: 'Open Sans', sans-serif !important;
-	color: #575962;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif !important;
+  color: #575962;
 }
 
 .custom-sroll {
-    &::-webkit-scrollbar {
-		width: .3rem;
-	}
+  &::-webkit-scrollbar {
+    width: .3rem;
+  }
 
-	&::-webkit-scrollbar-track {
-		background-color: rgba(255,255,255,.15);
-	}
+  &::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, .15);
+  }
 
-	&::-webkit-scrollbar-thumb {
-        background-color: rgba(255,255,255,.15);
-	}
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, .15);
+  }
 }
 
 // $min_width: 320px;

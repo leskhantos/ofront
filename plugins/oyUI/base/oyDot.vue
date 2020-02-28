@@ -3,15 +3,15 @@
 </template>
 
 <script>
-    export default {
-        name: "oyDot",
-      props:{
-          activeColor:{
-            type:String,
-            required:true
-          }
+  export default {
+    name: "oyDot",
+    props: {
+      activeColor: {
+        type: String,
+        required: true
       }
     }
+  }
 </script>
 
 <style scoped>

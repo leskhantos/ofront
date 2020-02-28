@@ -7,16 +7,16 @@
 </template>
 
 <script>
-export default {
-  props:{
-    chartOptions:{
-      type: Object,
-      required:false
+  export default {
+    props: {
+      chartOptions: {
+        type: Object,
+        required: false
+      },
+      series: {
+        type: Array,
+        required: false
+      }
     },
-    series: {
-      type:Array,
-      required: false
-    }
-  },
-};
+  };
 </script>
