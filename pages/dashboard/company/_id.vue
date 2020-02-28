@@ -20,6 +20,7 @@
         Управление
       </div>
     </nav>
+    <nuxt-child/>
     <div class="row company-page__title">
       <div class="col" v-if="this.currentTabComponent==='control'">
         <h1>{{ company.name }} <span @click="edit=!edit"><edit-company-icon/></span></h1>

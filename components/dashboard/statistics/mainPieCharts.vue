@@ -1,13 +1,13 @@
 <template>
   <div class="row ">
     <div class="col-lg-4" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-      <apexchart height="240" :options="callsChartOptions" :series="callsSeries"/>
+      <apexchart type="donut" height="240" :options="callsChartOptions" :series="callsSeries"/>
     </div>
     <div class="col-lg-4" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-      <apexchart height="240" :options="smsChartOptions" :series="smsSeries"/>
+      <apexchart  type="donut" height="240" :options="smsChartOptions" :series="smsSeries"/>
     </div>
     <div class="col-lg-4">
-      <apexchart height="240" :options="vouchersChartOptions" :series="vouchersSeries"/>
+      <apexchart  type="donut"  height="240" :options="vouchersChartOptions" :series="vouchersSeries"/>
     </div>
   </div>
 </template>

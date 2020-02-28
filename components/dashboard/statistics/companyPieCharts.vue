@@ -2,23 +2,23 @@
   <div>
     <div class="row ">
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart height="240" :options="deviceChartOptions" :series="deviceSeries"/>
+        <apexchart  type="donut"  height="240" :options="deviceChartOptions" :series="deviceSeries"/>
       </div>
 
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart height="240" :options="callChartOptions" :series="callSeries"/>
+        <apexchart type="donut"  height="240" :options="callChartOptions" :series="callSeries"/>
       </div>
 
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart height="240" :options="guestChartOptions" :series="guestSeries"/>
+        <apexchart type="donut"  height="240" :options="guestChartOptions" :series="guestSeries"/>
       </div>
     </div>
     <div class="row" :style="{ borderTop: '1px solid rgba(0,0,0,.1)'}">
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart height="240" :options="osChartOptions" :series="osSeries"/>
+        <apexchart type="donut"  height="240" :options="osChartOptions" :series="osSeries"/>
       </div>
       <div class="col">
-        <apexchart height="240" :options="browserChartOptions" :series="browserSeries"/>
+        <apexchart type="donut"  height="240" :options="browserChartOptions" :series="browserSeries"/>
       </div>
     </div>
   </div>

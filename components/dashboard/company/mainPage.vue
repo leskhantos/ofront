@@ -103,7 +103,7 @@
           return months
       },
       calls: function () {
-        let call = this.$store.getters['statistics/allCallsByCompany']
+        let call = this.$store.getters['statistics/allDataByCompany']
         let arr = [call.requests, call.checked]
         const isAllZero = arr.every(item => item === 0);
         if (isAllZero) {
@@ -113,7 +113,7 @@
         }
       },
       guests: function () {
-        let guest = this.$store.getters['statistics/allGuestsByCompany']
+        let guest = this.$store.getters['statistics/allDataByCompany']
         let arr = [guest.load, guest.auth, guest.new, guest.old]
         const isAllZero = arr.every(item => item === 0);
         if (isAllZero) {
@@ -123,7 +123,7 @@
         }
       },
       devices: function () {
-        let device = this.$store.getters['statistics/allOsByCompany']
+        let device = this.$store.getters['statistics/allDataByCompany']
         let arr = [device.mobile, device.tablet, device.computer, device.type_other]
         const isAllZero = arr.every(item => item === 0);
         if (isAllZero) {
@@ -133,7 +133,7 @@
         }
       },
       browsers: function () {
-        let browser = this.$store.getters['statistics/allOsByCompany']
+        let browser = this.$store.getters['statistics/allDataByCompany']
         let arr = [browser.android_browser, browser.edge, browser.firefox, browser.chrome, browser.opera, browser.safari, browser.yandex_browser, browser.webkit, browser.browser_other]
         const isAllZero = arr.every(item => item === 0);
         if (isAllZero) {
@@ -143,7 +143,7 @@
         }
       },
       os: function () {
-        let os = this.$store.getters['statistics/allOsByCompany']
+        let os = this.$store.getters['statistics/allDataByCompany']
         let arr = [os.android, os.linux, os.ios, os.windows, os.windows_phone, os.os_other]
         const isAllZero = arr.every(item => item === 0);
         if (isAllZero) {

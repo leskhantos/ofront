@@ -6,9 +6,7 @@ export const state = () => ({
   callsByCompanyPerMonth: [],
   guestsByCompanyPerMonth: [],
   vouchersByCompanyPerMonth: [],
-  allGuestsByCompany: {},
-  allCallsByCompany: {},
-  allOsByCompany: {}
+  allDataByCompany: {}
 });
 
 export const getters = {
@@ -33,14 +31,8 @@ export const getters = {
   vouchersByCompanyPerMonth(state) {
     return state.vouchersByCompanyPerMonth;
   },
-  allGuestsByCompany(state) {
-    return state.allGuestsByCompany;
-  },
-  allCallsByCompany(state) {
-    return state.allCallsByCompany;
-  },
-  allOsByCompany(state) {
-    return state.allOsByCompany;
+  allDataByCompany(state) {
+    return state.allDataByCompany;
   }
 };
 
@@ -66,14 +58,8 @@ export const mutations = {
   SET_VOUCHERS_BY_COMPANY_PER_MONTH(state, vouchersByCompanyPerMonth) {
     state.vouchersByCompanyPerMonth = vouchersByCompanyPerMonth;
   },
-  SET_ALL_GUESTS_BY_COMPANY(state, allGuestsByCompany) {
-    state.allGuestsByCompany = allGuestsByCompany;
-  },
-  SET_ALL_CALLS_BY_COMPANY(state, allCallsByCompany) {
-    state.allCallsByCompany = allCallsByCompany;
-  },
-  SET_ALL_OS_BY_COMPANY(state, allOsByCompany) {
-    state.allOsByCompany = allOsByCompany;
+  SET_ALL_DATA_BY_COMPANY(state, allDataByCompany) {
+    state.allDataByCompany = allDataByCompany;
   },
 };
 
@@ -106,14 +92,8 @@ export const actions = {
     });
   },
   async getAllDataByCompany({commit}, payload) {
-    await this.$axios.get(`company/${payload.company_id}/stats/guests`).then((response) => {
-      commit('SET_ALL_GUESTS_BY_COMPANY', response.data);
-    });
-    await this.$axios.get(`company/${payload.company_id}/stats/calls`).then((response) => {
-      commit('SET_ALL_CALLS_BY_COMPANY', response.data);
-    });
-    await this.$axios.get(`company/${payload.company_id}/stats/os`).then((response) => {
-      commit('SET_ALL_OS_BY_COMPANY', response.data);
+    await this.$axios.get(`company/${payload.company_id}/stats`).then((response) => {
+      commit('SET_ALL_DATA_BY_COMPANY', response.data);
     });
   },
 };
