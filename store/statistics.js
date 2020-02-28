@@ -1,8 +1,5 @@
 export const state= ()=>({
   stats: {},
-  calls:{},
-  sms:{},
-  vouchers:{},
   smsPerMonth: [],
   callsPerMonth:[],
   vouchersPerMonth:[],
@@ -17,15 +14,6 @@ export const state= ()=>({
 export const getters = {
   stats(state){
     return state.stats;
-  },
-  calls(state){
-    return state.calls;
-  },
-  sms(state){
-    return state.sms;
-  },
-  vouchers(state){
-    return state.vouchers;
   },
   smsPerMonth(state){
     return state.smsPerMonth;
@@ -60,15 +48,6 @@ export const mutations = {
   SET_ALL_STATS(state,stats){
     state.stats = stats;
   },
-  SET_ALL_CALLS(state,calls){
-    state.calls = calls;
-  },
-  SET_ALL_SMS(state,sms){
-    state.sms = sms;
-  },
-  SET_ALL_VOUCHERS(state,vouchers){
-    state.vouchers = vouchers;
-  },
   SET_ALL_SMS_PER_MONTH(state,smsPerMonth){
     state.smsPerMonth = smsPerMonth;
   },
@@ -102,15 +81,6 @@ export const actions = {
   async getAllStats({commit}){
         await this.$axios.get('all/stats').then((response)=>{
           commit('SET_ALL_STATS',response.data);
-        });
-        await this.$axios.get('stats/calls').then((response)=>{
-          commit('SET_ALL_CALLS',response.data);
-        });
-        await this.$axios.get('stats/sms').then((response)=>{
-          commit('SET_ALL_SMS',response.data);
-        });
-        await this.$axios.get('stats/vouchers').then((response)=>{
-          commit('SET_ALL_VOUCHERS',response.data);
         });
   },
   async getAllPerMonth({commit},payload){

@@ -50,7 +50,7 @@
 
     <oy-page-header title=""></oy-page-header>
     <div class="donuts-charts-card">
-      <main-pie-charts :callsSeries="calls" :smsSeries="sms" :vouchersSeries="vouchers"/>
+      <main-pie-charts :callsSeries="calls" :smsSeries="sms" :vouchersSeries="vouchers" />
     </div>
       </oy-page-body>
     </oy-page>
@@ -100,16 +100,16 @@ export default {
         return this.$store.getters['statistics/stats']
     },
     sms:function () {
-      let sms = this.$store.getters['statistics/sms']
-      return [sms.delivered, sms.all,sms.resend]
+      let sms = this.$store.getters['statistics/stats']
+      return [sms.delivered, sms.all_sms,sms.resend]
     },
     calls:function(){
-      let call = this.$store.getters['statistics/calls']
+      let call = this.$store.getters['statistics/stats']
       return  [call.requests, call.checked]
     },
     vouchers:function(){
-      let vouchers = this.$store.getters['statistics/vouchers']
-      return [vouchers.all, vouchers.auth]
+      let vouchers = this.$store.getters['statistics/stats']
+      return [vouchers.all_voucher, vouchers.auth]
     },
     years:function () {
       let currentYear = new Date().getFullYear(), years = [], startYear=2018;
