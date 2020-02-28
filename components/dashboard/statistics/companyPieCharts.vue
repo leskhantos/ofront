@@ -82,7 +82,14 @@
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              noData: {
+                text: "Нет данных",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
             },
           },
           call:{
@@ -117,7 +124,14 @@
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              noData: {
+                text: "Нет данных",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
             },
           },
           guest:{
@@ -152,7 +166,14 @@
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              noData: {
+                text: "Нет данных",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
             },
           },
           os:{
@@ -188,7 +209,14 @@
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              noData: {
+                text: "Нет данных",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
             },
           },
           browser:{
@@ -224,7 +252,14 @@
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              noData: {
+                text: "Нет данных",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
             },
           }
         }

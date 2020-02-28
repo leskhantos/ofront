@@ -83,13 +83,8 @@ export default {
 
     this.form.month = date.getMonth()+1
     this.form.year = date.getFullYear()
-    this.$store.dispatch('statistics/getStats');
-    this.$store.dispatch('statistics/getCalls');
-    this.$store.dispatch('statistics/getSms');
-    this.$store.dispatch('statistics/getVouchers');
-    this.$store.dispatch('statistics/getSmsPerMonth',this.form);
-    this.$store.dispatch('statistics/getCallsPerMonth',this.form);
-    this.$store.dispatch('statistics/getVouchersPerMonth',this.form);
+    this.$store.dispatch('statistics/getAllStats');
+    this.$store.dispatch('statistics/getAllPerMonth',this.form);
   },
 
   methods: {
@@ -285,17 +280,13 @@ export default {
     'form.month':{
       immediate:false,
       handler () {
-        this.$store.dispatch('statistics/getSmsPerMonth',this.form);
-        this.$store.dispatch('statistics/getCallsPerMonth',this.form);
-        this.$store.dispatch('statistics/getVouchersPerMonth',this.form);
+        this.$store.dispatch('statistics/getAllPerMonth',this.form);
       }
     },
     'form.year':{
       immediate:false,
       handler () {
-        this.$store.dispatch('statistics/getSmsPerMonth',this.form);
-        this.$store.dispatch('statistics/getCallsPerMonth',this.form);
-        this.$store.dispatch('statistics/getVouchersPerMonth',this.form);
+        this.$store.dispatch('statistics/getAllPerMonth',this.form);
       }
     }
   }

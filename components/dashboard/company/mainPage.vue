@@ -102,23 +102,53 @@
         },
         calls:function(){
           let call = this.$store.getters['statistics/allCallsByCompany']
-          return [call.requests, call.checked]
+          let arr = [call.requests, call.checked]
+          const isAllZero = arr.every(item => item === 0);
+          if (isAllZero){
+            return []
+          }else {
+            return arr
+          }
         },
         guests:function(){
           let guest = this.$store.getters['statistics/allGuestsByCompany']
-          return [guest.load, guest.auth,guest.new, guest.old]
+          let arr = [guest.load, guest.auth,guest.new, guest.old]
+          const isAllZero = arr.every(item => item === 0);
+          if (isAllZero){
+            return []
+          }else {
+            return arr
+          }
         },
         devices:function(){
           let device = this.$store.getters['statistics/allDevicesByCompany']
-          return [device.mobile, device.tablet, device.computer, device.type_other]
+          let arr = [device.mobile, device.tablet, device.computer, device.type_other]
+          const isAllZero = arr.every(item => item === 0);
+          if (isAllZero){
+            return []
+          }else {
+            return arr
+          }
         },
         browsers:function(){
           let browser = this.$store.getters['statistics/allBrowsersByCompany']
-          return [browser.android_browser, browser.edge, browser.firefox, browser.chrome,browser.opera,browser.safari,browser.yandex_browser,browser.webkit,browser.browser_other]
+          let arr = [browser.android_browser, browser.edge, browser.firefox, browser.chrome,browser.opera,browser.safari,browser.yandex_browser,browser.webkit,browser.browser_other]
+          const isAllZero = arr.every(item => item === 0);
+          if (isAllZero){
+            return []
+          }else {
+            return arr
+          }
         },
         os:function(){
           let os = this.$store.getters['statistics/allOsByCompany']
-          return [os.android, os.linux, os.ios, os.windows, os.windows_phone,os.os_other]
+          let arr = [os.android, os.linux, os.ios, os.windows, os.windows_phone,os.os_other]
+          const isAllZero = arr.every(item => item === 0);
+          if (isAllZero){
+            return []
+          }else {
+            return arr
+          }
         },
         callsSeries:function () {
           let data = this.$store.getters['statistics/callsByCompanyPerMonth']
@@ -267,9 +297,7 @@
               year:  this.year,
               company_id: this.company_id
             }
-            this.$store.dispatch('statistics/getCallsByCompanyPerMonth',data);
-            this.$store.dispatch('statistics/getGuestsByCompanyPerMonth',data);
-            this.$store.dispatch('statistics/getVouchersByCompanyPerMonth',data);
+            this.$store.dispatch('statistics/getAllByCompanyPerMonth',data);
           }
         },
         year:{
@@ -280,9 +308,7 @@
               year:  this.year,
               company_id: this.company_id
             }
-            this.$store.dispatch('statistics/getCallsByCompanyPerMonth',data);
-            this.$store.dispatch('statistics/getGuestsByCompanyPerMonth',data);
-            this.$store.dispatch('statistics/getVouchersByCompanyPerMonth',data);
+            this.$store.dispatch('statistics/getAllByCompanyPerMonth',data);
           }
         }
       }

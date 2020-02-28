@@ -113,71 +113,57 @@ export const mutations = {
 };
 
 export const actions = {
-  async getStats({commit}){
-    await this.$axios.get('all/stats').then((response)=>{
-      commit('SET_ALL_STATS',response.data);
-    });
+  async getAllStats({commit}){
+        await this.$axios.get('all/stats').then((response)=>{
+          commit('SET_ALL_STATS',response.data);
+        });
+        await this.$axios.get('stats/calls').then((response)=>{
+          commit('SET_ALL_CALLS',response.data);
+        });
+        await this.$axios.get('stats/sms').then((response)=>{
+          commit('SET_ALL_SMS',response.data);
+        });
+        await this.$axios.get('stats/vouchers').then((response)=>{
+          commit('SET_ALL_VOUCHERS',response.data);
+        });
   },
-  async getCalls({commit}){
-    await this.$axios.get('stats/calls').then((response)=>{
-      commit('SET_ALL_CALLS',response.data);
-    });
+  async getAllPerMonth({commit},payload){
+        await this.$axios.get(`stats/sms/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
+          commit('SET_ALL_SMS_PER_MONTH',response.data.data);
+        });
+        await this.$axios.get(`stats/calls/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
+          commit('SET_ALL_CALLS_PER_MONTH',response.data.data);
+        });
+        await this.$axios.get(`stats/vouchers/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
+          commit('SET_ALL_VOUCHERS_PER_MONTH',response.data.data);
+        });
   },
-  async getSms({commit}){
-    await this.$axios.get('stats/sms').then((response)=>{
-      commit('SET_ALL_SMS',response.data);
-    });
-  },
-  async getVouchers({commit}){
-    await this.$axios.get('stats/vouchers').then((response)=>{
-      commit('SET_ALL_VOUCHERS',response.data);
-    });
-  },
-  async getSmsPerMonth({commit},payload){
-    await this.$axios.get(`stats/sms/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
-      commit('SET_ALL_SMS_PER_MONTH',response.data.data);
-    });
-  },
-  async getCallsPerMonth({commit},payload){
-    await this.$axios.get(`stats/calls/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
-      commit('SET_ALL_CALLS_PER_MONTH',response.data.data);
-    });
-  },
-  async getVouchersPerMonth({commit},payload){
-    await this.$axios.get(`stats/vouchers/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
-      commit('SET_ALL_VOUCHERS_PER_MONTH',response.data.data);
-    });
-  },
-  async getCallsByCompanyPerMonth({commit},payload){
-    await this.$axios.get(`company/${payload.company_id}/stats/calls/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
-      commit('SET_CALLS_BY_COMPANY_PER_MONTH',response.data.data);
-    });
-  },
-  async getGuestsByCompanyPerMonth({commit},payload){
-    await this.$axios.get(`company/${payload.company_id}/stats/guests/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
-      commit('SET_GUESTS_BY_COMPANY_PER_MONTH',response.data.data);
-    });
-  },
-  async getVouchersByCompanyPerMonth({commit},payload){
-    await this.$axios.get(`company/${payload.company_id}/stats/vouchers/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
-      commit('SET_VOUCHERS_BY_COMPANY_PER_MONTH',response.data.data);
-    });
+  async getAllByCompanyPerMonth({commit},payload){
+        await this.$axios.get(`company/${payload.company_id}/stats/calls/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
+          commit('SET_CALLS_BY_COMPANY_PER_MONTH',response.data.data);
+        });
+        await this.$axios.get(`company/${payload.company_id}/stats/vouchers/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
+          commit('SET_VOUCHERS_BY_COMPANY_PER_MONTH',response.data.data);
+        });
+        await this.$axios.get(`company/${payload.company_id}/stats/guests/month?month=${payload.month}&year=${payload.year}`).then((response)=>{
+          commit('SET_GUESTS_BY_COMPANY_PER_MONTH',response.data.data);
+        });
   },
   async getAllDataByCompany({commit},payload){
-    await this.$axios.get(`company/${payload.company_id}/stats/guests`).then((response)=>{
-      commit('SET_ALL_GUESTS_BY_COMPANY',response.data);
-    });
-    await this.$axios.get(`company/${payload.company_id}/stats/calls`).then((response)=>{
-      commit('SET_ALL_CALLS_BY_COMPANY',response.data);
-    });
-    await this.$axios.get(`company/${payload.company_id}/stats/browser`).then((response)=>{
-      commit('SET_ALL_BROWSERS_BY_COMPANY',response.data);
-    });
-    await this.$axios.get(`company/${payload.company_id}/stats/os`).then((response)=>{
-      commit('SET_ALL_OS_BY_COMPANY',response.data);
-    });
-    await this.$axios.get(`company/${payload.company_id}/stats/device`).then((response)=>{
-      commit('SET_ALL_DEVICES_BY_COMPANY',response.data);
-    });
+        await this.$axios.get(`company/${payload.company_id}/stats/guests`).then((response)=>{
+          commit('SET_ALL_GUESTS_BY_COMPANY',response.data);
+        });
+        await this.$axios.get(`company/${payload.company_id}/stats/calls`).then((response)=>{
+          commit('SET_ALL_CALLS_BY_COMPANY',response.data);
+        });
+        await this.$axios.get(`company/${payload.company_id}/stats/browser`).then((response)=>{
+          commit('SET_ALL_BROWSERS_BY_COMPANY',response.data);
+        });
+        await this.$axios.get(`company/${payload.company_id}/stats/os`).then((response)=>{
+          commit('SET_ALL_OS_BY_COMPANY',response.data);
+        });
+        await this.$axios.get(`company/${payload.company_id}/stats/device`).then((response)=>{
+          commit('SET_ALL_DEVICES_BY_COMPANY',response.data);
+        });
   },
 };
