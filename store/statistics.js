@@ -1,8 +1,6 @@
 export const state = () => ({
   stats: {},
-  smsPerMonth: [],
-  callsPerMonth: [],
-  vouchersPerMonth: [],
+  allStatsPerMonth: [],
   callsByCompanyPerMonth: [],
   guestsByCompanyPerMonth: [],
   vouchersByCompanyPerMonth: [],
@@ -13,14 +11,8 @@ export const getters = {
   stats(state) {
     return state.stats;
   },
-  smsPerMonth(state) {
-    return state.smsPerMonth;
-  },
-  callsPerMonth(state) {
-    return state.callsPerMonth;
-  },
-  vouchersPerMonth(state) {
-    return state.vouchersPerMonth;
+  allStatsPerMonth(state) {
+    return state.allStatsPerMonth;
   },
   callsByCompanyPerMonth(state) {
     return state.callsByCompanyPerMonth;
@@ -40,14 +32,8 @@ export const mutations = {
   SET_ALL_STATS(state, stats) {
     state.stats = stats;
   },
-  SET_ALL_SMS_PER_MONTH(state, smsPerMonth) {
-    state.smsPerMonth = smsPerMonth;
-  },
-  SET_ALL_CALLS_PER_MONTH(state, callsPerMonth) {
-    state.callsPerMonth = callsPerMonth;
-  },
-  SET_ALL_VOUCHERS_PER_MONTH(state, vouchersPerMonth) {
-    state.vouchersPerMonth = vouchersPerMonth;
+  SET_ALL_STATS_PER_MONTH(state, allStatsPerMonth) {
+    state.allStatsPerMonth = allStatsPerMonth;
   },
   SET_CALLS_BY_COMPANY_PER_MONTH(state, callsByCompanyPerMonth) {
     state.callsByCompanyPerMonth = callsByCompanyPerMonth;
@@ -70,14 +56,8 @@ export const actions = {
     });
   },
   async getAllPerMonth({commit}, payload) {
-    await this.$axios.get(`stats/sms/month?month=${payload.month}&year=${payload.year}`).then((response) => {
-      commit('SET_ALL_SMS_PER_MONTH', response.data.data);
-    });
-    await this.$axios.get(`stats/calls/month?month=${payload.month}&year=${payload.year}`).then((response) => {
-      commit('SET_ALL_CALLS_PER_MONTH', response.data.data);
-    });
-    await this.$axios.get(`stats/vouchers/month?month=${payload.month}&year=${payload.year}`).then((response) => {
-      commit('SET_ALL_VOUCHERS_PER_MONTH', response.data.data);
+    await this.$axios.get(`all/stats/month?month=${payload.month}&year=${payload.year}`).then((response) => {
+      commit('SET_ALL_STATS_PER_MONTH', response.data.data);
     });
   },
   async getAllByCompanyPerMonth({commit}, payload) {

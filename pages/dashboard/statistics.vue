@@ -34,17 +34,17 @@
       <oy-page-body>
         <oy-page-header title="Звонки"></oy-page-header>
         <div class="calls-charts-card">
-          <calls :series="callsSeries" :chartOptions="callsChartOptions"/>
+          <calls :series="callsSeries" :chartOptions="monthChartOptions"/>
         </div>
 
         <oy-page-header title="SMS"></oy-page-header>
         <div class="sms-charts-card">
-          <sms :series="smsSeries" :chartOptions="smsChartOptions"/>
+          <sms :series="smsSeries" :chartOptions="monthChartOptions"/>
         </div>
 
         <oy-page-header title="Ваучеры"></oy-page-header>
         <div class="voucher-charts-card">
-          <voucher :series="vouchersSeries" :chartOptions="vouchersChartOptions"/>
+          <voucher :series="vouchersSeries" :chartOptions="monthChartOptions"/>
         </div>
 
 
@@ -110,7 +110,7 @@
       },
       vouchers: function () {
         let vouchers = this.$store.getters['statistics/stats']
-        return [vouchers.all_voucher, vouchers.auth]
+        return [vouchers.all_vouchers, vouchers.auth]
       },
       years: function () {
         let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
@@ -148,16 +148,17 @@
           return months
       },
       smsSeries: function () {
-        let data = this.$store.getters['statistics/smsPerMonth']
+        let data = this.$store.getters['statistics/allStatsPerMonth']
         let map = new Map(Object.entries(data))
         let all = []
         let resend = []
         let delivered = []
         map.forEach(value => {
-          all.push(value.all)
+          all.push(value.all_sms)
           resend.push(value.resend)
           delivered.push(value.delivered)
         })
+
         return [
           {
             name: "Доставлено",
@@ -173,30 +174,13 @@
           }
         ]
       },
-      smsChartOptions: function () {
-        return {
-          chart: {
-            height: 240,
-            width: '100%',
-            type: 'area'
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'smooth'
-          },
-          xaxis: {
-            categories: Object.keys(this.$store.getters['statistics/smsPerMonth'])
-          },
-        }
-      },
       callsSeries: function () {
-        let data = this.$store.getters['statistics/callsPerMonth']
+        let data = this.$store.getters['statistics/allStatsPerMonth']
         let map = new Map(Object.entries(data))
         let requests = []
         let checked = []
         map.forEach(value => {
+          console.log(value)
           requests.push(value.requests)
           checked.push(value.checked)
         })
@@ -212,31 +196,13 @@
         ]
 
       },
-      callsChartOptions: function () {
-        return {
-          chart: {
-            height: 240,
-            width: '100%',
-            type: 'area'
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            curve: 'smooth'
-          },
-          xaxis: {
-            categories: Object.keys(this.$store.getters['statistics/callsPerMonth'])
-          },
-        }
-      },
       vouchersSeries: function () {
-        let data = this.$store.getters['statistics/vouchersPerMonth']
+        let data = this.$store.getters['statistics/allStatsPerMonth']
         let map = new Map(Object.entries(data))
         let all = []
         let auth = []
         map.forEach(value => {
-          all.push(value.all)
+          all.push(value.all_vouchers)
           auth.push(value.auth)
         })
         return [
@@ -251,7 +217,7 @@
         ]
 
       },
-      vouchersChartOptions: function () {
+      monthChartOptions: function () {
         return {
           chart: {
             height: 240,
@@ -265,10 +231,10 @@
             curve: 'smooth'
           },
           xaxis: {
-            categories: Object.keys(this.$store.getters['statistics/vouchersPerMonth'])
+            categories: Object.keys(this.$store.getters['statistics/allStatsPerMonth'])
           },
         }
-      }
+      },
     },
     components: {
       MainPieCharts,
