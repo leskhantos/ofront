@@ -25,15 +25,23 @@ export const getters = {
   },
   allSmsStatsPerMonth(state){
     let data = state.allSmsPerMonth
-    let map = new Map(Object.entries(data))
     let all = []
     let resend = []
     let delivered = []
-    map.forEach(value => {
-      all.push(value.all_sms)
-      resend.push(value.resend)
-      delivered.push(value.delivered)
-    })
+    if(data===0){
+      for(let i = 1; i <= state.allStatsDaysPerMonth; i++){
+        all.push(0);
+        resend.push(0);
+        delivered.push(0);
+      }
+    }else {
+      let map = new Map(Object.entries(data))
+      map.forEach(value => {
+        all.push(value.all_sms)
+        resend.push(value.resend)
+        delivered.push(value.delivered)
+      })
+    }
 
     return [
       {
@@ -52,13 +60,20 @@ export const getters = {
   },
   allCallsStatsPerMonth(state){
     let data = state.allCallsPerMonth
-    let map = new Map(Object.entries(data))
     let requests = []
     let checked = []
-    map.forEach(value => {
-      requests.push(value.requests)
-      checked.push(value.checked)
-    })
+    if(data===0){
+      for(let i = 1; i <= state.allStatsDaysPerMonth; i++){
+        requests.push(0);
+        checked.push(0);
+      }
+    }else {
+      let map = new Map(Object.entries(data))
+      map.forEach(value => {
+        requests.push(value.requests)
+        checked.push(value.checked)
+      })
+    }
     return [
       {
         name: "Запросов",
@@ -72,13 +87,21 @@ export const getters = {
   },
   allVouchersStatsPerMonth(state){
     let data = state.allVouchersPerMonth
-    let map = new Map(Object.entries(data))
     let all = []
     let auth = []
-    map.forEach(value => {
-      all.push(value.all_vouchers)
-      auth.push(value.auth)
-    })
+    if(data===0){
+      for(let i = 1; i <= state.allStatsDaysPerMonth; i++){
+        all.push(0);
+        auth.push(0);
+      }
+    }else {
+      let map = new Map(Object.entries(data))
+      map.forEach(value => {
+        all.push(value.all_vouchers)
+        auth.push(value.auth)
+      })
+    }
+
     return [
       {
         name: "Всего",
@@ -98,122 +121,98 @@ export const getters = {
   },
   allCallsByCompanyPerMonth(state){
     let data = state.allCallByCompanyPerMonth
+    let requests = []
+    let checked = []
     if(data===0){
-      return [
-        {
-          name: "Запросов",
-          data: []
-        },
-        {
-          name: "Авторизаций",
-          data: []
-        },
-      ]
+      for(let i = 1; i <= state.allStatsDaysByCompanyPerMonth; i++){
+        requests.push(0);
+        checked.push(0);
+      }
     }else {
       let map = new Map(Object.entries(data))
-      let requests = []
-      let checked = []
       map.forEach(value => {
         requests.push(value.requests)
         checked.push(value.checked)
       })
-      return [
-        {
-          name: "Запросов",
-          data: requests
-        },
-        {
-          name: "Авторизаций",
-          data: checked
-        },
-      ]
     }
+    return [
+      {
+        name: "Запросов",
+        data: requests
+      },
+      {
+        name: "Авторизаций",
+        data: checked
+      },
+    ]
   },
   allGuestsByCompanyPerMonth(state){
     let data = state.allGuestByCompanyPerMonth
+    let load = []
+    let auth = []
+    let newOnes = []
+    let old = []
     if(data===0){
-      return [
-        {
-          name: "Загрузки",
-          data: []
-        },
-        {
-          name: "Авторизаций",
-          data: []
-        },
-        {
-          name: "Новые",
-          data: []
-        },
-        {
-          name: "Постоянные",
-          data: []
-        },
-      ]
+      for(let i = 1; i <= state.allStatsDaysByCompanyPerMonth; i++){
+        load.push(0);
+        auth.push(0);
+        newOnes.push(0);
+        old.push(0);
+      }
     }else {
       let map = new Map(Object.entries(data))
-      let load = []
-      let auth = []
-      let newOnes = []
-      let old = []
       map.forEach(value => {
         load.push(value.load_guests)
         auth.push(value.auth_guests)
         newOnes.push(value.new)
         old.push(value.old)
       })
-      return [
-        {
-          name: "Загрузки",
-          data: load
-        },
-        {
-          name: "Авторизаций",
-          data: auth
-        },
-        {
-          name: "Новые",
-          data: newOnes
-        },
-        {
-          name: "Постоянные",
-          data: old
-        },
-      ]
     }
+    return [
+      {
+        name: "Загрузки",
+        data: load
+      },
+      {
+        name: "Авторизаций",
+        data: auth
+      },
+      {
+        name: "Новые",
+        data: newOnes
+      },
+      {
+        name: "Постоянные",
+        data: old
+      },
+    ]
   },
   allVouchersByCompanyPerMonth(state){
     let data = state.allVoucherByCompanyPerMonth
+    let all = []
+    let auth = []
     if(data===0){
-      return [
-        {
-          name: "Всего",
-          data: []
-        },
-        {
-          name: "Авторизаций",
-          data: []
-        }
-      ]
+      for(let i = 1; i <= state.allStatsDaysByCompanyPerMonth; i++){
+        all.push(0);
+        auth.push(0);
+      }
     }else{
       let map = new Map(Object.entries(data))
-      let all = []
-      let auth = []
       map.forEach(value => {
         all.push(value.all)
         auth.push(value.auth)
       })
-      return [
-        {
-          name: "Всего",
-          data: all
-        },
-        {
-          name: "Авторизаций",
-          data: auth
-        }
-      ]
     }
+    return [
+      {
+        name: "Всего",
+        data: all
+      },
+      {
+        name: "Авторизаций",
+        data: auth
+      }
+    ]
   },
 
   // all stats by company
