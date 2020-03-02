@@ -103,75 +103,30 @@
           return months
       },
       calls: function () {
-        let call = this.$store.getters['statistics/allDataByCompany']
-        let arr = [call.requests, call.checked]
-        const isAllZero = arr.every(item => item === 0);
-        if (isAllZero) {
-          return []
-        } else {
-          return arr
-        }
+        return this.$store.getters['statistics/allCallsByCompany']
       },
       guests: function () {
-        let guest = this.$store.getters['statistics/allDataByCompany']
-        let arr = [guest.load, guest.auth, guest.new, guest.old]
-        const isAllZero = arr.every(item => item === 0);
-        if (isAllZero) {
-          return []
-        } else {
-          return arr
-        }
+        return this.$store.getters['statistics/allGuestsByCompany']
       },
       devices: function () {
-        let device = this.$store.getters['statistics/allDataByCompany']
-        let arr = [device.mobile, device.tablet, device.computer, device.type_other]
-        const isAllZero = arr.every(item => item === 0);
-        if (isAllZero) {
-          return []
-        } else {
-          return arr
-        }
+        return  this.$store.getters['statistics/allDevicesByCompany']
       },
       browsers: function () {
-        let browser = this.$store.getters['statistics/allDataByCompany']
-        let arr = [browser.android_browser, browser.edge, browser.firefox, browser.chrome, browser.opera, browser.safari, browser.yandex_browser, browser.webkit, browser.browser_other]
-        const isAllZero = arr.every(item => item === 0);
-        if (isAllZero) {
-          return []
-        } else {
-          return arr
-        }
+       return  this.$store.getters['statistics/allBrowsersByCompany']
       },
       os: function () {
-        let os = this.$store.getters['statistics/allDataByCompany']
-        let arr = [os.android, os.linux, os.ios, os.windows, os.windows_phone, os.os_other]
-        const isAllZero = arr.every(item => item === 0);
-        if (isAllZero) {
-          return []
-        } else {
-          return arr
+        return this.$store.getters['statistics/allOsByCompany']
+      },
+      daysOfMonth(){
+        let maxDay = this.$store.getters['statistics/daysInMonthByCompany']
+        let days = []
+        for(let i = 1; i <= maxDay; i++){
+          days.push(i);
         }
+        return days;
       },
       callsSeries: function () {
-        let data = this.$store.getters['statistics/callsByCompanyPerMonth']
-        let map = new Map(Object.entries(data))
-        let requests = []
-        let checked = []
-        map.forEach(value => {
-          requests.push(value.requests)
-          checked.push(value.checked)
-        })
-        return [
-          {
-            name: "Запросов",
-            data: requests
-          },
-          {
-            name: "Авторизаций",
-            data: checked
-          },
-        ]
-
+       return this.$store.getters['statistics/allCallsByCompanyPerMonth']
       },
       callsChartOptions: function () {
         return {
@@ -187,42 +142,12 @@
             curve: 'smooth'
           },
           xaxis: {
-            categories: Object.keys(this.$store.getters['statistics/callsByCompanyPerMonth'])
+            categories: this.daysOfMonth
           },
         }
       },
       guestsSeries: function () {
-        let data = this.$store.getters['statistics/guestsByCompanyPerMonth']
-        let map = new Map(Object.entries(data))
-        let load = []
-        let auth = []
-        let newOnes = []
-        let old = []
-        map.forEach(value => {
-          load.push(value.load)
-          auth.push(value.auth)
-          newOnes.push(value.new)
-          old.push(value.old)
-        })
-        return [
-          {
-            name: "Загрузки",
-            data: load
-          },
-          {
-            name: "Авторизаций",
-            data: auth
-          },
-          {
-            name: "Новые",
-            data: newOnes
-          },
-          {
-            name: "Постоянные",
-            data: old
-          },
-        ]
-
+        return this.$store.getters['statistics/allGuestsByCompanyPerMonth']
       },
       guestsChartOptions: function () {
         return {
@@ -238,30 +163,12 @@
             curve: 'smooth'
           },
           xaxis: {
-            categories: Object.keys(this.$store.getters['statistics/guestsByCompanyPerMonth'])
+            categories: this.daysOfMonth
           },
         }
       },
       vouchersSeries: function () {
-        let data = this.$store.getters['statistics/vouchersByCompanyPerMonth']
-        let map = new Map(Object.entries(data))
-        let all = []
-        let auth = []
-        map.forEach(value => {
-          all.push(value.all)
-          auth.push(value.auth)
-        })
-        return [
-          {
-            name: "Всего",
-            data: all
-          },
-          {
-            name: "Авторизаций",
-            data: auth
-          }
-        ]
-
+        return this.$store.getters['statistics/allVouchersByCompanyPerMonth']
       },
       vouchersChartOptions: function () {
         return {
@@ -277,7 +184,7 @@
             curve: 'smooth'
           },
           xaxis: {
-            categories: Object.keys(this.$store.getters['statistics/vouchersByCompanyPerMonth'])
+            categories: this.daysOfMonth
           },
         }
       }

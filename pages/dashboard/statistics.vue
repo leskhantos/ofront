@@ -100,6 +100,14 @@
       stats: function () {
         return this.$store.getters['statistics/stats']
       },
+      daysOfMonth(){
+        let maxDay = this.$store.getters['statistics/daysInMonth']
+        let days = []
+        for(let i = 1; i <= maxDay; i++){
+          days.push(i);
+        }
+        return days;
+      },
       sms: function () {
         let sms = this.$store.getters['statistics/stats']
         return [sms.delivered, sms.all_sms, sms.resend]
@@ -148,74 +156,13 @@
           return months
       },
       smsSeries: function () {
-        let data = this.$store.getters['statistics/allStatsPerMonth']
-        let map = new Map(Object.entries(data))
-        let all = []
-        let resend = []
-        let delivered = []
-        map.forEach(value => {
-          all.push(value.all_sms)
-          resend.push(value.resend)
-          delivered.push(value.delivered)
-        })
-
-        return [
-          {
-            name: "Доставлено",
-            data: delivered
-          },
-          {
-            name: "Всего",
-            data: all
-          },
-          {
-            name: "Повтор",
-            data: resend
-          }
-        ]
+      return this.$store.getters['statistics/allSmsStatsPerMonth']
       },
       callsSeries: function () {
-        let data = this.$store.getters['statistics/allStatsPerMonth']
-        let map = new Map(Object.entries(data))
-        let requests = []
-        let checked = []
-        map.forEach(value => {
-          console.log(value)
-          requests.push(value.requests)
-          checked.push(value.checked)
-        })
-        return [
-          {
-            name: "Запросов",
-            data: requests
-          },
-          {
-            name: "Авторизаций",
-            data: checked
-          },
-        ]
-
+        return  this.$store.getters['statistics/allCallsStatsPerMonth']
       },
       vouchersSeries: function () {
-        let data = this.$store.getters['statistics/allStatsPerMonth']
-        let map = new Map(Object.entries(data))
-        let all = []
-        let auth = []
-        map.forEach(value => {
-          all.push(value.all_vouchers)
-          auth.push(value.auth)
-        })
-        return [
-          {
-            name: "Всего",
-            data: all
-          },
-          {
-            name: "Авторизаций",
-            data: auth
-          },
-        ]
-
+        return this.$store.getters['statistics/allVouchersStatsPerMonth']
       },
       monthChartOptions: function () {
         return {
@@ -231,7 +178,7 @@
             curve: 'smooth'
           },
           xaxis: {
-            categories: Object.keys(this.$store.getters['statistics/allStatsPerMonth'])
+            categories: this.daysOfMonth
           },
         }
       },
