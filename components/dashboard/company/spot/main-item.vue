@@ -1,7 +1,7 @@
 <template>
   <div class="row main-item">
     <div class="col">
-      <h3>{{ title }}</h3>
+      <h5>{{ title }}</h5>
     </div>
     <div class="col">
       <oy-input :value="value"/>

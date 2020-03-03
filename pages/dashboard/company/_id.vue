@@ -49,7 +49,6 @@
     },
     created() {
       let date = new Date();
-      this.switchComponents('main')
       let month = date.getMonth() + 1
       let year = date.getFullYear()
       let data = {

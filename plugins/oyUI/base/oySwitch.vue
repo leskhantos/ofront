@@ -1,7 +1,7 @@
 <template>
-  <div class="row" :style="{ borderBottom: '1px solid rgba(0,0,0,.1)'}">
+  <div class="row" :style="{ borderBottom: '1px solid rgba(0,0,0,.1)',paddingBottom:'.5rem'}">
     <div class="col-md-6">
-      <h3>{{ title }}:</h3>
+      <h5>{{ title }}:</h5>
     </div>
     <div class="col-md-6" >
       <div class="switch">

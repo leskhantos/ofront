@@ -24,17 +24,17 @@
     <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <oy-page-header title="Гости"></oy-page-header>
       <div class="guest-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
-        <guest :series="guestsSeries" :chartOptions="guestsChartOptions"/>
+        <guest :series="guestsSeries" :chartOptions="monthChartOptions"/>
       </div>
 
       <oy-page-header title="Звонки"></oy-page-header>
       <div class="calls-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
-        <calls :series="callsSeries" :chartOptions="callsChartOptions"/>
+        <calls :series="callsSeries" :chartOptions="monthChartOptions"/>
       </div>
 
       <oy-page-header title="Ваучеры"></oy-page-header>
       <div class="voucher-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
-        <voucher :series="vouchersSeries" :chartOptions="vouchersChartOptions"/>
+        <voucher :series="vouchersSeries" :chartOptions="monthChartOptions"/>
       </div>
 
       <spot-pie-charts :callSeries="calls" :guest-series="guests" :device-series="devices" :browser-series="browsers"
@@ -54,7 +54,20 @@
         return{
           year: new Date().getFullYear(),
           month: new Date().getMonth() + 1,
+          spot_id: this.$route.params.sid
         }
+      },
+      created() {
+        let date = new Date();
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
+        let data = {
+          month: month,
+          year: year,
+          spot_id: this.$route.params.sid
+        }
+        this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
+        this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.$route.params.sid});
       },
       methods:{
         onChangeMonth(val) {
@@ -101,22 +114,22 @@
             return months
         },
         calls: function () {
-          return this.$store.getters['statistics/allCallsByCompany']
+          return this.$store.getters['statistics/allCallsBySpot']
         },
         guests: function () {
-          return this.$store.getters['statistics/allGuestsByCompany']
+          return this.$store.getters['statistics/allGuestsBySpot']
         },
         devices: function () {
-          return this.$store.getters['statistics/allDevicesByCompany']
+          return this.$store.getters['statistics/allDevicesBySpot']
         },
         browsers: function () {
-          return this.$store.getters['statistics/allBrowsersByCompany']
+          return this.$store.getters['statistics/allBrowsersBySpot']
         },
         os: function () {
-          return this.$store.getters['statistics/allOsByCompany']
+          return this.$store.getters['statistics/allOsBySpot']
         },
         daysOfMonth() {
-          let maxDay = this.$store.getters['statistics/daysInMonthByCompany']
+          let maxDay = this.$store.getters['statistics/daysInMonthBySpot']
           let days = []
           for (let i = 1; i <= maxDay; i++) {
             days.push(i);
@@ -124,51 +137,15 @@
           return days;
         },
         callsSeries: function () {
-          return this.$store.getters['statistics/allCallsByCompanyPerMonth']
-        },
-        callsChartOptions: function () {
-          return {
-            chart: {
-              height: 240,
-              width: '100%',
-              type: 'area'
-            },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              curve: 'smooth'
-            },
-            xaxis: {
-              categories: this.daysOfMonth
-            },
-          }
+          return this.$store.getters['statistics/allCallsBySpotPerMonth']
         },
         guestsSeries: function () {
-          return this.$store.getters['statistics/allGuestsByCompanyPerMonth']
-        },
-        guestsChartOptions: function () {
-          return {
-            chart: {
-              height: 240,
-              width: '100%',
-              type: 'area'
-            },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              curve: 'smooth'
-            },
-            xaxis: {
-              categories: this.daysOfMonth
-            },
-          }
+          return this.$store.getters['statistics/allGuestsBySpotPerMonth']
         },
         vouchersSeries: function () {
-          return this.$store.getters['statistics/allVouchersByCompanyPerMonth']
+          return this.$store.getters['statistics/allVouchersBySpotPerMonth']
         },
-        vouchersChartOptions: function () {
+        monthChartOptions: function () {
           return {
             chart: {
               height: 240,
@@ -185,7 +162,7 @@
               categories: this.daysOfMonth
             },
           }
-        }
+        },
       },
       watch: {
         month: {
@@ -194,9 +171,9 @@
             let data = {
               month: this.month,
               year: this.year,
-              company_id: this.company_id
+              spot_id: this.spot_id
             }
-            this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
+            this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
           }
         },
         year: {
@@ -205,9 +182,9 @@
             let data = {
               month: this.month,
               year: this.year,
-              company_id: this.company_id
+              spot_id: this.spot_id
             }
-            this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
+            this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
           }
         }
       }

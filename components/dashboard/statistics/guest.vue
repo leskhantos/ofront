@@ -1,7 +1,7 @@
 <template>
   <div class="row no-gutters">
     <div class="col-lg-12">
-      <apexchart type="area" height="240" :options="chartOptions" :series="series"/>
+      <apexchart ref="guest" type="area" height="240" :options="chartOptions" :series="series"/>
     </div>
   </div>
 </template>
@@ -18,5 +18,10 @@
         required: false
       }
     },
+    watch: {
+      '$route.path': function () {
+        this.$refs.guest.resetSeries()
+      }
+    }
   };
 </script>

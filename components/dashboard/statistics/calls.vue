@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col">
-      <apexchart ref="chart" type="area" height="240" :options="chartOptions" :series="series"/>
+      <apexchart ref="calls" type="area" height="240" :options="chartOptions" :series="series"/>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@
     },
     watch: {
       '$route.path': function () {
-        this.$refs.chart.resetSeries()
+        this.$refs.calls.resetSeries()
       }
     }
   };
