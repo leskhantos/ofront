@@ -14,7 +14,7 @@
           :visible="set_new_style"
           @close="set_new_style = false"
         >
-          <store-style :company_id="company_id"/>
+          <store-style :company_id="this.company_id"/>
         </oy-modal>
       </div>
     </oy-page-header>
@@ -51,7 +51,7 @@
     },
     methods: {
       showModal() {
-        this.$store.dispatch('users/getTypes');
+        this.$store.dispatch('spot/getSpotTypesByCompany', this.company_id)
         return this.set_new_style = true;
       },
     },
