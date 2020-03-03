@@ -1,8 +1,7 @@
 <template>
   <div class="company-page">
     <nav class="nav nav-pills nav-fill">
-      <div class="nav-item nav-link border" :class="{active: isActive('mainCompany')}"
-           @click="switchComponents('mainCompany')">Основное
+      <div class="nav-item nav-link border" :class="{active: isActive('main')}"  @click="switchComponents('main')">Основное
       </div>
       <div class="nav-item nav-link border" :class="{active: isActive('guests')}" @click="switchComponents('guests')">
         Гости
@@ -21,43 +20,16 @@
       </div>
     </nav>
     <nuxt-child/>
-    <div class="row company-page__title">
-      <div class="col" v-if="this.currentTabComponent==='control'">
-        <h1>{{ company.name }} <span @click="edit=!edit"><edit-company-icon/></span></h1>
-        <form @submit.prevent="renameCompany(company.id)" v-show="edit">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" :placeholder="company.name" v-model="newName"
-                   aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button type="submit" class="btn btn-success">Сохранить</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <component :is="currentTabComponent" :name="company.name" :checked="checked" :company_id="company.id"/>
   </div>
 </template>
 
 <script>
-  import mainCompany from "../../../components/dashboard/company/mainPage";
-  import guests from "../../../components/dashboard/company/guests";
-  import spots from "../../../components/dashboard/company/spots";
-  import styles from "../../../components/dashboard/company/styles";
-  import accounts from "../../../components/dashboard/company/accounts";
-  import control from "../../../components/dashboard/company/control";
-  import EditCompanyIcon from "../../../components/icons/editCompanyIcon";
-
   export default {
-    components: {EditCompanyIcon, mainCompany, guests, spots, styles, accounts, control},
     layout: "dashboard",
     data() {
       return {
-        newName: '',
-        currentTabComponent: "mainCompany",
-        isActiveItem: 'mainCompany',
-        edit: false
+        isActiveItem: 'main',
+        company_id: this.$route.params.id
       }
     },
     validate({params}) {
@@ -70,7 +42,7 @@
     },
     created() {
       let date = new Date();
-
+      this.switchComponents('main')
       let month = date.getMonth() + 1
       let year = date.getFullYear()
       let data = {
@@ -82,12 +54,7 @@
       this.$store.dispatch('statistics/getAllDataByCompany', {company_id: this.$route.params.id});
     },
     computed: {
-      company: function () {
-        return this.$store.getters["company/company"];
-      },
-      checked: function () {
-        return this.company.enabled === 1;
-      }
+
     },
     beforeMount() {
       this.$store.dispatch("company/getCompany", this.$route.params.id);
@@ -95,29 +62,30 @@
     methods: {
       switchComponents(item) {
         this.isActiveItem = item;
-        this.currentTabComponent = item;
+        switch (item) {
+            case 'guests':
+              this.$router.push({name:'dashboard-company-id-guests', params:{id: this.company_id}})
+              break;
+            case 'spots':
+              this.$router.push({name:'dashboard-company-id-spots', params:{id: this.company_id}})
+              break;
+            case 'styles':
+              this.$router.push({name:'dashboard-company-id-styles', params:{id: this.company_id}})
+              break;
+            case 'accounts':
+              this.$router.push({name:'dashboard-company-id-accounts', params:{id: this.company_id}})
+              break;
+            case 'control':
+              this.$router.push({name:'dashboard-company-id-control', params:{id: this.company_id}})
+              break;
+            default:
+              this.$router.push({name:'dashboard-company-id-main', params:{id: this.company_id}})
+              break;
+
+        }
       },
       isActive: function (menuItem) {
         return this.isActiveItem === menuItem
-      },
-      async renameCompany(company_id) {
-        try {
-          let data = await this.$axios.put(`company/${company_id}`, {
-            name: this.newName,
-            enabled: this.company.enabled
-          })
-          await this.$store.dispatch("company/getCompanies");
-          this.flashMessage.success({
-            title: "Компания обновлена",
-          });
-          await this.$store.dispatch("company/getCompany", this.$route.params.id);
-          this.$router.push({name: "dashboard-company-id", params: {id: data.data.id}});
-          this.newName = ""
-        } catch (e) {
-          this.flashMessage.error({
-            title: e.response.data.message,
-          });
-        }
       }
     }
   };

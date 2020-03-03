@@ -48,53 +48,40 @@
 </template>
 
 <script>
-  import storeSpot from "./modals/storeSpot";
-  import SpotIcon from "../../icons/spotIcon";
-
-  export default {
-    components: {SpotIcon, storeSpot},
-    props: {
-      name: {
-        type: String,
-        required: false
-      },
-      company_id: {
-        type: Number,
-        required: false
-      }
-    },
-    methods: {
-      showModal() {
-        this.$store.dispatch('users/getTypes');
-        return this.set_new_spot = true;
-      },
-    },
-    computed: {
-      spots: function () {
-        return this.$store.getters['company/spots']
-      },
-      set_new_spot: {
-        get: function () {
-          return this.$store.getters['app/set_new_spot'];
-        },
-        set: function (value) {
-          this.$store.commit('app/SET_NEW_SPOT', value);
+  import storeSpot from "../../../../components/dashboard/company/modals/storeSpot";
+  import spotIcon from "../../../../components/icons/spotIcon";
+    export default {
+      components: {spotIcon, storeSpot},
+      data(){
+        return{
+          company_id: this.$route.params.id
         }
       },
-    },
-    mounted() {
-      this.$store.dispatch('company/getSpots', this.company_id)
-    },
-    watch: {
-      company_id: function () {
+      methods: {
+        showModal() {
+          this.$store.dispatch('users/getTypes');
+          return this.set_new_spot = true;
+        },
+      },
+      computed: {
+        spots: function () {
+          return this.$store.getters['company/spots']
+        },
+        set_new_spot: {
+          get: function () {
+            return this.$store.getters['app/set_new_spot'];
+          },
+          set: function (value) {
+            this.$store.commit('app/SET_NEW_SPOT', value);
+          }
+        },
+      },
+      mounted() {
         this.$store.dispatch('company/getSpots', this.company_id)
       }
     }
-  }
 </script>
 
 <style scoped>
-  .icon-speedometer {
-    padding-right: 10px;
-  }
+
 </style>

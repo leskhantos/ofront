@@ -46,11 +46,9 @@
 </template>
 
 <script>
-  import DevicesIcon from "../../icons/devicesIcon";
-
+  import devicesIcon from "../../../../components/icons/devicesIcon";
   export default {
-    name: "guests",
-    components: {DevicesIcon}
+  components:{devicesIcon}
   }
 </script>
 

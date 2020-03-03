@@ -40,49 +40,37 @@
 </template>
 
 <script>
-  import storeStyle from "./modals/storeStyle";
-
-  export default {
-    name: "styles",
-    components: {storeStyle},
-    props: {
-      name: {
-        type: String,
-        required: false
-      },
-      company_id: {
-        type: Number,
-        required: false
-      }
-    },
-    methods: {
-      showModal() {
-        this.$store.dispatch('users/getTypes');
-        return this.set_new_style = true;
-      },
-    },
-    computed: {
-      styles: function () {
-        return this.$store.getters['company/styles']
-      },
-      set_new_style: {
-        get: function () {
-          return this.$store.getters['app/set_new_style'];
-        },
-        set: function (value) {
-          this.$store.commit('app/SET_NEW_STYLE', value);
+    import storeStyle from "../../../../components/dashboard/company/modals/storeStyle";
+    export default {
+      components: {storeStyle},
+      data(){
+        return{
+          company_id: this.$route.params.id
         }
       },
-    },
-    mounted() {
-      this.$store.dispatch('company/getStyles', this.company_id)
-    },
-    watch: {
-      company_id: function () {
+      methods: {
+        showModal() {
+          this.$store.dispatch('users/getTypes');
+          return this.set_new_style = true;
+        },
+      },
+      computed: {
+        styles: function () {
+          return this.$store.getters['company/styles']
+        },
+        set_new_style: {
+          get: function () {
+            return this.$store.getters['app/set_new_style'];
+          },
+          set: function (value) {
+            this.$store.commit('app/SET_NEW_STYLE', value);
+          }
+        },
+      },
+      mounted() {
         this.$store.dispatch('company/getStyles', this.company_id)
       }
     }
-  }
 </script>
 
 <style scoped>
