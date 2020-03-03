@@ -1,9 +1,9 @@
 <template>
-  <div class="row" :style="{paddingBottom: '2rem', paddingTop: '1rem'}">
-    <div class="col-md-1">
-      <p>{{ title }}:</p>
+  <div class="row" :style="{ borderBottom: '1px solid rgba(0,0,0,.1)'}">
+    <div class="col-md-6">
+      <h3>{{ title }}:</h3>
     </div>
-    <div class="col-md-11">
+    <div class="col-md-6" >
       <div class="switch">
         <input class="switch" id="switch" name="switch" type="checkbox" v-model="val" :checked="val"
                @change="change()"

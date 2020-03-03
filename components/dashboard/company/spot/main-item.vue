@@ -1,5 +1,5 @@
 <template>
-  <div class="row setting-item">
+  <div class="row main-item">
     <div class="col">
       <h3>{{ title }}</h3>
     </div>
@@ -25,6 +25,9 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .main-item {
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    margin-top: 1rem;
+  }
 </style>
