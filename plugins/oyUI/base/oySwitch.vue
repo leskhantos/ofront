@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-11">
       <div class="switch">
-        <input class="switch" id="switch" name="switch" type="checkbox" :checked="checked"
+        <input class="switch" id="switch" name="switch" type="checkbox" v-model="val" :checked="val"
                @change="change()"
         />
         <label data-off="" data-on="" for="switch"></label>
@@ -18,7 +18,7 @@
     export default {
       props:{
         checked:{
-          type: Boolean,
+          type: [Boolean,Number],
           required:true
         },
         title:{
@@ -26,11 +26,18 @@
           required: false
         }
       },
+      data(){
+        return{
+          val: null
+        }
+      },
       methods:{
         change: function() {
-          this.checked = !this.checked;
-          this.$emit('input', this.checked);
+          this.$emit('input', this.val);
         }
+      },
+      created() {
+        this.val=this.checked
       }
     }
 </script>
