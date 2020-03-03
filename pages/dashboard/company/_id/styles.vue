@@ -40,37 +40,38 @@
 </template>
 
 <script>
-    import storeStyle from "../../../../components/dashboard/company/modals/storeStyle";
-    export default {
-      components: {storeStyle},
-      data(){
-        return{
-          company_id: this.$route.params.id
+  import storeStyle from "@/components/dashboard/company/modals/storeStyle";
+
+  export default {
+    components: {storeStyle},
+    data() {
+      return {
+        company_id: this.$route.params.id
+      }
+    },
+    methods: {
+      showModal() {
+        this.$store.dispatch('users/getTypes');
+        return this.set_new_style = true;
+      },
+    },
+    computed: {
+      styles: function () {
+        return this.$store.getters['company/styles']
+      },
+      set_new_style: {
+        get: function () {
+          return this.$store.getters['app/set_new_style'];
+        },
+        set: function (value) {
+          this.$store.commit('app/SET_NEW_STYLE', value);
         }
       },
-      methods: {
-        showModal() {
-          this.$store.dispatch('users/getTypes');
-          return this.set_new_style = true;
-        },
-      },
-      computed: {
-        styles: function () {
-          return this.$store.getters['company/styles']
-        },
-        set_new_style: {
-          get: function () {
-            return this.$store.getters['app/set_new_style'];
-          },
-          set: function (value) {
-            this.$store.commit('app/SET_NEW_STYLE', value);
-          }
-        },
-      },
-      mounted() {
-        this.$store.dispatch('company/getStyles', this.company_id)
-      }
+    },
+    mounted() {
+      this.$store.dispatch('company/getStyles', this.company_id)
     }
+  }
 </script>
 
 <style scoped>

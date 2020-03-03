@@ -47,47 +47,48 @@
 </template>
 
 <script>
-    import storeAccount from "../../../../components/dashboard/company/modals/storeAccount";
-    import moment from "moment";
-    export default {
-      components: {
-        storeAccount
+  import storeAccount from "@/components/dashboard/company/modals/storeAccount";
+  import moment from "moment";
+
+  export default {
+    components: {
+      storeAccount
+    },
+    name: "accounts",
+    data() {
+      return {
+        company_id: this.$route.params.id
+      }
+    },
+    methods: {
+      showModal() {
+        return this.set_new_account = true;
       },
-      name: "accounts",
-      data(){
-        return {
-          company_id: this.$route.params.id
+      dateTransform(date, time) {
+        if (moment(date, 'YYYY-MM-DD H:mm:ss').isValid()) {
+          return moment(date, 'YYYY-MM-DD H:mm:ss').format(time ? 'DD.MM.YYYY H:mm:ss' : 'DD.MM.YYYY');
+        } else {
+          return 'не заходил'
         }
       },
-      methods: {
-        showModal() {
-          return this.set_new_account = true;
-        },
-        dateTransform(date, time) {
-          if (moment(date, 'YYYY-MM-DD H:mm:ss').isValid()) {
-            return moment(date, 'YYYY-MM-DD H:mm:ss').format(time ? 'DD.MM.YYYY H:mm:ss' : 'DD.MM.YYYY');
-          } else {
-            return 'не заходил'
-          }
-        },
+    },
+    computed: {
+      accounts: function () {
+        return this.$store.getters['company/accounts']
       },
-      computed: {
-        accounts: function () {
-          return this.$store.getters['company/accounts']
+      set_new_account: {
+        get: function () {
+          return this.$store.getters['app/set_new_account'];
         },
-        set_new_account: {
-          get: function () {
-            return this.$store.getters['app/set_new_account'];
-          },
-          set: function (value) {
-            this.$store.commit('app/SET_NEW_ACCOUNT', value);
-          }
-        },
+        set: function (value) {
+          this.$store.commit('app/SET_NEW_ACCOUNT', value);
+        }
       },
-      mounted() {
-        this.$store.dispatch('company/getAccounts', this.company_id)
-      }
+    },
+    mounted() {
+      this.$store.dispatch('company/getAccounts', this.company_id)
     }
+  }
 </script>
 
 <style scoped>

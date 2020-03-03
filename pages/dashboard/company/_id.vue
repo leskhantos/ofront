@@ -1,7 +1,8 @@
 <template>
   <div class="company-page">
     <nav class="nav nav-pills nav-fill">
-      <div class="nav-item nav-link border" :class="{active: isActive('main')}"  @click="switchComponents('main')">Основное
+      <div class="nav-item nav-link border" :class="{active: isActive('main')}" @click="switchComponents('main')">
+        Основное
       </div>
       <div class="nav-item nav-link border" :class="{active: isActive('guests')}" @click="switchComponents('guests')">
         Гости
@@ -13,7 +14,8 @@
         Стили
       </div>
       <div class="nav-item nav-link border" :class="{active: isActive('accounts')}"
-           @click="switchComponents('accounts')">Аккаунты
+           @click="switchComponents('accounts')">
+        Аккаунты
       </div>
       <div class="nav-item nav-link border" :class="{active: isActive('control')}" @click="switchComponents('control')">
         Управление
@@ -53,9 +55,6 @@
       this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
       this.$store.dispatch('statistics/getAllDataByCompany', {company_id: this.$route.params.id});
     },
-    computed: {
-
-    },
     beforeMount() {
       this.$store.dispatch("company/getCompany", this.$route.params.id);
     },
@@ -63,24 +62,24 @@
       switchComponents(item) {
         this.isActiveItem = item;
         switch (item) {
-            case 'guests':
-              this.$router.push({name:'dashboard-company-id-guests', params:{id: this.company_id}})
-              break;
-            case 'spots':
-              this.$router.push({name:'dashboard-company-id-spots', params:{id: this.company_id}})
-              break;
-            case 'styles':
-              this.$router.push({name:'dashboard-company-id-styles', params:{id: this.company_id}})
-              break;
-            case 'accounts':
-              this.$router.push({name:'dashboard-company-id-accounts', params:{id: this.company_id}})
-              break;
-            case 'control':
-              this.$router.push({name:'dashboard-company-id-control', params:{id: this.company_id}})
-              break;
-            default:
-              this.$router.push({name:'dashboard-company-id-main', params:{id: this.company_id}})
-              break;
+          case 'guests':
+            this.$router.push({name: 'dashboard-company-id-guests', params: {id: this.company_id}})
+            break;
+          case 'spots':
+            this.$router.push({name: 'dashboard-company-id-spots', params: {id: this.company_id}})
+            break;
+          case 'styles':
+            this.$router.push({name: 'dashboard-company-id-styles', params: {id: this.company_id}})
+            break;
+          case 'accounts':
+            this.$router.push({name: 'dashboard-company-id-accounts', params: {id: this.company_id}})
+            break;
+          case 'control':
+            this.$router.push({name: 'dashboard-company-id-control', params: {id: this.company_id}})
+            break;
+          default:
+            this.$router.push({name: 'dashboard-company-id-main', params: {id: this.company_id}})
+            break;
 
         }
       },

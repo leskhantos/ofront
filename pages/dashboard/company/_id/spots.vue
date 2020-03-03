@@ -33,7 +33,8 @@
         <tr v-for="spot in spots" :key="spot.id">
           <td>
             <spot-icon/>
-            <nuxt-link :to="{ name: 'dashboard-company-id-spot-sid', params: { sid: spot.id } }">{{spot.address }}</nuxt-link>
+            <nuxt-link :to="{ name: 'dashboard-company-id-spot-sid', params: { sid: spot.id } }">{{spot.address }}
+            </nuxt-link>
           </td>
           <td>{{ spot.page_name }}</td>
           <td>{{ spot.last_active }}</td>
@@ -48,38 +49,39 @@
 </template>
 
 <script>
-  import storeSpot from "../../../../components/dashboard/company/modals/storeSpot";
-  import spotIcon from "../../../../components/icons/spotIcon";
-    export default {
-      components: {spotIcon, storeSpot},
-      data(){
-        return{
-          company_id: this.$route.params.id
+  import storeSpot from "@/components/dashboard/company/modals/storeSpot";
+  import spotIcon from "@/components/icons/spotIcon";
+
+  export default {
+    components: {spotIcon, storeSpot},
+    data() {
+      return {
+        company_id: this.$route.params.id
+      }
+    },
+    methods: {
+      showModal() {
+        this.$store.dispatch('users/getTypes');
+        return this.set_new_spot = true;
+      },
+    },
+    computed: {
+      spots: function () {
+        return this.$store.getters['company/spots']
+      },
+      set_new_spot: {
+        get: function () {
+          return this.$store.getters['app/set_new_spot'];
+        },
+        set: function (value) {
+          this.$store.commit('app/SET_NEW_SPOT', value);
         }
       },
-      methods: {
-        showModal() {
-          this.$store.dispatch('users/getTypes');
-          return this.set_new_spot = true;
-        },
-      },
-      computed: {
-        spots: function () {
-          return this.$store.getters['company/spots']
-        },
-        set_new_spot: {
-          get: function () {
-            return this.$store.getters['app/set_new_spot'];
-          },
-          set: function (value) {
-            this.$store.commit('app/SET_NEW_SPOT', value);
-          }
-        },
-      },
-      mounted() {
-        this.$store.dispatch('company/getSpots', this.company_id)
-      }
+    },
+    mounted() {
+      this.$store.dispatch('company/getSpots', this.company_id)
     }
+  }
 </script>
 
 <style scoped>
