@@ -41,7 +41,6 @@
                           :os-series="os"/>
     </oy-page-body>
   </oy-page>
-
 </template>
 
 <script>

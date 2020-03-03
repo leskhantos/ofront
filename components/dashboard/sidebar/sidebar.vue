@@ -35,7 +35,7 @@
           v-for="company in allCompanies"
           :key="company.id"
           :title="company.name"
-          :route="{ name: 'dashboard-company-id', params: { id: company.id } }"
+          :route="{ name: 'dashboard-company-id-main', params: { id: company.id } }"
         />
       </div>
     </div>
