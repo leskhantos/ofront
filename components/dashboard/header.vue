@@ -2,7 +2,13 @@
   <header class="application-header">
     <div class="page-header">
       <div class="page-header__title">
-        {{ title }}
+        <nuxt-link :to="this.route">
+          {{ title }}
+        </nuxt-link>
+        <div v-show="showOnly">
+          <spot-icon/>
+          {{ spotName }}
+        </div>
       </div>
     </div>
     <div class="mobile-buttons" @click="$store.commit('app/TOGGLE_SIDEBAR',true)">
@@ -32,6 +38,7 @@
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
   import oyAvatar from "../../plugins/oyUI/base/oyAvatar";
   import MenuOpenIcon from "../icons/menuOpenIcon";
+  import SpotIcon from "../icons/spotIcon";
 
   const Cookie = process.client ? require('js-cookie') : undefined
 
@@ -65,10 +72,14 @@
         return this.$store.getters["company/company"];
       },
       spot: function () {
-        return this.$store.getters["company/spot"];
+        return this.$store.getters["spot/spot"];
+      },
+      showOnly(){
+        return !!this.$route.params.sid;
       },
     },
     components: {
+      SpotIcon,
       MenuOpenIcon,
       userMenu,
       userMenuItem,
@@ -102,12 +113,12 @@
       async toggleTitle() {
         if (this.$route.params.id) {
           await this.$store.dispatch('company/getCompany', this.$route.params.id)
-          this.route = {name: 'dashboard-company-id', params: {id: this.$route.params.id}}
+          this.route = {name: 'dashboard-company-id-main', params: {id: this.$route.params.id}}
           this.title = this.company.name;
-          // if (this.$route.name === 'dashboard-company-spot-id'){
-          //   await this.$store.dispatch('company/getSpot',this.$route.params.id)
-          //   this.spotName = this.spot.address
-          // }
+          if (this.showOnly){
+            await this.$store.dispatch('spot/getSpot', this.$route.params.sid)
+            this.spotName = this.spot.address
+          }
         } else {
           switch (this.$route.name) {
             case 'dashboard-users':
@@ -172,9 +183,13 @@
       justify-content: flex-end;
     }
 
-    .page-header__title {
-      font-weight: bold;
-      font-size: x-large;
+    .page-header__title{
+      display: flex;
+      a{
+        font-weight: bold;
+        font-size: x-large;
+        color: #575962;
+      }
     }
 
     .mobile-buttons {
