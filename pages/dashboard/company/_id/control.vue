@@ -123,12 +123,6 @@
   $height: 28px;
   $width: $height * 2;
 
-  .row button {
-    margin-bottom: 18px;
-    margin-top: 25px;
-    padding: 0 0 0 30px;
-  }
-
   .switch input[type=checkbox] {
     height: 0;
     width: 0;
