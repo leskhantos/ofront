@@ -19,7 +19,7 @@
       props:{
         checked:{
           type: [Boolean,Number],
-          required:true
+          required:false
         },
         title:{
           type: String,
