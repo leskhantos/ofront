@@ -5,13 +5,13 @@
       class="form-control form-control-sm "
       @change="$emit('childToParent', $event.target.value)"
     >
-      <option selected disabled>{{ firstOption }}</option>
+      <option selected value="all" :disabled="disabled">{{ firstOption }}</option>
       <option
         :key="option.id"
         :value="option.id"
         :selected="option.id === selected"
         v-for="option in options"
-      >{{ option.name || option.id}}
+      >{{ option.name || option.address || option.id }}
       </option>
     </select>
     <transition name="select-error">
@@ -43,6 +43,10 @@
       selected: {
         type: [String, Number],
         required: false
+      },
+      disabled:{
+        type:Boolean,
+        required:false
       }
     },
     computed: {

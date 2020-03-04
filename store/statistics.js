@@ -415,7 +415,7 @@ export const getters = {
   //all stats by spot
   allStatsDataBySpot(state){
     let data = state.allStatsDataBySpot
-    if (Array.isArray(data)) {
+    if (Array.isArray(data) || data===0) {
       return []
     } else if(state.spotTypeAll===2){
       return [data.requests, data.checked]

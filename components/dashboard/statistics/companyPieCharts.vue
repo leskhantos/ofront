@@ -6,10 +6,6 @@
       </div>
 
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart ref="don" type="donut"  height="240" :options="callChartOptions" :series="callSeries"/>
-      </div>
-
-      <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
         <apexchart ref="don" type="donut"  height="240" :options="guestChartOptions" :series="guestSeries"/>
       </div>
     </div>
@@ -27,10 +23,6 @@
 <script>
   export default {
     props: {
-      callSeries: {
-        type: Array,
-        required: false
-      },
       deviceSeries: {
         type: Array,
         required: false
@@ -71,46 +63,6 @@
               }
             }
           },
-          responsive: [{
-            breakpoint: 200,
-            options: {
-              chart: {
-                width: 100
-              },
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }],
-          noData: {
-            text: "Данных нет",
-            align: 'center',
-            verticalAlign: 'middle',
-            offsetX: 0,
-            offsetY: 0
-          }
-        },
-        callChartOptions: {
-          chart: {
-            type: 'donut',
-          },
-          title: {
-            text: "Звонки",
-            margin: 30,
-            style: {
-              fontSize: '20px',
-              fontWeight: 'bold',
-            },
-          },
-          plotOptions: {
-            pie: {
-              expandOnClick: true,
-              donut: {
-                size: '40%'
-              }
-            }
-          },
-          labels: ["Запросов", "Авторизаций"],
           responsive: [{
             breakpoint: 200,
             options: {

@@ -193,7 +193,14 @@
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              noData: {
+                text: "Данных нет",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
             }
           }else if(this.spotType===2){
             return {
@@ -227,7 +234,14 @@
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              noData: {
+                text: "Данных нет",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
             }
           }else {
             return {
@@ -261,7 +275,14 @@
                     position: 'bottom'
                   }
                 }
-              }]
+              }],
+              noData: {
+                text: "Данных нет",
+                align: 'center',
+                verticalAlign: 'middle',
+                offsetX: 0,
+                offsetY: 0
+              }
             }
           }
         }
