@@ -21,14 +21,15 @@ export const state = () => ({
 
   //all stats by month and spot
   allStatsDaysBySpotPerMonth:[],
-  allCallBySpotPerMonth:[],
   allGuestBySpotPerMonth:[],
-  allVoucherBySpotPerMonth:[],
+  spotType:'',
+  allStatsBySpotPerMonth:[],
 
   //all stats by spot
-  allCallsDataBySpot:[],
+  allStatsDataBySpot:[],
   allGuestsDataBySpot:[],
   allDevicesDataBySpot:[],
+  spotTypeAll:''
 });
 
 export const getters = {
@@ -279,32 +280,92 @@ export const getters = {
   daysInMonthBySpot(state){
     return state.allStatsDaysBySpotPerMonth
   },
-  allCallsBySpotPerMonth(state){
-    let data = state.allCallBySpotPerMonth
-    let requests = []
-    let checked = []
-    if(data===0){
-      for(let i = 1; i <= state.allStatsDaysBySpotPerMonth; i++){
-        requests.push(0);
-        checked.push(0);
-      }
+  allStatsBySpotPerMonth(state){
+    let data = state.allStatsBySpotPerMonth
+    if(state.spotType===1){
+          let all = []
+          let resend = []
+          let delivered = []
+          if(data===0){
+            for(let i = 1; i <= state.allStatsDaysPerMonth; i++){
+              all.push(0);
+              resend.push(0);
+              delivered.push(0);
+            }
+          }else {
+            let map = new Map(Object.entries(data))
+            map.forEach(value => {
+              all.push(value.all_sms)
+              resend.push(value.resend)
+              delivered.push(value.delivered)
+            })
+          }
+
+          return [
+            {
+              name: "Доставлено",
+              data: delivered
+            },
+            {
+              name: "Всего",
+              data: all
+            },
+            {
+              name: "Повтор",
+              data: resend
+            }
+          ]
+    }else if (state.spotType===2){
+          let requests = []
+          let checked = []
+          if(data===0){
+            for(let i = 1; i <= state.allStatsDaysBySpotPerMonth; i++){
+              requests.push(0);
+              checked.push(0);
+            }
+          }else {
+            let map = new Map(Object.entries(data))
+            map.forEach(value => {
+              requests.push(value.requests)
+              checked.push(value.checked)
+            })
+          }
+          return [
+            {
+              name: "Запросов",
+              data: requests
+            },
+            {
+              name: "Авторизаций",
+              data: checked
+            },
+          ]
     }else {
-      let map = new Map(Object.entries(data))
-      map.forEach(value => {
-        requests.push(value.requests)
-        checked.push(value.checked)
-      })
+          let all = []
+          let auth = []
+          if(data===0){
+            for(let i = 1; i <= state.allStatsDaysBySpotPerMonth; i++){
+              all.push(0);
+              auth.push(0);
+            }
+          }else{
+            let map = new Map(Object.entries(data))
+            map.forEach(value => {
+              all.push(value.all)
+              auth.push(value.auth_vouchers)
+            })
+          }
+          return [
+            {
+              name: "Всего",
+              data: all
+            },
+            {
+              name: "Авторизаций",
+              data: auth
+            }
+          ]
     }
-    return [
-      {
-        name: "Запросов",
-        data: requests
-      },
-      {
-        name: "Авторизаций",
-        data: checked
-      },
-    ]
   },
   allGuestsBySpotPerMonth(state){
     let data = state.allGuestBySpotPerMonth
@@ -347,41 +408,21 @@ export const getters = {
       },
     ]
   },
-  allVouchersBySpotPerMonth(state){
-    let data = state.allVoucherBySpotPerMonth
-    let all = []
-    let auth = []
-    if(data===0){
-      for(let i = 1; i <= state.allStatsDaysBySpotPerMonth; i++){
-        all.push(0);
-        auth.push(0);
-      }
-    }else{
-      let map = new Map(Object.entries(data))
-      map.forEach(value => {
-        all.push(value.all)
-        auth.push(value.auth_vouchers)
-      })
-    }
-    return [
-      {
-        name: "Всего",
-        data: all
-      },
-      {
-        name: "Авторизаций",
-        data: auth
-      }
-    ]
+  spotType(state){
+    return state.spotType
   },
 
   //all stats by spot
-  allCallsBySpot(state){
-    let calls = state.allCallsDataBySpot
-    if (Array.isArray(calls)) {
+  allStatsDataBySpot(state){
+    let data = state.allStatsDataBySpot
+    if (Array.isArray(data)) {
       return []
-    } else {
-      return [calls.requests, calls.checked]
+    } else if(state.spotTypeAll===2){
+      return [data.requests, data.checked]
+    }else if(state.spotTypeAll===1){
+      return [data.delivered,data.all_sms,data.resend]
+    }else if(state.spotTypeAll===3){
+      return [data.all_vouchers,data.auth]
     }
   },
   allGuestsBySpot(state){
@@ -468,25 +509,28 @@ export const mutations = {
   SET_ALL_STATS_DAYS_BY_SPOT_PER_MONTH(state, allStatsDaysBySpotPerMonth) {
     state.allStatsDaysBySpotPerMonth = allStatsDaysBySpotPerMonth;
   },
-  SET_ALL_CALLS_BY_SPOT_PER_MONTH(state, allCallBySpotPerMonth) {
-    state.allCallBySpotPerMonth = allCallBySpotPerMonth;
-  },
   SET_ALL_GUESTS_BY_SPOT_PER_MONTH(state, allGuestBySpotPerMonth) {
     state.allGuestBySpotPerMonth = allGuestBySpotPerMonth;
   },
-  SET_ALL_VOUCHERS_BY_SPOT_PER_MONTH(state, allVoucherBySpotPerMonth) {
-    state.allVoucherBySpotPerMonth = allVoucherBySpotPerMonth;
+  SET_ALL_STATS_BY_SPOT_PER_MONTH(state, allStatsBySpotPerMonth) {
+    state.allStatsBySpotPerMonth = allStatsBySpotPerMonth;
+  },
+  SET_SPOT_TYPE(state, spotType){
+    state.spotType = spotType;
   },
 
   //all stats by spot
-  SET_CALLS_DATA_BY_SPOT(state, allCallsDataBySpot) {
-    state.allCallsDataBySpot = allCallsDataBySpot;
+  SET_STATS_DATA_BY_SPOT(state, allStatsDataBySpot) {
+    state.allStatsDataBySpot = allStatsDataBySpot;
   },
   SET_GUESTS_DATA_BY_SPOT(state, allGuestsDataBySpot) {
     state.allGuestsDataBySpot = allGuestsDataBySpot;
   },
   SET_DEVICES_DATA_BY_SPOT(state, allDevicesDataBySpot) {
     state.allDevicesDataBySpot = allDevicesDataBySpot;
+  },
+  SET_SPOT_TYPE_ALL(state, spotTypeAll){
+    state.spotTypeAll = spotTypeAll;
   },
 };
 
@@ -532,16 +576,17 @@ export const actions = {
   async getAllBySpotPerMonth({commit}, payload) {
     await this.$axios.get(`spot/${payload.spot_id}/stats/month?month=${payload.month}&year=${payload.year}`).then((response) => {
       commit('SET_ALL_STATS_DAYS_BY_SPOT_PER_MONTH', response.data.days);
-      commit('SET_ALL_CALLS_BY_SPOT_PER_MONTH', response.data.calls);
       commit('SET_ALL_GUESTS_BY_SPOT_PER_MONTH', response.data.guests);
-      commit('SET_ALL_VOUCHERS_BY_SPOT_PER_MONTH', response.data.vouchers);
+      commit('SET_SPOT_TYPE', response.data.type);
+      commit('SET_ALL_STATS_BY_SPOT_PER_MONTH', response.data.stats);
     });
   },
 
   //all statistics by spot
   async getAllDataBySpot({commit}, payload) {
     await this.$axios.get(`spot/${payload.spot_id}/stats`).then((response) => {
-      commit('SET_CALLS_DATA_BY_SPOT', response.data.call);
+      commit('SET_SPOT_TYPE_ALL', response.data.type);
+      commit('SET_STATS_DATA_BY_SPOT', response.data.stats);
       commit('SET_GUESTS_DATA_BY_SPOT', response.data.guest);
       commit('SET_DEVICES_DATA_BY_SPOT', response.data.device);
     });

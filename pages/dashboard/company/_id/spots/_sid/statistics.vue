@@ -27,17 +27,14 @@
         <guest :series="guestsSeries" :chartOptions="monthChartOptions"/>
       </div>
 
-      <oy-page-header title="Звонки"></oy-page-header>
-      <div class="calls-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
-        <calls :series="callsSeries" :chartOptions="monthChartOptions"/>
-      </div>
-
-      <oy-page-header title="Ваучеры"></oy-page-header>
+      <oy-page-header v-if="spotType===1" title="SMS"></oy-page-header>
+      <oy-page-header v-else-if="spotType===2" title="Звонки"></oy-page-header>
+      <oy-page-header v-else title="Ваучеры"></oy-page-header>
       <div class="voucher-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
-        <voucher :series="vouchersSeries" :chartOptions="monthChartOptions"/>
+        <voucher :series="allStatsSeries" :chartOptions="monthChartOptions"/>
       </div>
 
-      <spot-pie-charts :callSeries="calls" :guest-series="guests" :device-series="devices" :browser-series="browsers"
+      <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guests" :device-series="devices" :browser-series="browsers"
                           :os-series="os"/>
     </oy-page-body>
   </oy-page>
@@ -78,6 +75,9 @@
         },
       },
       computed: {
+        spotType:function(){
+          return this.$store.getters['statistics/spotType']
+        },
         years: function () {
           let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
           while (startYear <= currentYear) {
@@ -113,8 +113,8 @@
           } else
             return months
         },
-        calls: function () {
-          return this.$store.getters['statistics/allCallsBySpot']
+        stats: function () {
+          return this.$store.getters['statistics/allStatsDataBySpot']
         },
         guests: function () {
           return this.$store.getters['statistics/allGuestsBySpot']
@@ -136,14 +136,11 @@
           }
           return days;
         },
-        callsSeries: function () {
-          return this.$store.getters['statistics/allCallsBySpotPerMonth']
+        allStatsSeries: function () {
+          return this.$store.getters['statistics/allStatsBySpotPerMonth']
         },
         guestsSeries: function () {
           return this.$store.getters['statistics/allGuestsBySpotPerMonth']
-        },
-        vouchersSeries: function () {
-          return this.$store.getters['statistics/allVouchersBySpotPerMonth']
         },
         monthChartOptions: function () {
           return {
@@ -163,6 +160,111 @@
             },
           }
         },
+        statChartOptions:function () {
+          if (this.spotType===1){
+            return {
+              labels: ["Доставлено", "Всего", "Повтор"],
+              chart: {
+                type: 'donut',
+              },
+              title: {
+                text: "SMS",
+                margin: 30,
+                style: {
+                  fontSize: '20px',
+                  fontWeight: 'bold',
+                },
+              },
+              plotOptions: {
+                pie: {
+                  expandOnClick: true,
+                  donut: {
+                    size: '40%'
+                  }
+                }
+              },
+              responsive: [{
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }]
+            }
+          }else if(this.spotType===2){
+            return {
+              chart: {
+                type: 'donut',
+              },
+              title: {
+                text: "Звонки",
+                margin: 30,
+                style: {
+                  fontSize: '20px',
+                  fontWeight: 'bold',
+                },
+              },
+              plotOptions: {
+                pie: {
+                  expandOnClick: true,
+                  donut: {
+                    size: '40%'
+                  }
+                }
+              },
+              labels: ["Запросов", "Авторизаций"],
+              responsive: [{
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }]
+            }
+          }else {
+            return {
+              labels: ["Всего", "Авторизаций"],
+              chart: {
+                type: 'donut',
+              },
+              title: {
+                text: "Ваучеры",
+                margin: 30,
+                style: {
+                  fontSize: '20px',
+                  fontWeight: 'bold',
+                },
+              },
+              plotOptions: {
+                pie: {
+                  expandOnClick: true,
+                  donut: {
+                    size: '40%'
+                  }
+                }
+              },
+              responsive: [{
+                breakpoint: 480,
+                options: {
+                  chart: {
+                    width: 200
+                  },
+                  legend: {
+                    position: 'bottom'
+                  }
+                }
+              }]
+            }
+          }
+        }
       },
       watch: {
         month: {

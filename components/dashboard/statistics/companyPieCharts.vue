@@ -83,7 +83,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,
@@ -123,7 +123,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,
@@ -163,7 +163,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,
@@ -204,7 +204,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,
@@ -245,7 +245,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,

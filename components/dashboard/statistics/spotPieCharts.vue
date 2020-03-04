@@ -6,7 +6,7 @@
       </div>
 
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart ref="dev" type="donut"  height="240" :options="callChartOptions" :series="callSeries"/>
+        <apexchart ref="dev" type="donut"  height="240" :options="statChartOptions" :series="statSeries"/>
       </div>
 
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
@@ -27,7 +27,7 @@
 <script>
   export default {
     props: {
-      callSeries: {
+      statSeries: {
         type: Array,
         required: false
       },
@@ -45,6 +45,10 @@
       },
       browserSeries: {
         type: Array,
+        required: false
+      },
+      statChartOptions: {
+        type: Object,
         required: false
       },
     },
@@ -83,47 +87,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
-            align: 'center',
-            verticalAlign: 'middle',
-            offsetX: 0,
-            offsetY: 0
-          }
-        },
-        callChartOptions: {
-          chart: {
-            type: 'donut',
-          },
-          title: {
-            text: "Звонки",
-            margin: 30,
-            style: {
-              fontSize: '20px',
-              fontWeight: 'bold',
-            },
-          },
-          plotOptions: {
-            pie: {
-              expandOnClick: true,
-              donut: {
-                size: '40%'
-              }
-            }
-          },
-          labels: ["Запросов", "Авторизаций"],
-          responsive: [{
-            breakpoint: 200,
-            options: {
-              chart: {
-                width: 100
-              },
-              legend: {
-                position: 'bottom'
-              }
-            }
-          }],
-          noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,
@@ -163,7 +127,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,
@@ -204,7 +168,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,
@@ -245,7 +209,7 @@
             }
           }],
           noData: {
-            text: "Нет данных",
+            text: "Данных нет",
             align: 'center',
             verticalAlign: 'middle',
             offsetX: 0,

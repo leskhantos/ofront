@@ -61,7 +61,14 @@
                 position: 'bottom'
               }
             }
-          }]
+          }],
+          noData: {
+            text: "Данных нет",
+            align: 'center',
+            verticalAlign: 'middle',
+            offsetX: 0,
+            offsetY: 0
+          }
         },
         callsChartOptions: {
           chart: {
@@ -94,7 +101,14 @@
                 position: 'bottom'
               }
             }
-          }]
+          }],
+          noData: {
+            text: "Данных нет",
+            align: 'center',
+            verticalAlign: 'middle',
+            offsetX: 0,
+            offsetY: 0
+          }
         },
         vouchersChartOptions: {
           labels: ["Всего", "Авторизаций"],
@@ -127,7 +141,14 @@
                 position: 'bottom'
               }
             }
-          }]
+          }],
+          noData: {
+            text: "Данных нет",
+            align: 'center',
+            verticalAlign: 'middle',
+            offsetX: 0,
+            offsetY: 0
+          }
         },
       }
     },
