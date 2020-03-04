@@ -38,6 +38,30 @@ export const getters = {
   set_new_account(state) {
     return state.set_new_account;
   },
+  get_years(){
+    let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
+    while (startYear <= currentYear) {
+      years.push({id: startYear++});
+    }
+    return years;
+  },
+  get_months(){
+    return [
+      {id: 1, name: 'Январь'},
+      {id: 2, name: 'Февраль'},
+      {id: 3, name: 'Март'},
+      {id: 4, name: 'Апрель'},
+      {id: 5, name: 'Май'},
+      {id: 6, name: 'Июнь'},
+      {id: 7, name: 'Июль'},
+      {id: 8, name: 'Август'},
+      {id: 9, name: 'Сентябрь'},
+      {id: 10, name: 'Октябрь'},
+      {id: 11, name: 'Ноябрь'},
+      {id: 12, name: 'Декабрь'},
+    ];
+  },
+
 };
 
 export const mutations = {
