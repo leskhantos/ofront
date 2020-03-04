@@ -1,13 +1,13 @@
 <template>
   <div class="row ">
     <div class="col-lg-4" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-      <apexchart type="donut" height="240" :options="callsChartOptions" :series="callsSeries"/>
+      <apexchart ref="pie" type="donut" height="240" :options="callsChartOptions" :series="callsSeries"/>
     </div>
     <div class="col-lg-4" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-      <apexchart  type="donut" height="240" :options="smsChartOptions" :series="smsSeries"/>
+      <apexchart ref="pie" type="donut" height="240" :options="smsChartOptions" :series="smsSeries"/>
     </div>
     <div class="col-lg-4">
-      <apexchart  type="donut"  height="240" :options="vouchersChartOptions" :series="vouchersSeries"/>
+      <apexchart ref="pie" type="donut"  height="240" :options="vouchersChartOptions" :series="vouchersSeries"/>
     </div>
   </div>
 </template>
@@ -129,6 +129,11 @@
             }
           }]
         },
+      }
+    },
+    watch: {
+      '$route.path': function () {
+        this.$refs.pie.resetSeries()
       }
     }
   }
