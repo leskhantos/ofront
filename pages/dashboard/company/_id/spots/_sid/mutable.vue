@@ -3,9 +3,9 @@
 </template>
 
 <script>
-    export default {
-        name: "mutable"
-    }
+  export default {
+    name: "mutable"
+  }
 </script>
 
 <style scoped>

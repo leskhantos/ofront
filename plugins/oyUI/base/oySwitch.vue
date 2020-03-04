@@ -3,7 +3,7 @@
     <div class="col-md-2">
       <h5>{{ title }}:</h5>
     </div>
-    <div class="col-md-10" >
+    <div class="col-md-10">
       <div class="switch">
         <input class="switch" id="switch" name="switch" type="checkbox" v-model="val" :checked="val"
                @change="change()"
@@ -15,31 +15,31 @@
 </template>
 
 <script>
-    export default {
-      props:{
-        checked:{
-          type: [Boolean,Number],
-          required:false
-        },
-        title:{
-          type: String,
-          required: false
-        }
+  export default {
+    props: {
+      checked: {
+        type: [Boolean, Number],
+        required: false
       },
-      data(){
-        return{
-          val: null
-        }
-      },
-      methods:{
-        change: function() {
-          this.$emit('input', this.val);
-        }
-      },
-      created() {
-        this.val=this.checked
+      title: {
+        type: String,
+        required: false
       }
+    },
+    data() {
+      return {
+        val: null
+      }
+    },
+    methods: {
+      change: function () {
+        this.$emit('input', this.val);
+      }
+    },
+    created() {
+      this.val = this.checked
     }
+  }
 </script>
 
 <style lang="scss" scoped>

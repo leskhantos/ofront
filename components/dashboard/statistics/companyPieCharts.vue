@@ -2,19 +2,19 @@
   <div>
     <div class="row ">
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart ref="don" type="donut"  height="240" :options="deviceChartOptions" :series="deviceSeries"/>
+        <apexchart ref="don" type="donut" height="240" :options="deviceChartOptions" :series="deviceSeries"/>
       </div>
 
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart ref="don" type="donut"  height="240" :options="guestChartOptions" :series="guestSeries"/>
+        <apexchart ref="don" type="donut" height="240" :options="guestChartOptions" :series="guestSeries"/>
       </div>
     </div>
     <div class="row" :style="{ borderTop: '1px solid rgba(0,0,0,.1)'}">
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
-        <apexchart ref="don" type="donut"  height="240" :options="osChartOptions" :series="osSeries"/>
+        <apexchart ref="don" type="donut" height="240" :options="osChartOptions" :series="osSeries"/>
       </div>
       <div class="col">
-        <apexchart ref="don" type="donut"  height="240" :options="browserChartOptions" :series="browserSeries"/>
+        <apexchart ref="don" type="donut" height="240" :options="browserChartOptions" :series="browserSeries"/>
       </div>
     </div>
   </div>

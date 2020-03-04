@@ -1,6 +1,6 @@
 <template>
   <div class="statistics-page">
-    <div class="statistics-page_metric-items">
+    <div class="statistics-page_metric-items d-flex flex-wrap">
       <metric title="Компании" :number="stats.count_company" :currentIcon="'companyIcon'"/>
       <metric title="Зон" :number="stats.count_spot" :currentIcon="'SpotIcon'"/>
       <metric title="Персональных страниц" :number="stats.pages" :currentIcon="'pageIcon'"/>
@@ -102,10 +102,10 @@
       stats: function () {
         return this.$store.getters['statistics/stats']
       },
-      daysOfMonth(){
+      daysOfMonth() {
         let maxDay = this.$store.getters['statistics/daysInMonth']
         let days = []
-        for(let i = 1; i <= maxDay; i++){
+        for (let i = 1; i <= maxDay; i++) {
           days.push(i);
         }
         return days;
@@ -158,10 +158,10 @@
           return months
       },
       smsSeries: function () {
-      return this.$store.getters['statistics/allSmsStatsPerMonth']
+        return this.$store.getters['statistics/allSmsStatsPerMonth']
       },
       callsSeries: function () {
-        return  this.$store.getters['statistics/allCallsStatsPerMonth']
+        return this.$store.getters['statistics/allCallsStatsPerMonth']
       },
       vouchersSeries: function () {
         return this.$store.getters['statistics/allVouchersStatsPerMonth']
@@ -215,10 +215,6 @@
     overflow-x: hidden;
     overflow-y: auto;
 
-    &_metric-items {
-      display: flex;
-      flex-wrap: wrap;
-    }
 
     &::-webkit-scrollbar {
       width: 0.3rem;

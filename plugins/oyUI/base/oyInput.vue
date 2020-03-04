@@ -42,7 +42,7 @@
         required: false
       },
       value: {
-        type: [String,Number],
+        type: [String, Number],
         required: false
       },
       type: {

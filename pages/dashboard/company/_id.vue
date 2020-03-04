@@ -34,8 +34,8 @@
         company_id: this.$route.params.id
       }
     },
-    computed:{
-      showOnly(){
+    computed: {
+      showOnly() {
         return !this.$route.params.sid;
       },
     },
@@ -58,7 +58,7 @@
       }
       this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
       this.$store.dispatch('statistics/getAllDataByCompany', {company_id: this.$route.params.id});
-      this.$store.dispatch('spot/getSpotsByCompany',  this.$route.params.id);
+      this.$store.dispatch('spot/getSpotsByCompany', this.$route.params.id);
       this.$store.dispatch("company/getCompany", this.$route.params.id);
     },
     methods: {

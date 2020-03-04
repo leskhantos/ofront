@@ -30,7 +30,7 @@
         />
       </div>
     </div>
-    <oy-page-body v-if="spot_id==='all'" :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }" >
+    <oy-page-body v-if="spot_id==='all'" :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <oy-page-header title="Гости"></oy-page-header>
       <div class="guest-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
         <guest :series="guestsSeries" :chartOptions="monthChartOptions"/>
@@ -52,7 +52,8 @@
         <voucher :series="allStatsSeries" :chartOptions="monthChartOptionsSpot"/>
       </div>
 
-      <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guestsSpot" :device-series="devicesSpot" :browser-series="browsersSpot"
+      <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guestsSpot"
+                       :device-series="devicesSpot" :browser-series="browsersSpot"
                        :os-series="osSpot"/>
     </oy-page-body>
   </oy-page>
@@ -66,7 +67,7 @@
   import spotPieCharts from "../../../../components/dashboard/statistics/spotPieCharts";
 
   export default {
-    components: {guest, calls, voucher, companyPieCharts,spotPieCharts},
+    components: {guest, calls, voucher, companyPieCharts, spotPieCharts},
     data() {
       return {
         year: new Date().getFullYear(),
@@ -76,7 +77,7 @@
       }
     },
     computed: {
-      spotType:function(){
+      spotType: function () {
         return this.$store.getters['statistics/spotType']
       },
       years: function () {
@@ -86,7 +87,7 @@
         }
         return years;
       },
-      spots(){
+      spots() {
         return this.$store.getters['spot/spotsByCompany']
       },
       months: function () {
@@ -172,8 +173,8 @@
       allStatsSeries: function () {
         return this.$store.getters['statistics/allStatsBySpotPerMonth']
       },
-      statChartOptions:function () {
-        if (this.spotType===1){
+      statChartOptions: function () {
+        if (this.spotType === 1) {
           return {
             labels: ["Доставлено", "Всего", "Повтор"],
             chart: {
@@ -214,7 +215,7 @@
               offsetY: 0
             }
           }
-        }else if(this.spotType===2){
+        } else if (this.spotType === 2) {
           return {
             chart: {
               type: 'donut',
@@ -255,7 +256,7 @@
               offsetY: 0
             }
           }
-        }else {
+        } else {
           return {
             labels: ["Всего", "Авторизаций"],
             chart: {
@@ -361,7 +362,7 @@
             year: this.year,
             spot_id: this.spot_id
           }
-          if(this.spot_id!=='all'){
+          if (this.spot_id !== 'all') {
             this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
             this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
           }
@@ -381,27 +382,27 @@
             year: this.year,
             spot_id: this.spot_id
           }
-          if(this.spot_id!=='all'){
+          if (this.spot_id !== 'all') {
             this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
             this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
           }
         }
       },
-      spot_id:{
+      spot_id: {
         immediate: false,
-              handler() {
-                let spotData = {
-                  month: this.month,
-                  year: this.year,
-                  spot_id: this.spot_id
-                }
-                if(this.spot_id!=='all'){
-                  this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
-                  this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
-                }
-            }
+        handler() {
+          let spotData = {
+            month: this.month,
+            year: this.year,
+            spot_id: this.spot_id
+          }
+          if (this.spot_id !== 'all') {
+            this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
+            this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
           }
         }
+      }
+    }
   }
 </script>
 

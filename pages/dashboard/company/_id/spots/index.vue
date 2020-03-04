@@ -33,7 +33,9 @@
         <tr v-for="spot in spots" :key="spot.id">
           <td>
             <spot-icon/>
-            <nuxt-link :to="{ name: 'dashboard-company-id-spots-sid-mainSpot', params: { id:company_id, sid: spot.id } }">{{spot.address }}
+            <nuxt-link
+              :to="{ name: 'dashboard-company-id-spots-sid-mainSpot', params: { id:company_id, sid: spot.id } }">
+              {{spot.address }}
             </nuxt-link>
           </td>
           <td>{{ spot.page_name }}</td>

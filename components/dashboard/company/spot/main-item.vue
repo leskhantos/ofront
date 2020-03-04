@@ -10,19 +10,19 @@
 </template>
 
 <script>
-    export default {
-        name: "main-item",
-      props: {
-        title: {
-          type: String,
-          required: false
-        },
-        value: {
-          type: [String,Number],
-          required: false
-        }
+  export default {
+    name: "main-item",
+    props: {
+      title: {
+        type: String,
+        required: false
+      },
+      value: {
+        type: [String, Number],
+        required: false
       }
     }
+  }
 </script>
 
 <style lang="scss" scoped>

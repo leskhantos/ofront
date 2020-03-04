@@ -1,7 +1,6 @@
 <template>
   <div class="metric-item">
     <div class="metric-item__card">
-
       <div class="metric-item__card--number">
         <component :is="currentIcon"/>
         {{ number }}

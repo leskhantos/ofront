@@ -37,8 +37,9 @@
         <voucher :series="allStatsSeries" :chartOptions="monthChartOptions"/>
       </div>
 
-      <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guests" :device-series="devices" :browser-series="browsers"
-                          :os-series="os"/>
+      <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guests"
+                       :device-series="devices" :browser-series="browsers"
+                       :os-series="os"/>
     </oy-page-body>
   </oy-page>
 </template>
@@ -48,273 +49,274 @@
   import calls from "@/components/dashboard/statistics/calls";
   import voucher from "@/components/dashboard/statistics/voucher";
   import spotPieCharts from "@/components/dashboard/statistics/spotPieCharts";
-    export default {
-      components: {spotPieCharts,guest,calls,voucher},
-      data(){
-        return{
-          year: new Date().getFullYear(),
-          month: new Date().getMonth() + 1,
-          spot_id: this.$route.params.sid
+
+  export default {
+    components: {spotPieCharts, guest, calls, voucher},
+    data() {
+      return {
+        year: new Date().getFullYear(),
+        month: new Date().getMonth() + 1,
+        spot_id: this.$route.params.sid
+      }
+    },
+    created() {
+      let date = new Date();
+      let month = date.getMonth() + 1
+      let year = date.getFullYear()
+      let data = {
+        month: month,
+        year: year,
+        spot_id: this.$route.params.sid
+      }
+      this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
+      this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.$route.params.sid});
+    },
+    methods: {
+      onChangeMonth(val) {
+        this.month = val
+      },
+      onChangeYear(val) {
+        this.year = val
+      },
+    },
+    computed: {
+      spotType: function () {
+        return this.$store.getters['statistics/spotType']
+      },
+      years: function () {
+        let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
+        while (startYear <= currentYear) {
+          years.push({id: startYear++});
+        }
+        return years;
+      },
+      months: function () {
+        let months = [
+          {id: 1, name: 'Январь'},
+          {id: 2, name: 'Февраль'},
+          {id: 3, name: 'Март'},
+          {id: 4, name: 'Апрель'},
+          {id: 5, name: 'Май'},
+          {id: 6, name: 'Июнь'},
+          {id: 7, name: 'Июль'},
+          {id: 8, name: 'Август'},
+          {id: 9, name: 'Сентябрь'},
+          {id: 10, name: 'Октябрь'},
+          {id: 11, name: 'Ноябрь'},
+          {id: 12, name: 'Декабрь'},
+        ]
+        let curYear = new Date().getFullYear()
+        let currentMonth = new Date().getMonth() + 1
+        if (this.year == curYear) {
+          let currentYearsMonths = []
+          months.forEach(function (item) {
+            if (item.id <= currentMonth) {
+              currentYearsMonths.push(item)
+            }
+          })
+          return currentYearsMonths
+        } else
+          return months
+      },
+      stats: function () {
+        return this.$store.getters['statistics/allStatsDataBySpot']
+      },
+      guests: function () {
+        return this.$store.getters['statistics/allGuestsBySpot']
+      },
+      devices: function () {
+        return this.$store.getters['statistics/allDevicesBySpot']
+      },
+      browsers: function () {
+        return this.$store.getters['statistics/allBrowsersBySpot']
+      },
+      os: function () {
+        return this.$store.getters['statistics/allOsBySpot']
+      },
+      daysOfMonth() {
+        let maxDay = this.$store.getters['statistics/daysInMonthBySpot']
+        let days = []
+        for (let i = 1; i <= maxDay; i++) {
+          days.push(i);
+        }
+        return days;
+      },
+      allStatsSeries: function () {
+        return this.$store.getters['statistics/allStatsBySpotPerMonth']
+      },
+      guestsSeries: function () {
+        return this.$store.getters['statistics/allGuestsBySpotPerMonth']
+      },
+      monthChartOptions: function () {
+        return {
+          chart: {
+            height: 240,
+            width: '100%',
+            type: 'area'
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'smooth'
+          },
+          xaxis: {
+            categories: this.daysOfMonth
+          },
         }
       },
-      created() {
-        let date = new Date();
-        let month = date.getMonth() + 1
-        let year = date.getFullYear()
-        let data = {
-          month: month,
-          year: year,
-          spot_id: this.$route.params.sid
-        }
-        this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
-        this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.$route.params.sid});
-      },
-      methods:{
-        onChangeMonth(val) {
-          this.month = val
-        },
-        onChangeYear(val) {
-          this.year = val
-        },
-      },
-      computed: {
-        spotType:function(){
-          return this.$store.getters['statistics/spotType']
-        },
-        years: function () {
-          let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
-          while (startYear <= currentYear) {
-            years.push({id: startYear++});
-          }
-          return years;
-        },
-        months: function () {
-          let months = [
-            {id: 1, name: 'Январь'},
-            {id: 2, name: 'Февраль'},
-            {id: 3, name: 'Март'},
-            {id: 4, name: 'Апрель'},
-            {id: 5, name: 'Май'},
-            {id: 6, name: 'Июнь'},
-            {id: 7, name: 'Июль'},
-            {id: 8, name: 'Август'},
-            {id: 9, name: 'Сентябрь'},
-            {id: 10, name: 'Октябрь'},
-            {id: 11, name: 'Ноябрь'},
-            {id: 12, name: 'Декабрь'},
-          ]
-          let curYear = new Date().getFullYear()
-          let currentMonth = new Date().getMonth() + 1
-          if (this.year == curYear) {
-            let currentYearsMonths = []
-            months.forEach(function (item) {
-              if (item.id <= currentMonth) {
-                currentYearsMonths.push(item)
+      statChartOptions: function () {
+        if (this.spotType === 1) {
+          return {
+            labels: ["Доставлено", "Всего", "Повтор"],
+            chart: {
+              type: 'donut',
+            },
+            title: {
+              text: "SMS",
+              margin: 30,
+              style: {
+                fontSize: '20px',
+                fontWeight: 'bold',
+              },
+            },
+            plotOptions: {
+              pie: {
+                expandOnClick: true,
+                donut: {
+                  size: '40%'
+                }
               }
-            })
-            return currentYearsMonths
-          } else
-            return months
-        },
-        stats: function () {
-          return this.$store.getters['statistics/allStatsDataBySpot']
-        },
-        guests: function () {
-          return this.$store.getters['statistics/allGuestsBySpot']
-        },
-        devices: function () {
-          return this.$store.getters['statistics/allDevicesBySpot']
-        },
-        browsers: function () {
-          return this.$store.getters['statistics/allBrowsersBySpot']
-        },
-        os: function () {
-          return this.$store.getters['statistics/allOsBySpot']
-        },
-        daysOfMonth() {
-          let maxDay = this.$store.getters['statistics/daysInMonthBySpot']
-          let days = []
-          for (let i = 1; i <= maxDay; i++) {
-            days.push(i);
+            },
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }],
+            noData: {
+              text: "Данных нет",
+              align: 'center',
+              verticalAlign: 'middle',
+              offsetX: 0,
+              offsetY: 0
+            }
           }
-          return days;
-        },
-        allStatsSeries: function () {
-          return this.$store.getters['statistics/allStatsBySpotPerMonth']
-        },
-        guestsSeries: function () {
-          return this.$store.getters['statistics/allGuestsBySpotPerMonth']
-        },
-        monthChartOptions: function () {
+        } else if (this.spotType === 2) {
           return {
             chart: {
-              height: 240,
-              width: '100%',
-              type: 'area'
+              type: 'donut',
             },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              curve: 'smooth'
-            },
-            xaxis: {
-              categories: this.daysOfMonth
-            },
-          }
-        },
-        statChartOptions:function () {
-          if (this.spotType===1){
-            return {
-              labels: ["Доставлено", "Всего", "Повтор"],
-              chart: {
-                type: 'donut',
+            title: {
+              text: "Звонки",
+              margin: 30,
+              style: {
+                fontSize: '20px',
+                fontWeight: 'bold',
               },
-              title: {
-                text: "SMS",
-                margin: 30,
-                style: {
-                  fontSize: '20px',
-                  fontWeight: 'bold',
-                },
-              },
-              plotOptions: {
-                pie: {
-                  expandOnClick: true,
-                  donut: {
-                    size: '40%'
-                  }
+            },
+            plotOptions: {
+              pie: {
+                expandOnClick: true,
+                donut: {
+                  size: '40%'
                 }
-              },
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }],
-              noData: {
-                text: "Данных нет",
-                align: 'center',
-                verticalAlign: 'middle',
-                offsetX: 0,
-                offsetY: 0
               }
-            }
-          }else if(this.spotType===2){
-            return {
-              chart: {
-                type: 'donut',
-              },
-              title: {
-                text: "Звонки",
-                margin: 30,
-                style: {
-                  fontSize: '20px',
-                  fontWeight: 'bold',
+            },
+            labels: ["Запросов", "Авторизаций"],
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
                 },
-              },
-              plotOptions: {
-                pie: {
-                  expandOnClick: true,
-                  donut: {
-                    size: '40%'
-                  }
+                legend: {
+                  position: 'bottom'
                 }
-              },
-              labels: ["Запросов", "Авторизаций"],
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }],
-              noData: {
-                text: "Данных нет",
-                align: 'center',
-                verticalAlign: 'middle',
-                offsetX: 0,
-                offsetY: 0
               }
-            }
-          }else {
-            return {
-              labels: ["Всего", "Авторизаций"],
-              chart: {
-                type: 'donut',
-              },
-              title: {
-                text: "Ваучеры",
-                margin: 30,
-                style: {
-                  fontSize: '20px',
-                  fontWeight: 'bold',
-                },
-              },
-              plotOptions: {
-                pie: {
-                  expandOnClick: true,
-                  donut: {
-                    size: '40%'
-                  }
-                }
-              },
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
-                    position: 'bottom'
-                  }
-                }
-              }],
-              noData: {
-                text: "Данных нет",
-                align: 'center',
-                verticalAlign: 'middle',
-                offsetX: 0,
-                offsetY: 0
-              }
+            }],
+            noData: {
+              text: "Данных нет",
+              align: 'center',
+              verticalAlign: 'middle',
+              offsetX: 0,
+              offsetY: 0
             }
           }
-        }
-      },
-      watch: {
-        month: {
-          immediate: false,
-          handler() {
-            let data = {
-              month: this.month,
-              year: this.year,
-              spot_id: this.spot_id
+        } else {
+          return {
+            labels: ["Всего", "Авторизаций"],
+            chart: {
+              type: 'donut',
+            },
+            title: {
+              text: "Ваучеры",
+              margin: 30,
+              style: {
+                fontSize: '20px',
+                fontWeight: 'bold',
+              },
+            },
+            plotOptions: {
+              pie: {
+                expandOnClick: true,
+                donut: {
+                  size: '40%'
+                }
+              }
+            },
+            responsive: [{
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  position: 'bottom'
+                }
+              }
+            }],
+            noData: {
+              text: "Данных нет",
+              align: 'center',
+              verticalAlign: 'middle',
+              offsetX: 0,
+              offsetY: 0
             }
-            this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
-          }
-        },
-        year: {
-          immediate: false,
-          handler() {
-            let data = {
-              month: this.month,
-              year: this.year,
-              spot_id: this.spot_id
-            }
-            this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
           }
         }
       }
+    },
+    watch: {
+      month: {
+        immediate: false,
+        handler() {
+          let data = {
+            month: this.month,
+            year: this.year,
+            spot_id: this.spot_id
+          }
+          this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
+        }
+      },
+      year: {
+        immediate: false,
+        handler() {
+          let data = {
+            month: this.month,
+            year: this.year,
+            spot_id: this.spot_id
+          }
+          this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
+        }
+      }
     }
+  }
 </script>
 
 <style scoped>

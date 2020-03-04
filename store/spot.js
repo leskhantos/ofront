@@ -1,7 +1,7 @@
 export const state = () => ({
   spot: {},
-  spotTypesByCompany:[],
-  spotsByCompany:[]
+  spotTypesByCompany: [],
+  spotsByCompany: []
 });
 
 export const getters = {

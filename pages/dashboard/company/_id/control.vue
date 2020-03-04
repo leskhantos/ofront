@@ -2,12 +2,12 @@
   <oy-page>
     <oy-page-header/>
     <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
-          <form @submit.prevent="renameCompany(company.id)">
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" :placeholder="company.name" v-model="newName"
-                     aria-describedby="basic-addon2">
-            </div>
-          </form>
+      <form @submit.prevent="renameCompany(company.id)">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" :placeholder="company.name" v-model="newName"
+                 aria-describedby="basic-addon2">
+        </div>
+      </form>
       <oy-switch title="Включен" v-model="checkVal" :checked="checked"/>
       <button type="submit" class="btn btn-success" @click="renameCompany(company.id)">Сохранить</button>
       <button class="btn btn-danger" @click="deleteCompany">

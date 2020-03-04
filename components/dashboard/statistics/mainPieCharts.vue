@@ -7,7 +7,7 @@
       <apexchart ref="pie" type="donut" height="240" :options="smsChartOptions" :series="smsSeries"/>
     </div>
     <div class="col-lg-4">
-      <apexchart ref="pie" type="donut"  height="240" :options="vouchersChartOptions" :series="vouchersSeries"/>
+      <apexchart ref="pie" type="donut" height="240" :options="vouchersChartOptions" :series="vouchersSeries"/>
     </div>
   </div>
 </template>

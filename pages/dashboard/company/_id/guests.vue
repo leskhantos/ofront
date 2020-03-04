@@ -72,8 +72,8 @@
 
   export default {
     components: {devicesIcon},
-    data(){
-      return{
+    data() {
+      return {
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1,
         company_id: this.$route.params.id,
@@ -89,10 +89,10 @@
         year: year,
         company_id: this.$route.params.id
       }
-      this.$store.dispatch('spot/getSpotsByCompany',  this.$route.params.id);
-      this.$store.dispatch('guest/getGuestsByCompany',  data);
+      this.$store.dispatch('spot/getSpotsByCompany', this.$route.params.id);
+      this.$store.dispatch('guest/getGuestsByCompany', data);
     },
-    methods:{
+    methods: {
       onChangeMonth(val) {
         this.month = val
       },
@@ -103,7 +103,7 @@
         this.spot_id = val
       },
     },
-    computed:{
+    computed: {
       years: function () {
         let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
         while (startYear <= currentYear) {
@@ -111,13 +111,13 @@
         }
         return years;
       },
-      spots(){
+      spots() {
         return this.$store.getters['spot/spotsByCompany']
       },
-      guests(){
+      guests() {
         return this.$store.getters['guest/guestsByCompany']
       },
-      guestsBySpot(){
+      guestsBySpot() {
         return this.$store.getters['guest/guestsBySpot']
       },
       months: function () {
@@ -153,14 +153,14 @@
       month: {
         immediate: false,
         handler() {
-          if(this.spot_id!=='all'){
+          if (this.spot_id !== 'all') {
             let spotData = {
               month: this.month,
               year: this.year,
               spot_id: this.spot_id
             }
             this.$store.dispatch('guest/getGuestsBySpot', spotData);
-          }else {
+          } else {
             let data = {
               month: this.month,
               year: this.year,
@@ -173,14 +173,14 @@
       year: {
         immediate: false,
         handler() {
-          if(this.spot_id!=='all'){
+          if (this.spot_id !== 'all') {
             let spotData = {
               month: this.month,
               year: this.year,
               spot_id: this.spot_id
             }
             this.$store.dispatch('guest/getGuestsBySpot', spotData);
-          }else {
+          } else {
             let data = {
               month: this.month,
               year: this.year,
@@ -190,7 +190,7 @@
           }
         }
       },
-      spot_id:{
+      spot_id: {
         immediate: false,
         handler() {
           let spotData = {
@@ -198,7 +198,7 @@
             year: this.year,
             spot_id: this.spot_id
           }
-          if(this.spot_id!=='all'){
+          if (this.spot_id !== 'all') {
             this.$store.dispatch('guest/getGuestsBySpot', spotData);
           }
         }

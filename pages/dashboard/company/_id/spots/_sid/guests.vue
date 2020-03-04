@@ -55,8 +55,8 @@
 
   export default {
     components: {devicesIcon},
-    data(){
-      return{
+    data() {
+      return {
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1,
         spot_id: this.$route.params.sid
@@ -71,9 +71,9 @@
         year: year,
         spot_id: this.$route.params.sid
       }
-      this.$store.dispatch('guest/getGuestsBySpot',  data);
+      this.$store.dispatch('guest/getGuestsBySpot', data);
     },
-    methods:{
+    methods: {
       onChangeMonth(val) {
         this.month = val
       },
@@ -81,7 +81,7 @@
         this.year = val
       },
     },
-    computed:{
+    computed: {
       years: function () {
         let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
         while (startYear <= currentYear) {
@@ -89,7 +89,7 @@
         }
         return years;
       },
-      guestsBySpot(){
+      guestsBySpot() {
         return this.$store.getters['guest/guestsBySpot']
       },
       months: function () {
@@ -125,23 +125,23 @@
       month: {
         immediate: false,
         handler() {
-            let spotData = {
-              month: this.month,
-              year: this.year,
-              spot_id: this.spot_id
-            }
-            this.$store.dispatch('guest/getGuestsBySpot', spotData);
+          let spotData = {
+            month: this.month,
+            year: this.year,
+            spot_id: this.spot_id
+          }
+          this.$store.dispatch('guest/getGuestsBySpot', spotData);
         }
       },
       year: {
         immediate: false,
         handler() {
-            let spotData = {
-              month: this.month,
-              year: this.year,
-              spot_id: this.spot_id
-            }
-            this.$store.dispatch('guest/getGuestsBySpot', spotData);
+          let spotData = {
+            month: this.month,
+            year: this.year,
+            spot_id: this.spot_id
+          }
+          this.$store.dispatch('guest/getGuestsBySpot', spotData);
         }
       },
     }

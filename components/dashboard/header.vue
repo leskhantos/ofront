@@ -1,5 +1,9 @@
 <template>
   <header class="application-header">
+    <div class="mobile-buttons" @click="$store.commit('app/TOGGLE_SIDEBAR',true)">
+      <menu-open-icon/>
+    </div>
+
     <div class="page-header">
       <div class="page-header__title">
         <nuxt-link :to="this.route">
@@ -10,9 +14,6 @@
           {{ spotName }}
         </div>
       </div>
-    </div>
-    <div class="mobile-buttons" @click="$store.commit('app/TOGGLE_SIDEBAR',true)">
-      <menu-open-icon/>
     </div>
 
     <div class="right-buttons">
@@ -74,7 +75,7 @@
       spot: function () {
         return this.$store.getters["spot/spot"];
       },
-      showOnly(){
+      showOnly() {
         return !!this.$route.params.sid;
       },
     },
@@ -115,7 +116,7 @@
           await this.$store.dispatch('company/getCompany', this.$route.params.id)
           this.route = {name: 'dashboard-company-id-main', params: {id: this.$route.params.id}}
           this.title = this.company.name;
-          if (this.showOnly){
+          if (this.showOnly) {
             await this.$store.dispatch('spot/getSpot', this.$route.params.sid)
             this.spotName = this.spot.address
           }
@@ -183,9 +184,10 @@
       justify-content: flex-end;
     }
 
-    .page-header__title{
+    .page-header__title {
       display: flex;
-      a{
+
+      a {
         font-weight: bold;
         font-size: x-large;
         color: #575962;
@@ -194,6 +196,7 @@
 
     .mobile-buttons {
       display: none;
+      padding-right: .3rem;
     }
   }
 

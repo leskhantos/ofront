@@ -17,15 +17,16 @@
 </template>
 
 <script>
-    import MainItem from "@/components/dashboard/company/spot/main-item";
-    export default {
-      components: {MainItem},
-      computed:{
-        spot:function () {
-          return this.$store.getters['spot/spot']
-        }
+  import MainItem from "@/components/dashboard/company/spot/main-item";
+
+  export default {
+    components: {MainItem},
+    computed: {
+      spot: function () {
+        return this.$store.getters['spot/spot']
       }
     }
+  }
 </script>
 
 <style scoped>

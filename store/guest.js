@@ -1,6 +1,6 @@
 export const state = () => ({
-  guestsByCompany:[],
-  guestsBySpot:[]
+  guestsByCompany: [],
+  guestsBySpot: []
 });
 
 export const getters = {

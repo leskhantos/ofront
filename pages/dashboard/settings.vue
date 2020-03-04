@@ -3,7 +3,8 @@
     <oy-page-header/>
     <oy-page-body :style="{borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <setting-item title="URL ссылка переадресации после авторизации:" :value="settings.redirect_url"/>
-      <setting-item title="Время жизни автоматической авторизации для устройства:" :value="settings.session_auth_timer"/>
+      <setting-item title="Время жизни автоматической авторизации для устройства:"
+                    :value="settings.session_auth_timer"/>
       <setting-item title="Время жизни сессии устройства:" :value="settings.session_timer"/>
       <setting-item title="Время ожидания звонка, кода из SMS или кода ваучера:" :value="settings.wait_enter_timer"/>
       <setting-item title="Суточный лимит SMS на один номер:" :value="settings.sms_phone_limit"/>
@@ -30,8 +31,8 @@
         titleTemplate: "%s | Настройки"
       };
     },
-    computed:{
-      settings:function () {
+    computed: {
+      settings: function () {
         return this.$store.getters['setting/settings']
       }
     },

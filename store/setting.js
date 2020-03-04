@@ -1,5 +1,5 @@
 export const state = () => ({
-  settings:{}
+  settings: {}
 });
 
 export const getters = {

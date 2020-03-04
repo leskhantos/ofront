@@ -44,9 +44,9 @@
         type: [String, Number],
         required: false
       },
-      disabled:{
-        type:Boolean,
-        required:false
+      disabled: {
+        type: Boolean,
+        required: false
       }
     },
     computed: {
