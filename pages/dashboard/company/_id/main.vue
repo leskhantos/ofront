@@ -17,6 +17,7 @@
                    :options="months"
                    :selected="month"
                    v-model="month"
+                   :disabled="true"
         />
 
         <oy-select class="col"
@@ -25,6 +26,7 @@
                    :options="years"
                    :selected="year"
                    v-model="year"
+                   :disabled="true"
         />
       </div>
     </div>
@@ -385,22 +387,21 @@
           }
         }
       },
-  spot_id:{
-    immediate: false,
-          handler() {
-            let spotData = {
-              month: this.month,
-              year: this.year,
-              spot_id: this.spot_id
+      spot_id:{
+        immediate: false,
+              handler() {
+                let spotData = {
+                  month: this.month,
+                  year: this.year,
+                  spot_id: this.spot_id
+                }
+                if(this.spot_id!=='all'){
+                  this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
+                  this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
+                }
             }
-            if(this.spot_id!=='all'){
-              this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
-              this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
-            }
+          }
         }
-      }
-    }
-
   }
 </script>
 
