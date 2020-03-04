@@ -1,7 +1,7 @@
 <template>
   <div class="row setting-item">
     <div class="col">
-      <h3>{{ title }}</h3>
+      <h6>{{ title }}</h6>
     </div>
     <div class="col">
       <oy-input :value="value"/>
@@ -18,7 +18,7 @@
         required: false
       },
       value: {
-        type: String,
+        type: [String,Number],
         required: false
       }
     }
