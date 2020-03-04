@@ -10,7 +10,7 @@
           {{ title }}
         </nuxt-link>
         <div v-show="showOnly">
-          <spot-icon/>
+          <slash-icon/>
           {{ spotName }}
         </div>
       </div>
@@ -40,6 +40,7 @@
   import oyAvatar from "../../plugins/oyUI/base/oyAvatar";
   import MenuOpenIcon from "../icons/menuOpenIcon";
   import SpotIcon from "../icons/spotIcon";
+  import SlashIcon from "../icons/slashIcon";
 
   const Cookie = process.client ? require('js-cookie') : undefined
 
@@ -80,6 +81,7 @@
       },
     },
     components: {
+      SlashIcon,
       SpotIcon,
       MenuOpenIcon,
       userMenu,

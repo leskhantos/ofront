@@ -62,6 +62,9 @@
             name: this.company.name,
             enabled: this.checkVal
           })
+          this.flashMessage.success({
+            title: "Статус изменился",
+          });
           await this.$store.dispatch("company/getCompanies");
         } catch (e) {
           console.log(e.response)
@@ -78,7 +81,7 @@
             title: "Компания обновлена",
           });
           await this.$store.dispatch("company/getCompany", this.$route.params.id);
-          this.$router.push({name: "dashboard-company-id-main", params: {id: data.data.id}});
+          this.$router.push({name: "dashboard-company-id-control", params: {id: data.data.id}});
           this.newName = ""
         } catch (e) {
           this.flashMessage.error({
