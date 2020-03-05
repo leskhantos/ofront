@@ -30,7 +30,7 @@
         <tbody>
         <tr v-for="style in styles" :key="style.id">
           <td>{{ style.name }}</td>
-          <td>{{ style.title }}</td>
+          <td >{{ style.spot }}</td>
           <!--          <td style="text-align: right"><oy-dot :active-color="style.enabled ? '#37a967':'red'"/></td>-->
         </tr>
         </tbody>
