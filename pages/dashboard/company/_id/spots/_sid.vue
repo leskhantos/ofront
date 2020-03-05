@@ -20,7 +20,7 @@
         События
       </div>
       <div class="nav-item nav-link border" :class="{active: isActive('mutable')}" @click="switchComponents('mutable')">
-        Звонки
+        {{ changeableNav }}
       </div>
     </nav>
     <nuxt-child/>
@@ -36,6 +36,20 @@
     },
     created() {
       this.$store.dispatch('spot/getSpot', this.$route.params.sid);
+    },
+    computed:{
+      spot: function () {
+        return this.$store.getters['spot/spot']
+      },
+      changeableNav(){
+        if (this.spot.type===1){
+          return 'SMS';
+        }else if(this.spot.type===2){
+          return 'Звонки'
+        }else {
+          return 'Ваучеры'
+        }
+      }
     },
     methods: {
       switchComponents(item) {
