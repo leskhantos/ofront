@@ -112,15 +112,41 @@
       },
       sms: function () {
         let sms = this.$store.getters['statistics/stats']
-        return [sms.delivered, sms.all_sms, sms.resend]
+        if(sms.delivered===0 && sms.all_sms===0 && sms.resend===0){
+          return [0, 0, 0]
+        }else if(sms.delivered===0 && sms.all_sms && sms.resend){
+          return [0, sms.all_sms,sms.resend]
+        }else if(sms.delivered && sms.all_sms===0 && sms.resend){
+          return [sms.delivered, 0,sms.resend]
+        }else if(sms.delivered && sms.all_sms && sms.resend===0){
+          return [sms.delivered, sms.all_sms,0]
+        } else {
+          return [sms.delivered, sms.all_sms, sms.resend]
+        }
       },
       calls: function () {
         let call = this.$store.getters['statistics/stats']
-        return [call.requests, call.checked]
+        if(call.requests===0 && call.checked===0){
+          return [0, 0]
+        }else if(call.requests===0 && call.checked){
+          return [0, call.checked]
+        }else if(call.checked===0 && call.requests){
+          return [call.requests, 0]
+        }else {
+          return [call.requests, call.checked]
+        }
       },
       vouchers: function () {
         let vouchers = this.$store.getters['statistics/stats']
-        return [vouchers.all_vouchers, vouchers.auth]
+        if(vouchers.all_vouchers===0 && vouchers.auth===0){
+          return [0, 0]
+        }else if(vouchers.all_vouchers===0 && vouchers.auth){
+          return [0, vouchers.auth]
+        }else if(vouchers.all_vouchers && vouchers.auth===0){
+          return [vouchers.all_vouchers, 0]
+        }else {
+          return [vouchers.all_vouchers, vouchers.auth]
+        }
       },
       years: function () {
         return this.$store.getters['app/get_years']
