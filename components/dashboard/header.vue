@@ -126,15 +126,19 @@
           switch (this.$route.name) {
             case 'dashboard-users':
               this.title = 'Пользователи';
+              this.route = {name: 'dashboard-users'};
               break;
             case 'dashboard-statistics':
               this.title = 'Основное';
+              this.route = {name: 'dashboard-statistics'};
               break;
             case 'dashboard-settings':
               this.title = 'Настройки';
+              this.route = {name: 'dashboard-settings'};
               break;
             case 'dashboard-diagnostics':
               this.title = 'Диагностика';
+              this.route = {name: 'dashboard-diagnostics'};
               break;
             default:
               this.title = 'default';
