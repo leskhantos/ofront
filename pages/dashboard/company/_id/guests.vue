@@ -31,6 +31,9 @@
       </div>
     </div>
     <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
+<!--      <client-only placeholder="Loading...">-->
+<!--        <v-client-table :data="guests" :columns="columns" :options="options"></v-client-table>-->
+<!--      </client-only>-->
       <table class="table table-striped">
         <thead>
         <tr>
@@ -77,7 +80,18 @@
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1,
         company_id: this.$route.params.id,
-        spot_id: 'all'
+        spot_id: 'all',
+        // columns: ['datetime', 'device_mac', 'data_auth','sessions'],
+        // options: {
+        //   headings: {
+        //     datetime: 'Дата и время',
+        //     device_mac: 'Гость',
+        //     data_auth: 'Авторизация',
+        //     sessions: 'Визиты',
+        //   },
+        //   sortable: ['datetime', 'device_mac'],
+        //   filterable: ['datetime', 'device_mac']
+        // }
       }
     },
     created() {

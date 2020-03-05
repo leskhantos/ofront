@@ -41,8 +41,8 @@ export default {
     './plugins/axios',
     {src: './plugins/vue-flash-message', mode: 'client'},
     {src: './plugins/oyUI/oyUI', ssr: false},
-    {src: './plugins/apexchart', ssr: false}
-
+    {src: './plugins/apexchart', ssr: false},
+    { src: './plugins/vue-tables-2.js', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -70,7 +70,7 @@ export default {
     baseURL: process.env.API_HOST
   },
   build: {
-    vendor:['vue-apexcharts'],
+    vendor:['vue-apexcharts', 'vue-tables-2'],
     /*
     ** You can extend webpack config here
     */

@@ -62,9 +62,6 @@
             name: this.company.name,
             enabled: this.checkVal
           })
-          this.flashMessage.success({
-            title: "Статус изменился",
-          });
           await this.$store.dispatch("company/getCompanies");
         } catch (e) {
           console.log(e.response)
@@ -90,7 +87,7 @@
         }
       }
     },
-    mounted() {
+    created() {
       this.checkVal = this.checked
     },
     watch: {
