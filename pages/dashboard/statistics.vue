@@ -20,7 +20,6 @@
                      :options="months"
                      :selected="form.month"
                      v-model="form.month"
-                     :disabled="true"
           />
 
           <oy-select class="col"
@@ -29,7 +28,6 @@
                      :options="years"
                      :selected="form.year"
                      v-model="form.year"
-                     :disabled="true"
           />
         </div>
       </div>

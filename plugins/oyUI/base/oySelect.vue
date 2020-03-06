@@ -46,7 +46,8 @@
       },
       disabled: {
         type: Boolean,
-        required: false
+        required: false,
+        default: true
       }
     },
     computed: {

@@ -18,12 +18,13 @@
 </template>
 
 <script>
-  import PassGenerateIcon from "../../../components/icons/passGenerateIcon";
-  import AddUserIcon from "../../../components/icons/addUserIcon";
-  import AddIcon from "../../../components/icons/addIcon";
+  import PassGenerateIcon from "@/components/icons/passGenerateIcon";
+  import AddUserIcon from "@/components/icons/addUserIcon";
+  import AddIcon from "@/components/icons/addIcon";
+  import FilterIcon from "@/components/icons/filterIcon";
 
   export default {
-    components: {AddIcon, AddUserIcon, PassGenerateIcon},
+    components: {AddIcon, AddUserIcon, PassGenerateIcon,FilterIcon},
     props: {
       title: {
         type: String,

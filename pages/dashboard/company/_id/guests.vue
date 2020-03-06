@@ -17,7 +17,6 @@
                    :options="months"
                    :selected="month"
                    v-model="month"
-                   :disabled="true"
         />
 
         <oy-select class="col"
@@ -26,7 +25,6 @@
                    :options="years"
                    :selected="year"
                    v-model="year"
-                   :disabled="true"
         />
       </div>
     </div>
@@ -80,18 +78,7 @@
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1,
         company_id: this.$route.params.id,
-        spot_id: 'all',
-        // columns: ['datetime', 'device_mac', 'data_auth','sessions'],
-        // options: {
-        //   headings: {
-        //     datetime: 'Дата и время',
-        //     device_mac: 'Гость',
-        //     data_auth: 'Авторизация',
-        //     sessions: 'Визиты',
-        //   },
-        //   sortable: ['datetime', 'device_mac'],
-        //   filterable: ['datetime', 'device_mac']
-        // }
+        spot_id: 'all'
       }
     },
     created() {
