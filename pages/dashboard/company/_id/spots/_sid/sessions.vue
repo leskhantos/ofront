@@ -64,12 +64,12 @@
         </tbody>
       </table>
       <table-pagination :listData="sessionsData"
-                        :pageNumber="sessionsDataCurrentPage"
-                        :size="sessionsDataPerPage"
-                        :total="sessionsDataTotal"
-                        @prevPage="prevPage"
-                        @nextPage="nextPage"
-                        @page="selPage"
+                          :pageNumber="sessionsDataCurrentPage"
+                          :size="sessionsDataPerPage"
+                          :total="sessionsDataTotal"
+                          @prevPage="prevPage"
+                          @nextPage="nextPage"
+                          @page="selPage"
       />
     </oy-page-body>
   </oy-page>
@@ -157,7 +157,8 @@
           year: this.year,
           spot_id: this.spot_id,
           session_type: this.session_type,
-          device_mac: this.request
+          device_mac: this.request,
+          page: 1
         }
         this.$store.dispatch('spot/getSessionsBySpot',data);
       }

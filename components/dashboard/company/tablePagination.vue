@@ -1,16 +1,17 @@
 <template>
-  <nav aria-label="...">
-    <ul class="pagination">
+  <nav aria-label="..." class="text-xs-center">
+    <ul class="pagination justify-content-center">
       <li :class="['page-item', {'disabled': pageNumber === 1}]">
         <a class="page-link"
-           @click="$emit('prevPage', pageNumber)" href="#" >        <span aria-hidden="true">&laquo;</span>
+           @click="$emit('prevPage', pageNumber)" href="#" ><span aria-hidden="true">&laquo;</span>
         </a>
       </li>
       <li v-for="page in pageCount" :class="['page-item',{'active':page.id===pageNumber}]" @click="$emit('page',page.id)"  :key="page.id">
-        <a class="page-link" href="#">{{page.id}}</a></li>
+        <a class="page-link" href="#">{{page.id}}</a>
+      </li>
       <li :class="['page-item', {'disabled':pageNumber >= this.length}]">
         <a class="page-link"
-           @click="$emit('nextPage', pageNumber)" href="#">        <span aria-hidden="true">&raquo;</span>
+           @click="$emit('nextPage', pageNumber)" href="#"><span aria-hidden="true">&raquo;</span>
         </a>
       </li>
     </ul>
@@ -52,6 +53,8 @@
             arr.push({id: i});
           }
           this.length = length
+          console.log(arr)
+          console.log(length)
           return arr;
         },
       },
