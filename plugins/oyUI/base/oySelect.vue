@@ -1,8 +1,9 @@
 <template>
   <div class="oy-select" :class="[ errorClass ]">
-    <label :style="{ marginBottom: '0.3rem' }" v-if="label">{{ label }}</label>
+    <label :style="{ marginBottom: '0.3rem'}" v-if="label">{{ label }}</label>
     <select
       class="form-control form-control-sm "
+      style="min-width:100%"
       @change="$emit('childToParent', $event.target.value)"
     >
       <option selected value="all" :disabled="disabled">{{ firstOption }}</option>
@@ -61,6 +62,7 @@
 <style lang="scss" scoped>
   .oy-select {
     position: relative;
+    padding-right: 1rem;
     /*margin-bottom: 1.2rem;*/
 
     label {

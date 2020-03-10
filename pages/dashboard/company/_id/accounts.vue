@@ -29,16 +29,19 @@
           <th scope="col"></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody v-if="accounts">
         <tr v-for="account in accounts" :key="account.id">
           <td>{{ account.email }}</td>
           <td>{{ dateTransform(account.last_online, true) }}</td>
-          <td>{{account.last_ip}}</td>
+          <td>{{account.last_ip ? account.last_ip : 'нет данных'}}</td>
           <td class="row">
             <div class="col"><i class="icon-refresh"></i> Сбросить пароль</div>
             <div class="col"><i class="icon-ban"></i> Удалить</div>
             <div class="col"><i class="icon-login"></i> Вход</div>
           </td>
+        </tr>
+        <tr v-if="!accounts.length" class="no-data text-center">
+          <td colspan="14">Нет данных</td>
         </tr>
         </tbody>
       </table>

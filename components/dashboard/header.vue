@@ -30,6 +30,9 @@
         <user-menu-item title="Выйти" icon="icon-power" @click="onItemClick('logout')"/>
       </user-menu>
     </div>
+    <client-only>
+      <FlashMessage :position="'left top'"/>
+    </client-only>
   </header>
 </template>
 

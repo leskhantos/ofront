@@ -1,45 +1,41 @@
 <template>
   <oy-page>
-    <div class="row">
-      <div class="col-lg-6 float-left row">
-          <div class="col-lg-5">
-            <oy-input @sendEnter="sendSearch" v-model="request"/>
-          </div>
-          <div class="col-lg-3">
-            <oy-button buttonType="submit"
-                       type="submit"
-                       class="btn btn-success"
-                       :block="true"
-                       title="Обновить"
-                       :svgIcon="'FilterIcon'"
-                       @click="sendSearch"
-            />
-          </div>
-      </div>
-      <div class="col-lg-6 float-right row">
-        <oy-select v-show="session_type==='3'" class="col"
-                   firstOption="Месяц"
-                   @childToParent="onChangeMonth"
-                   :options="months"
-                   :selected="month"
-                   v-model="month"
-        />
+    <div class="d-flex">
+        <div class="d-flex mr-auto" >
+          <oy-input @sendEnter="sendSearch" :style="{ paddingRight:'1.2rem', width:'25rem'}" v-model="request"/>
+          <oy-button :style="{marginBottom:'1.2rem', width:'10rem'}" buttonType="submit"
+                     type="submit"
+                     class="btn btn-success"
+                     :block="true"
+                     title="Обновить"
+                     :svgIcon="'FilterIcon'"
+                     @click="sendSearch"
+          />
+        </div>
+        <div class="d-flex ml-auto">
+          <oy-select v-show="session_type==='3'"
+                     firstOption="Месяц"
+                     @childToParent="onChangeMonth"
+                     :options="months"
+                     :selected="month"
+                     v-model="month"
+          />
 
-        <oy-select v-show="session_type==='3'"  class="col"
-                   first-option="Год"
-                   @childToParent="onChangeYear"
-                   :options="years"
-                   :selected="year"
-                   v-model="year"
-        />
-        <oy-select class="col-lg-4 ml-auto"
-                   firstOption="Тип"
-                   @childToParent="onChangeSessionType"
-                   :options="sessionTypes"
-                   v-model="session_type"
-                   :selected="1"
-        />
-      </div>
+          <oy-select v-show="session_type==='3'"
+                     first-option="Год"
+                     @childToParent="onChangeYear"
+                     :options="years"
+                     :selected="year"
+                     v-model="year"
+          />
+          <oy-select
+            firstOption="Тип"
+            @childToParent="onChangeSessionType"
+            :options="sessionTypes"
+            v-model="session_type"
+            :selected="1"
+          />
+        </div>
     </div>
     <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <table class="table table-striped" >
@@ -51,7 +47,7 @@
           <th v-show="session_type==='3'">Трафик</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody v-if="sessionsData">
         <tr v-for="session in sessionsData">
           <td>{{session.created}}</td>
           <td>{{session.device_mac}}</td>
@@ -61,9 +57,12 @@
             <div style="color:red"> {{session.bytes_out}} </div>
           </td>
         </tr>
+        <tr v-if="!sessionsData.length" class="no-data text-center">
+          <td colspan="14">Нет данных</td>
+        </tr>
         </tbody>
       </table>
-      <table-pagination :listData="sessionsData"
+      <table-pagination v-show="sessionsDataPerPage < sessionsDataTotal" :listData="sessionsData"
                           :pageNumber="sessionsDataCurrentPage"
                           :size="sessionsDataPerPage"
                           :total="sessionsDataTotal"

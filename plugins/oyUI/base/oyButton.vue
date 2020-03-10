@@ -22,9 +22,10 @@
   import AddUserIcon from "@/components/icons/addUserIcon";
   import AddIcon from "@/components/icons/addIcon";
   import FilterIcon from "@/components/icons/filterIcon";
+  import diagnoseIcon from "@/components/icons/diagnoseIcon";
 
   export default {
-    components: {AddIcon, AddUserIcon, PassGenerateIcon,FilterIcon},
+    components: {AddIcon, AddUserIcon, PassGenerateIcon,FilterIcon, diagnoseIcon},
     props: {
       title: {
         type: String,

@@ -1,11 +1,8 @@
 <template>
-  <div class="row setting-item">
-    <div class="col">
-      <h6>{{ title }}</h6>
-    </div>
-    <div class="col">
-      <oy-input :value="value"/>
-    </div>
+  <div class="d-flex justify-content-between">
+      <h6 class="mr-auto">{{ title }}</h6>
+      <oy-input :value="value" :style="{paddingRight:'.2rem'}"/>
+      <p>{{ unit }}</p>
   </div>
 </template>
 
@@ -20,14 +17,15 @@
       value: {
         type: [String, Number],
         required: false
+      },
+      unit:{
+        type: String,
+        required: false
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
-  .setting-item {
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-    margin-top: 1rem;
-  }
+
 </style>

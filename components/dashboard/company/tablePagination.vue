@@ -53,8 +53,6 @@
             arr.push({id: i});
           }
           this.length = length
-          console.log(arr)
-          console.log(length)
           return arr;
         },
       },

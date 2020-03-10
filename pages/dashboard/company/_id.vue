@@ -1,6 +1,6 @@
 <template>
   <div class="company-page">
-    <nav class="nav nav-pills nav-fill" v-show="showOnly">
+    <nav class="nav nav-pills nav-fill fixed-top" v-show="showOnly">
       <div class="nav-item nav-link border" :class="{active: isActive('main')}" @click="switchComponents('main')">
         Основное
       </div>
@@ -21,7 +21,7 @@
         Управление
       </div>
     </nav>
-    <nuxt-child/>
+    <nuxt-child :style="{marginTop: '3rem'}"/>
   </div>
 </template>
 
@@ -117,7 +117,15 @@
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
-
+      .fixed-top{
+      position:absolute;
+      top: 58px;
+      left: auto;
+      right: auto;
+      overflow: hidden;
+      width: 82.4%;
+      background-color:#f5f5f5;
+    }
     &__title {
       margin-top: .5rem;
       margin-right: .1rem;

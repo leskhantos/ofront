@@ -24,14 +24,15 @@
         <tr>
           <th scope="col">Страница</th>
           <th scope="col">Зона</th>
-          <!--          <th></th>-->
         </tr>
         </thead>
-        <tbody>
+        <tbody v-if="styles">
         <tr v-for="style in styles" :key="style.id">
           <td>{{ style.name }}</td>
           <td >{{ style.spot }}</td>
-          <!--          <td style="text-align: right"><oy-dot :active-color="style.enabled ? '#37a967':'red'"/></td>-->
+        </tr>
+        <tr v-if="!styles.length" class="no-data text-center">
+          <td colspan="14">Нет данных</td>
         </tr>
         </tbody>
       </table>

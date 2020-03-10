@@ -10,11 +10,8 @@
       <metric title="Актуальных сессий" :number="stats.session" :currentIcon="'actualSessionIcon'"/>
     </div>
     <oy-page>
-      <div class="row">
-        <div class="col-lg-8">
-        </div>
-        <div class="col-lg-4 float-right row">
-          <oy-select class="col"
+      <div class="d-flex justify-content-end">
+          <oy-select
                      firstOption="Месяц"
                      @childToParent="onChangeMonth"
                      :options="months"
@@ -22,7 +19,7 @@
                      v-model="form.month"
           />
 
-          <oy-select class="col"
+          <oy-select
                      first-option="Год"
                      @childToParent="onChangeYear"
                      :options="years"
@@ -30,7 +27,6 @@
                      v-model="form.year"
           />
         </div>
-      </div>
       <oy-page-body>
         <oy-page-header title="Звонки"></oy-page-header>
         <div class="calls-charts-card">

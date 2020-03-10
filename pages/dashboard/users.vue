@@ -2,22 +2,18 @@
   <oy-page>
     <oy-page-header>
       <div slot="actions">
-        <div class="row">
-          <div class="col">
-            <label>
+        <div class="d-flex justify-content-end">
+            <label :style="{paddingRight:'1rem'}">
               <input type="checkbox" v-model="showDisabledUsers"/>
               <span>Показывать отключенных</span>
             </label>
-          </div>
-          <div class="col">
             <oy-button
-              title="Добавить пользователя"
+              title="Добавить"
               type="success"
               @click="showModal"
               :svgIcon="'AddUserIcon'"
             >
             </oy-button>
-          </div>
         </div>
         <oy-modal
           title="Добавить пользователя"
@@ -37,7 +33,7 @@
         </oy-modal>
       </div>
     </oy-page-header>
-    <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <table class="table table-striped">
         <thead>
         <tr>
@@ -45,13 +41,12 @@
           <th scope="col">IP</th>
           <th scope="col">Последний вход</th>
           <th scope="col" :style="{ width: '10%', textAlign:'center'}">Статус</th>
-          <!--            <th scope="col">EDIT</th>-->
         </tr>
         </thead>
         <tbody>
-        <tr v-for="user of allUsers" :key="user.id" @click="showUpdate(user)">
+        <tr v-for="user of allUsers" :style="{cursor: selectedRow}" :key="user.id" @click="showUpdate(user)">
           <td data-label="Имя">{{ user.name }}</td>
-          <td data-label="IP">{{ user.last_ip }}</td>
+          <td data-label="IP">{{ user.last_ip ? user.last_ip : 'нет данных' }}</td>
           <td data-label="Последний вход">{{ dateTransform(user.last_online, true) }}</td>
           <td data-label="Статус" style="text-align: center">
             <oy-dot :active-color="user.enabled ? '#37a967': 'red'"/>
@@ -64,8 +59,8 @@
 </template>
 
 <script>
-  import storeForm from "../../components/dashboard/users/storeUser";
-  import updateUser from "../../components/dashboard/users/updateUser";
+  import storeForm from "@/components/dashboard/users/storeUser";
+  import updateUser from "@/components/dashboard/users/updateUser";
   import moment from 'moment';
 
 
@@ -74,7 +69,8 @@
     data() {
       return {
         user: null,
-        showDisabledUsers: false
+        showDisabledUsers: false,
+        selectedRow: `url("data:image/svg+xml;charset=UTF-8,%3c?xml version='1.0' encoding='UTF-8'?%3e%3c!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3e%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' width='24' height='24' viewBox='0 0 24 24'%3e%3cpath fill='%23000000' d='M16.84,2.73C16.45,2.73 16.07,2.88 15.77,3.17L13.65,5.29L18.95,10.6L21.07,8.5C21.67,7.89 21.67,6.94 21.07,6.36L17.9,3.17C17.6,2.88 17.22,2.73 16.84,2.73M12.94,6L4.84,14.11L7.4,14.39L7.58,16.68L9.86,16.85L10.15,19.41L18.25,11.3M4.25,15.04L2.5,21.73L9.2,19.94L8.96,17.78L6.65,17.61L6.47,15.29' /%3e%3c/svg%3e"), pointer`
       }
     },
     components: {
@@ -132,5 +128,8 @@
   input[type='checkbox'] {
     position: relative;
     top: 1px;
+  }
+ tbody tr:hover{
+    cursor: pointer;
   }
 </style>

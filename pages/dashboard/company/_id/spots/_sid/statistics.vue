@@ -1,10 +1,7 @@
 <template>
   <oy-page>
-    <div class="row">
-      <div class="col-lg-8">
-      </div>
-      <div class="col-lg-4 float-right row">
-        <oy-select class="col"
+    <div class="d-flex flex-wrap justify-content-end">
+        <oy-select
                    firstOption="Месяц"
                    @childToParent="onChangeMonth"
                    :options="months"
@@ -12,14 +9,13 @@
                    v-model="month"
         />
 
-        <oy-select class="col"
+        <oy-select
                    first-option="Год"
                    @childToParent="onChangeYear"
                    :options="years"
                    :selected="year"
                    v-model="year"
         />
-      </div>
     </div>
     <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <oy-page-header title="Гости"></oy-page-header>

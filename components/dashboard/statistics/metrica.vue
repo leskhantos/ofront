@@ -2,7 +2,7 @@
   <div class="metric-item">
     <div class="metric-item__card">
       <div class="metric-item__card--number">
-        <component :is="currentIcon"/>
+        <component :is="currentIcon" :color="'currentColor'"/>
         {{ number }}
       </div>
       <div class="metric-item__card--title">{{ title }}</div>

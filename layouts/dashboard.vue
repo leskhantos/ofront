@@ -1,7 +1,6 @@
 <template>
   <div class="dashboard-layout">
     <client-only>
-      <FlashMessage :position="'right bottom'"/>
       <sidebar/>
       <oyModal
         :visible="set_password_mode"

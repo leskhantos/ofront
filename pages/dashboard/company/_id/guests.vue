@@ -1,17 +1,14 @@
 <template>
   <oy-page>
-    <div class="row">
-      <div class="col-lg-4">
-      </div>
-      <div class="col-lg-8 float-right row">
-        <oy-select class="col-lg-8"
+    <div class="d-flex flex-wrap justify-content-end">
+        <oy-select
                    firstOption="Все зоны"
                    @childToParent="onChangeSpot"
                    :options="spots"
                    v-model="spot_id"
                    :disabled="false"
         />
-        <oy-select class="col"
+        <oy-select
                    firstOption="Месяц"
                    @childToParent="onChangeMonth"
                    :options="months"
@@ -19,17 +16,15 @@
                    v-model="month"
         />
 
-        <oy-select class="col"
+        <oy-select
                    first-option="Год"
                    @childToParent="onChangeYear"
                    :options="years"
                    :selected="year"
                    v-model="year"
         />
-      </div>
     </div>
     <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
-      <div v-if="spot_id==='all'">
         <table class="table table-striped" >
           <thead>
           <tr>
@@ -39,7 +34,7 @@
             <th scope="col" style="text-align: center">Визиты</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody v-if="guests">
           <tr v-for="guest in guests" :key="guest.id">
             <td>{{guest.datetime}}</td>
             <td>
@@ -49,9 +44,12 @@
             <td>{{guest.data_auth}}</td>
             <td style="text-align: center">{{guest.sessions}}</td>
           </tr>
+          <tr v-if="!guests.length" class="no-data text-center">
+            <td colspan="14">Нет данных </td>
+          </tr>
           </tbody>
         </table>
-        <table-pagination :listData="guests"
+        <table-pagination v-show="guestsPerPage < guestsTotal" :listData="guests"
                           :pageNumber="guestsCurrentPage"
                           :size="guestsPerPage"
                           :total="guestsTotal"
@@ -59,39 +57,6 @@
                           @nextPage="nextPage"
                           @page="selPage"
         />
-      </div>
-      <div v-else>
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th scope="col">Дата и время</th>
-            <th scope="col">Гость</th>
-            <th scope="col">Авторизация</th>
-            <th scope="col" style="text-align: center">Визиты</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="guest in guestsBySpot" :key="guest.id">
-            <td>{{guest.datetime}}</td>
-            <td>
-              <devices-icon/>
-              {{guest.device_mac}}
-            </td>
-            <td>{{guest.data_auth}}</td>
-            <td style="text-align: center">{{guest.sessions}}</td>
-          </tr>
-          </tbody>
-        </table>
-        <table-pagination :listData="guestsBySpot"
-                          :pageNumber="guestsCurrentPage"
-                          :size="guestsPerPage"
-                          :total="guestsTotal"
-                          @prevPage="prevPage"
-                          @nextPage="nextPage"
-                          @page="selPage"
-        />
-      </div>
-
     </oy-page-body>
   </oy-page>
 </template>
@@ -203,9 +168,6 @@
         return this.$store.getters['spot/spotsByCompany']
       },
       guests() {
-        return this.$store.getters['guest/guestsByCompany']
-      },
-      guestsBySpot() {
         return this.$store.getters['guest/guestsBySpot']
       },
       guestsCurrentPage(){
@@ -287,7 +249,15 @@
             spot_id: this.spot_id,
             page: this.page
           }
-          if (this.spot_id !== 'all') {
+          let data = {
+            month: this.month,
+            year: this.year,
+            company_id: this.company_id,
+            page: this.page
+          }
+          if (this.spot_id === 'all') {
+            this.$store.dispatch('guest/getGuestsByCompany', data);
+          }else{
             this.$store.dispatch('guest/getGuestsBySpot', spotData);
           }
         }

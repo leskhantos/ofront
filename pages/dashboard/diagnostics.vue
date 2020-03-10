@@ -2,13 +2,11 @@
   <oy-page>
     <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <form @submit.prevent="sendRequest">
-        <div class="row">
-          <div class="col-md-8">
-            <oy-input :placeholder="'Запрос'" v-model="request"/>
-          </div>
-          <div class="col-md-4">
-            <oy-button buttonType="submit" type="submit" title="Отправить" class="btn btn-success" :block="true"/>
-          </div>
+        <div class="d-flex justify-content-center">
+          <oy-input :placeholder="'Запрос'" v-model="request" class="col-lg-5"/>
+          <oy-button :style="{marginBottom:'1.2rem'}" :svgIcon="'diagnoseIcon'"
+                     buttonType="submit" type="submit" title="Отправить" class="btn btn-success col-lg-2"
+                     :block="true"/>
         </div>
       </form>
     </oy-page-body>

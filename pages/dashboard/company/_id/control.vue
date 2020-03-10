@@ -1,7 +1,6 @@
 <template>
   <oy-page>
-    <oy-page-header/>
-    <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <form @submit.prevent="renameCompany(company.id)">
         <div class="input-group mb-3">
           <input type="text" class="form-control" :placeholder="company.name" v-model="newName"
@@ -10,18 +9,27 @@
       </form>
       <oy-switch title="Включен" v-model="checkVal" :checked="checked"/>
       <button type="submit" class="btn btn-success" @click="renameCompany(company.id)">Сохранить</button>
-      <button class="btn btn-danger" @click="deleteCompany">
+      <button class="btn btn-danger" @click="showModal">
         Удалить
       </button>
+      <oy-modal
+      :title="'Удалить компанию '+company.name "
+      padding="1rem"
+      :visible="confirm_delete"
+      @close="confirm_delete = false"
+    >
+        <confirm-delete       @close="confirm_delete = false"
+                              :company="company"/>
+    </oy-modal>
     </oy-page-body>
   </oy-page>
 </template>
 
 <script>
-  import editCompanyIcon from "@/components/icons/editCompanyIcon";
+
+  import confirmDelete from "@/components/dashboard/company/modals/confirmDelete";
 
   export default {
-    components: {editCompanyIcon},
     data() {
       return {
         checkVal: '',
@@ -30,31 +38,26 @@
         edit: false,
       }
     },
+    components:{confirmDelete},
     computed: {
       company: function () {
         return this.$store.getters["company/company"];
       },
       checked: function () {
         return this.company.enabled === 1;
-      }
+      },
+      confirm_delete: {
+        get: function () {
+          return this.$store.getters['app/confirm_delete'];
+        },
+        set: function (value) {
+          this.$store.commit('app/CONFIRM_DELETE', value);
+        }
+      },
     },
     methods: {
-      async deleteCompany() {
-        let del = confirm("Уверены ?");
-        if (del) {
-          try {
-            await this.$axios.delete(`company/${this.company_id}`)
-            await this.$store.dispatch("company/getCompanies");
-            this.flashMessage.warning({
-              title: "Компания удалена",
-            });
-            this.$router.push({name: "dashboard-statistics"});
-          } catch (e) {
-            this.flashMessage.error({
-              title: e.response.data.message,
-            });
-          }
-        }
+      showModal() {
+        return this.confirm_delete = true;
       },
       async changeStatus() {
         try {
@@ -76,6 +79,9 @@
           await this.$store.dispatch("company/getCompanies");
           this.flashMessage.success({
             title: "Компания обновлена",
+            position: 'left top',
+            x: 550,
+            y: 550
           });
           await this.$store.dispatch("company/getCompany", this.$route.params.id);
           this.$router.push({name: "dashboard-company-id-control", params: {id: data.data.id}});
@@ -83,6 +89,9 @@
         } catch (e) {
           this.flashMessage.error({
             title: e.response.data.message,
+            position: 'left top',
+            x: 550,
+            y: 550
           });
         }
       }

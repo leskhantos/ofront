@@ -1,17 +1,14 @@
 <template>
   <oy-page>
-    <div class="row">
-      <div class="col-lg-4">
-      </div>
-      <div class="col-lg-8 float-right row">
-        <oy-select class="col-lg-8"
+    <div class="d-flex flex-wrap justify-content-end">
+        <oy-select
                    firstOption="Все зоны"
                    @childToParent="onChangeSpot"
                    :options="spots"
                    v-model="spot_id"
                    :disabled="false"
         />
-        <oy-select class="col"
+        <oy-select
                    firstOption="Месяц"
                    @childToParent="onChangeMonth"
                    :options="months"
@@ -19,14 +16,13 @@
                    v-model="month"
         />
 
-        <oy-select class="col"
+        <oy-select
                    first-option="Год"
                    @childToParent="onChangeYear"
                    :options="years"
                    :selected="year"
                    v-model="year"
         />
-      </div>
     </div>
     <oy-page-body v-if="spot_id==='all'" :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <oy-page-header title="Гости"></oy-page-header>

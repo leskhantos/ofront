@@ -1,5 +1,5 @@
 <template>
-  <div class="page" :style="{ padding: padding }">
+  <div class="page" :style="{ padding: padding}">
     <slot></slot>
   </div>
 </template>

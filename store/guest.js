@@ -1,15 +1,11 @@
 export const state = () => ({
   guestsBySpot: [],
-  guestsByCompany: [],
   guestsCurrentPage: null,
   guestsPerPage: null,
   guestsTotal:null
 });
 
 export const getters = {
-  guestsByCompany(state) {
-    return state.guestsByCompany
-  },
   guestsBySpot(state) {
     return state.guestsBySpot
   },
@@ -28,9 +24,6 @@ export const mutations = {
   SET_GUESTS_BY_SPOT(state, guestsBySpot) {
     state.guestsBySpot = guestsBySpot
   },
-  SET_GUESTS_BY_COMPANY(state, guestsByCompany) {
-    state.guestsByCompany = guestsByCompany
-  },
   GUESTS_CUR_PAGE(state, guestsCurrentPage) {
     state.guestsCurrentPage = guestsCurrentPage
   },
@@ -45,7 +38,7 @@ export const mutations = {
 export const actions = {
   async getGuestsByCompany({commit}, payload) {
     await this.$axios.get(`company/${payload.company_id}/guests?month=${payload.month}&year=${payload.year}&page=${payload.page}`).then((response) => {
-      commit('SET_GUESTS_BY_COMPANY', response.data.data);
+      commit('SET_GUESTS_BY_SPOT', response.data.data);
       commit('GUESTS_CUR_PAGE', response.data.meta.current_page);
       commit('GUESTS_PER_PAGE', response.data.meta.per_page);
       commit('GUESTS_TOTAL', response.data.meta.total);
