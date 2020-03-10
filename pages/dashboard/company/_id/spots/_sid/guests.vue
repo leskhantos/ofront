@@ -44,20 +44,30 @@
         </tr>
         </tbody>
       </table>
+      <table-pagination :listData="guestsBySpot"
+                        :pageNumber="guestsCurrentPage"
+                        :size="guestsPerPage"
+                        :total="guestsTotal"
+                        @prevPage="prevPage"
+                        @nextPage="nextPage"
+                        @page="selPage"
+      />
     </oy-page-body>
   </oy-page>
 </template>
 
 <script>
   import devicesIcon from "@/components/icons/devicesIcon";
+  import tablePagination from "@/components/dashboard/company/tablePagination";
 
   export default {
-    components: {devicesIcon},
+    components: {devicesIcon, tablePagination},
     data() {
       return {
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1,
-        spot_id: this.$route.params.sid
+        spot_id: this.$route.params.sid,
+        page:1
       }
     },
     created() {
@@ -78,6 +88,36 @@
       onChangeYear(val) {
         this.year = val
       },
+      prevPage(val){
+        this.page = val
+        let spotData = {
+          month: this.month,
+          year: this.year,
+          spot_id: this.spot_id,
+          page: this.page-1
+        }
+        this.$store.dispatch('guest/getGuestsBySpot', spotData);
+      },
+      nextPage(val){
+        this.page = val
+        let spotData = {
+          month: this.month,
+          year: this.year,
+          spot_id: this.spot_id,
+          page: this.page+1
+        }
+        this.$store.dispatch('guest/getGuestsBySpot', spotData);
+      },
+      selPage(val){
+        this.page = val
+        let spotData = {
+          month: this.month,
+          year: this.year,
+          spot_id: this.spot_id,
+          page: this.page
+        }
+        this.$store.dispatch('guest/getGuestsBySpot', spotData);
+      },
     },
     computed: {
       years: function () {
@@ -85,6 +125,15 @@
       },
       guestsBySpot() {
         return this.$store.getters['guest/guestsBySpot']
+      },
+      guestsCurrentPage(){
+        return this.$store.getters['guest/guestsCurrentPage']
+      },
+      guestsPerPage(){
+        return this.$store.getters['guest/guestsPerPage']
+      },
+      guestsTotal(){
+        return this.$store.getters['guest/guestsTotal']
       },
       months: function () {
         let months = this.$store.getters['app/get_months']
@@ -109,7 +158,8 @@
           let spotData = {
             month: this.month,
             year: this.year,
-            spot_id: this.spot_id
+            spot_id: this.spot_id,
+            page:this.page
           }
           this.$store.dispatch('guest/getGuestsBySpot', spotData);
         }
@@ -120,7 +170,8 @@
           let spotData = {
             month: this.month,
             year: this.year,
-            spot_id: this.spot_id
+            spot_id: this.spot_id,
+            page:this.page
           }
           this.$store.dispatch('guest/getGuestsBySpot', spotData);
         }
