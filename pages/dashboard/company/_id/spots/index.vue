@@ -3,7 +3,7 @@
     <oy-page-header>
       <div slot="actions">
         <oy-button
-          title="Добавить зону"
+          title="Добавить"
           type="success"
           :svgIcon="'AddIcon'"
           @click="showModal"
@@ -32,7 +32,9 @@
         <tbody v-if="spots">
         <tr v-for="spot in spots" :key="spot.id">
           <td>
-            <spot-icon :color="'#f04641'"/>
+            <smsIcon v-show="spot.type===1" :color="'#f04641'"/>
+            <callIcon v-show="spot.type===2" :color="'#f04641'"/>
+            <voucherIcon v-show="spot.type===3" :color="'#f04641'"/>
             <nuxt-link
               :to="{ name: 'dashboard-company-id-spots-sid-mainSpot', params: { id:company_id, sid: spot.id } }">
               {{spot.address }}
@@ -57,9 +59,11 @@
 <script>
   import storeSpot from "@/components/dashboard/company/modals/storeSpot";
   import spotIcon from "@/components/icons/spotIcon";
-
+  import smsIcon from "@/components/icons/smsIcon";
+  import callIcon from "@/components/icons/callIcon";
+  import voucherIcon from "@/components/icons/voucherIcon";
   export default {
-    components: {spotIcon, storeSpot},
+    components: {spotIcon, storeSpot, smsIcon, callIcon, voucherIcon},
     data() {
       return {
         company_id: this.$route.params.id

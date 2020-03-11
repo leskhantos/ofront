@@ -3,7 +3,7 @@
     <oy-page-header>
       <div slot="actions">
         <oy-button
-          title="Добавить аккаунт"
+          title="Добавить"
           type="success"
           :svgIcon="'AddIcon'"
           @click="showModal"

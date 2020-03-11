@@ -1,6 +1,6 @@
 <template>
   <oy-page>
-    <div class="d-flex flex-wrap justify-content-end">
+    <div class="d-flex flex-wrap justify-content-end fixed-top">
         <oy-select
                    firstOption="Месяц"
                    @childToParent="onChangeMonth"
@@ -295,6 +295,12 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .fixed-top{
+    position:absolute;
+    top: 135px;
+    left: auto;
+    right: 1.7rem;
+    overflow: hidden;
+  }
 </style>

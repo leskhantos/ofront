@@ -18,14 +18,12 @@
 
 <style lang="scss" scoped>
   .page {
-    height: 100%;
     display: flex;
     flex-direction: column;
     margin: 1rem;
     background-color: #ffffff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
     border-radius: 3px;
-    overflow-y: hidden;
   }
 
   @media screen and (max-width: 992px) {

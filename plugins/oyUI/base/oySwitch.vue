@@ -1,15 +1,11 @@
 <template>
-  <div class="row" :style="{ paddingBottom:'.5rem'}">
-    <div class="col-md-2">
+  <div class="d-flex justify-content-start" :style="{ paddingBottom:'.5rem'}">
       <h5>{{ title }}:</h5>
-    </div>
-    <div class="col-md-10">
-      <span class="switch">
+      <span class="switch" :style="{ marginLeft: marginLeft}">
         <input type="checkbox" class="switch" id="switch-normal" v-model="val" :checked="val"
                @change="change()">
         <label for="switch-normal"></label>
       </span>
-    </div>
   </div>
 </template>
 
@@ -21,6 +17,10 @@
         required: false
       },
       title: {
+        type: String,
+        required: false
+      },
+      marginLeft: {
         type: String,
         required: false
       }

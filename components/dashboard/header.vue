@@ -195,8 +195,8 @@
 
     .page-header__title {
       display: flex;
-
       a {
+        text-decoration: none;
         font-weight: bold;
         font-size: x-large;
         color: #575962;

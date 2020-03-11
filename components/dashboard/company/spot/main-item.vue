@@ -1,11 +1,7 @@
 <template>
-  <div class="row main-item">
-    <div class="col">
-      <h5>{{ title }}</h5>
-    </div>
-    <div class="col">
-      <oy-input :value="value"/>
-    </div>
+  <div class="d-flex justify-content-between">
+      <h5 :style="{marginLeft:'20rem'}">{{ title }}</h5>
+      <oy-input :value="value" :style="{width:'30rem', marginRight:'20rem'}"/>
   </div>
 </template>
 

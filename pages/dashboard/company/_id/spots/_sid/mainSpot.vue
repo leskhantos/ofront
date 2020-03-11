@@ -9,9 +9,9 @@
       <main-item title="Тип:" :value="spot.type"/>
       <main-item title="Время жизни сессии:" :value="spot.type"/>
       <main-item title="Переадресация:" :value="spot.type"/>
-      <oy-switch title="Международные номера" :checked="false"/>
       <main-item title="Таймер активности" :value="spot.type"/>
-      <oy-switch title="Включен" :checked="spot.enabled"/>
+      <oy-switch :style="{marginLeft:'20rem'}" :marginLeft="'10.1rem'" title="Международные номера" :checked="false"/>
+      <oy-switch :style="{marginLeft:'20rem'}" :marginLeft="'20rem'" title="Включен" :checked="spot.enabled"/>
     </oy-page-body>
   </oy-page>
 </template>

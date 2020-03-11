@@ -3,7 +3,7 @@
     <oy-page-header>
       <div slot="actions">
         <oy-button
-          title="Создать стиль"
+          title="Создать"
           type="success"
           :svgIcon="'AddIcon'"
           @click="showModal"
@@ -28,7 +28,11 @@
         </thead>
         <tbody v-if="styles">
         <tr v-for="style in styles" :key="style.id">
-          <td>{{ style.name }}</td>
+          <td>
+            <smsIcon v-show="style.type===1" :color="'#f04641'"/>
+            <callIcon v-show="style.type===2" :color="'#f04641'"/>
+            <voucherIcon v-show="style.type===3" :color="'#f04641'"/>
+            {{ style.name }}</td>
           <td >{{ style.spot }}</td>
         </tr>
         <tr v-if="!styles.length" class="no-data text-center">
@@ -42,9 +46,12 @@
 
 <script>
   import storeStyle from "@/components/dashboard/company/modals/storeStyle";
+  import smsIcon from "@/components/icons/smsIcon";
+  import callIcon from "@/components/icons/callIcon";
+  import voucherIcon from "@/components/icons/voucherIcon";
 
   export default {
-    components: {storeStyle},
+    components: {storeStyle,smsIcon,callIcon,voucherIcon},
     data() {
       return {
         company_id: this.$route.params.id

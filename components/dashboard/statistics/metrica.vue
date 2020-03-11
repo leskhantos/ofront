@@ -53,10 +53,12 @@
       margin: 0 1rem 1rem 0;
 
       &--title {
-        font-size: 14px;
+        font-size: 12px;
+        font-weight: 500;
         text-anchor: start;
         fill: rgb(55, 61, 63);
         text-align: right;
+        text-transform: uppercase;
       }
 
       &--number {

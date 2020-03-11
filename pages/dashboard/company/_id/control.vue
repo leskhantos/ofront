@@ -1,19 +1,19 @@
 <template>
   <oy-page>
-    <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body >
       <form @submit.prevent="renameCompany(company.id)">
         <div class="input-group mb-3">
           <input type="text" class="form-control" :placeholder="company.name" v-model="newName"
                  aria-describedby="basic-addon2">
         </div>
       </form>
-      <oy-switch title="Включен" v-model="checkVal" :checked="checked"/>
+      <oy-switch title="Включен" v-model="checkVal" :checked="checked" :marginLeft="'2.5rem'"/>
       <button type="submit" class="btn btn-success" @click="renameCompany(company.id)">Сохранить</button>
       <button class="btn btn-danger" @click="showModal">
         Удалить
       </button>
       <oy-modal
-      :title="'Удалить компанию '+company.name "
+      :title="'Удалить компанию '"
       padding="1rem"
       :visible="confirm_delete"
       @close="confirm_delete = false"

@@ -60,5 +60,32 @@
 </script>
 
 <style scoped>
+  .pagination > li > a
+  {
+    background-color: white;
+    color: #37a967;
+  }
 
+  .pagination > li > a:focus,
+  .pagination > li > a:hover,
+  .pagination > li > span:focus,
+  .pagination > li > span:hover
+  {
+    color: #fff;
+    background-color: gray;
+    border-color: #ddd;
+  }
+
+  .pagination > .active > a
+  {
+    color: white;
+    background-color: #37a967 !Important;
+    border: solid 1px #37a967 !Important;
+  }
+
+  .pagination > .active > a:hover
+  {
+    background-color: #37a967 !Important;
+    border: solid 1px #37a967;
+  }
 </style>
