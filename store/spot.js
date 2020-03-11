@@ -26,7 +26,7 @@ export const getters = {
     ]
   },
   sessionsBySpotData(state){
-    return state.sessionsBySpot.data
+    return state.sessionsBySpot
   },
   sessionsDataCurrentPage(state){
     return state.sessionsDataCurrentPage
@@ -83,24 +83,13 @@ export const actions = {
     });
   },
     async getSessionsBySpot({commit}, payload) {
-    if(payload.session_type==3){
       await this.$axios.get(`spot/${payload.spot_id}/session?session_type=${payload.session_type}&month=${payload.month}&year=${payload.year}&device_mac=${payload.device_mac}&page=${payload.page}`).then((response) => {
-        commit('SET_SESSIONS_BY_SPOT', response.data);
+        commit('SET_SESSIONS_BY_SPOT', response.data.data);
         commit('SET_SESSIONS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
         commit('SET_SESSIONS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
         commit('SET_SESSIONS_BY_SPOT_TOTAL', response.data.meta.total);
       }).catch((err) => {
       });
-    }else{
-      await this.$axios.get(`spot/${payload.spot_id}/session?session_type=${payload.session_type}&device_mac=${payload.device_mac}&page=${payload.page}`).then((response) => {
-        commit('SET_SESSIONS_BY_SPOT', response.data);
-        commit('SET_SESSIONS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
-        commit('SET_SESSIONS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
-        commit('SET_SESSIONS_BY_SPOT_TOTAL', response.data.meta.total);
-      }).catch((err) => {
-      });
-    }
-
   },
 
 };

@@ -125,6 +125,9 @@
             await this.$store.dispatch('spot/getSpot', this.$route.params.sid)
             this.spotName = this.spot.address
           }
+        }else if(this.$route.params.device){
+          this.route = {name: 'dashboard-statistics'}
+          this.title = 'Устройство';
         } else {
           switch (this.$route.name) {
             case 'dashboard-users':
@@ -185,7 +188,6 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-
     .right-buttons {
       flex: 1;
       display: flex;

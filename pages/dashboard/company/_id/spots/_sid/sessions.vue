@@ -206,6 +206,7 @@
             year: this.year,
             spot_id: this.spot_id,
             session_type: 3,
+            device_mac: this.request,
             page: this.page
           }
           this.$store.dispatch('spot/getSessionsBySpot',data );
@@ -219,6 +220,7 @@
             year: this.year,
             spot_id: this.spot_id,
             session_type: 3,
+            device_mac: this.request,
             page: this.page
           }
           this.$store.dispatch('spot/getSessionsBySpot',data );
