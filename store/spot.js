@@ -1,7 +1,11 @@
 export const state = () => ({
   spot: {},
   spotTypesByCompany: [],
-  spotsByCompany: []
+  spotsByCompany: [],
+  sessionsBySpot:[],
+  sessionsDataCurrentPage: null,
+  sessionsDataPerPage: null,
+  sessionsDataTotal:null
 });
 
 export const getters = {
@@ -13,6 +17,25 @@ export const getters = {
   },
   spotsByCompany(state) {
     return state.spotsByCompany
+  },
+  sessionTypes(){
+    return [
+      {id:1, name:'Активные'},
+      {id:2, name:'Авторизации'},
+      {id:3, name:'Завершенные'}
+    ]
+  },
+  sessionsBySpotData(state){
+    return state.sessionsBySpot.data
+  },
+  sessionsDataCurrentPage(state){
+    return state.sessionsDataCurrentPage
+  } ,
+  sessionsDataPerPage(state){
+    return state.sessionsDataPerPage
+  } ,
+  sessionsDataTotal(state){
+    return state.sessionsDataTotal
   }
 };
 
@@ -25,6 +48,18 @@ export const mutations = {
   },
   SET_SPOTS_BY_COMPANY(state, spotsByCompany) {
     state.spotsByCompany = spotsByCompany
+  },
+  SET_SESSIONS_BY_SPOT_CUR_PAGE(state, sessionsDataCurrentPage) {
+    state.sessionsDataCurrentPage = sessionsDataCurrentPage
+  },
+  SET_SESSIONS_BY_SPOT_PER_PAGE(state, sessionsDataPerPage) {
+    state.sessionsDataPerPage = sessionsDataPerPage
+  },
+  SET_SESSIONS_BY_SPOT_TOTAL(state, sessionsDataTotal) {
+    state.sessionsDataTotal = sessionsDataTotal
+  },
+  SET_SESSIONS_BY_SPOT(state, sessionsBySpot) {
+    state.sessionsBySpot = sessionsBySpot
   }
 };
 
@@ -47,4 +82,25 @@ export const actions = {
     }).catch((err) => {
     });
   },
+    async getSessionsBySpot({commit}, payload) {
+    if(payload.session_type==3){
+      await this.$axios.get(`spot/${payload.spot_id}/session?session_type=${payload.session_type}&month=${payload.month}&year=${payload.year}&device_mac=${payload.device_mac}&page=${payload.page}`).then((response) => {
+        commit('SET_SESSIONS_BY_SPOT', response.data);
+        commit('SET_SESSIONS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
+        commit('SET_SESSIONS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
+        commit('SET_SESSIONS_BY_SPOT_TOTAL', response.data.meta.total);
+      }).catch((err) => {
+      });
+    }else{
+      await this.$axios.get(`spot/${payload.spot_id}/session?session_type=${payload.session_type}&device_mac=${payload.device_mac}&page=${payload.page}`).then((response) => {
+        commit('SET_SESSIONS_BY_SPOT', response.data);
+        commit('SET_SESSIONS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
+        commit('SET_SESSIONS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
+        commit('SET_SESSIONS_BY_SPOT_TOTAL', response.data.meta.total);
+      }).catch((err) => {
+      });
+    }
+
+  },
+
 };

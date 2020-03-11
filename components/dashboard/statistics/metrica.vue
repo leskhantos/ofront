@@ -2,7 +2,7 @@
   <div class="metric-item">
     <div class="metric-item__card">
       <div class="metric-item__card--number">
-        <component :is="currentIcon"/>
+        <component :is="currentIcon" :color="'currentColor'"/>
         {{ number }}
       </div>
       <div class="metric-item__card--title">{{ title }}</div>
@@ -53,10 +53,12 @@
       margin: 0 1rem 1rem 0;
 
       &--title {
-        font-size: 14px;
+        font-size: 12px;
+        font-weight: 500;
         text-anchor: start;
         fill: rgb(55, 61, 63);
         text-align: right;
+        text-transform: uppercase;
       }
 
       &--number {

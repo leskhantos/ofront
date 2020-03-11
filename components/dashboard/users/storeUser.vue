@@ -43,7 +43,7 @@
       options: [
         {id: 'admin', name: 'Администратор'},
         {id: 'manager', name: 'Менеджер'},
-        {id: 'support', name: 'Support'},
+        {id: 'support', name: 'Поддержка'},
       ],
     }),
 

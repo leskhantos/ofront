@@ -7,6 +7,7 @@ export const state = () => ({
   set_new_spot: false,
   set_new_style: false,
   set_new_account: false,
+  confirm_delete:false,
   errors: {}
 });
 
@@ -37,6 +38,9 @@ export const getters = {
   },
   set_new_account(state) {
     return state.set_new_account;
+  },
+  confirm_delete(state) {
+    return state.confirm_delete;
   },
   get_years(){
     let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
@@ -91,6 +95,9 @@ export const mutations = {
   },
   SET_NEW_ACCOUNT(state, set_new_account) {
     state.set_new_account = set_new_account;
+  },
+  CONFIRM_DELETE(state, confirm_delete) {
+    state.confirm_delete = confirm_delete;
   },
 };
 

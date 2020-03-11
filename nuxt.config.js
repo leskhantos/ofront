@@ -2,8 +2,8 @@ require('dotenv').config()
 
 export default {
   server:{
-    port: 3000,
-    host: '0.0.0.0'
+    port: process.env.APP_PORT,
+    host: process.env.APP_ENV==='prod'? '0.0.0.0': 'localhost'
   },
   mode: 'universal',
   /*

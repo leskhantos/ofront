@@ -1,97 +1,79 @@
 <template>
   <oy-page>
-    <div class="row">
-      <div class="col-lg-4">
-      </div>
-      <div class="col-lg-8 float-right row">
-        <oy-select class="col-lg-8"
+    <div class="d-flex flex-wrap justify-content-end">
+        <oy-select
                    firstOption="Все зоны"
                    @childToParent="onChangeSpot"
                    :options="spots"
                    v-model="spot_id"
                    :disabled="false"
         />
-        <oy-select class="col"
+        <oy-select
                    firstOption="Месяц"
                    @childToParent="onChangeMonth"
                    :options="months"
                    :selected="month"
                    v-model="month"
-                   :disabled="true"
         />
 
-        <oy-select class="col"
+        <oy-select
                    first-option="Год"
                    @childToParent="onChangeYear"
                    :options="years"
                    :selected="year"
                    v-model="year"
-                   :disabled="true"
         />
-      </div>
     </div>
     <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
-<!--      <client-only placeholder="Loading...">-->
-<!--        <v-client-table :data="guests" :columns="columns" :options="options"></v-client-table>-->
-<!--      </client-only>-->
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th scope="col">Дата и время</th>
-          <th scope="col">Гость</th>
-          <th scope="col">Авторизация</th>
-          <th scope="col" style="text-align: center">Визиты</th>
-        </tr>
-        </thead>
-        <tbody v-if="spot_id==='all'">
-        <tr v-for="guest in guests" :key="guest.id">
-          <td>{{guest.datetime}}</td>
-          <td>
-            <devices-icon/>
-            {{guest.device_mac}}
-          </td>
-          <td>{{guest.data_auth}}</td>
-          <td style="text-align: center">{{guest.sessions}}</td>
-        </tr>
-        </tbody>
-        <tbody v-else>
-        <tr v-for="guest in guestsBySpot" :key="guest.id">
-          <td>{{guest.datetime}}</td>
-          <td>
-            <devices-icon/>
-            {{guest.device_mac}}
-          </td>
-          <td>{{guest.data_auth}}</td>
-          <td style="text-align: center">{{guest.sessions}}</td>
-        </tr>
-        </tbody>
-      </table>
+        <table class="table table-striped" >
+          <thead>
+          <tr>
+            <th scope="col">Дата и время</th>
+            <th scope="col">Гость</th>
+            <th scope="col">Авторизация</th>
+            <th scope="col" style="text-align: center">Визиты</th>
+          </tr>
+          </thead>
+          <tbody v-if="guests">
+          <tr v-for="guest in guests" :key="guest.id">
+            <td>{{guest.datetime}}</td>
+            <td>
+              <devices-icon/>
+              {{guest.device_mac}}
+            </td>
+            <td>{{guest.data_auth}}</td>
+            <td style="text-align: center">{{guest.sessions}}</td>
+          </tr>
+          <tr v-if="!guests.length" class="no-data text-center">
+            <td colspan="14">Нет данных </td>
+          </tr>
+          </tbody>
+        </table>
+        <table-pagination v-show="guestsPerPage < guestsTotal" :listData="guests"
+                          :pageNumber="guestsCurrentPage"
+                          :size="guestsPerPage"
+                          :total="guestsTotal"
+                          @prevPage="prevPage"
+                          @nextPage="nextPage"
+                          @page="selPage"
+        />
     </oy-page-body>
   </oy-page>
 </template>
 
 <script>
   import devicesIcon from "@/components/icons/devicesIcon";
+  import tablePagination from "@/components/dashboard/company/tablePagination";
 
   export default {
-    components: {devicesIcon},
+    components: {devicesIcon, tablePagination},
     data() {
       return {
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1,
         company_id: this.$route.params.id,
         spot_id: 'all',
-        // columns: ['datetime', 'device_mac', 'data_auth','sessions'],
-        // options: {
-        //   headings: {
-        //     datetime: 'Дата и время',
-        //     device_mac: 'Гость',
-        //     data_auth: 'Авторизация',
-        //     sessions: 'Визиты',
-        //   },
-        //   sortable: ['datetime', 'device_mac'],
-        //   filterable: ['datetime', 'device_mac']
-        // }
+        page: 1
       }
     },
     created() {
@@ -101,7 +83,8 @@
       let data = {
         month: month,
         year: year,
-        company_id: this.$route.params.id
+        company_id: this.$route.params.id,
+        page:1
       }
       this.$store.dispatch('spot/getSpotsByCompany', this.$route.params.id);
       this.$store.dispatch('guest/getGuestsByCompany', data);
@@ -116,6 +99,66 @@
       onChangeSpot(val) {
         this.spot_id = val
       },
+      prevPage(val){
+        this.page = val
+        if (this.spot_id !== 'all') {
+          let spotData = {
+            month: this.month,
+            year: this.year,
+            spot_id: this.spot_id,
+            page:this.page-1
+          }
+          this.$store.dispatch('guest/getGuestsBySpot', spotData);
+        } else {
+          let data = {
+            month: this.month,
+            year: this.year,
+            company_id: this.company_id,
+            page:this.page-1
+          }
+          this.$store.dispatch('guest/getGuestsByCompany', data);
+        }
+      },
+      nextPage(val){
+        this.page = val
+        if (this.spot_id !== 'all') {
+          let spotData = {
+            month: this.month,
+            year: this.year,
+            spot_id: this.spot_id,
+            page:this.page+1
+          }
+          this.$store.dispatch('guest/getGuestsBySpot', spotData);
+        } else {
+          let data = {
+            month: this.month,
+            year: this.year,
+            company_id: this.company_id,
+            page:this.page+1
+          }
+          this.$store.dispatch('guest/getGuestsByCompany', data);
+        }
+      },
+      selPage(val){
+        this.page = val
+        if (this.spot_id !== 'all') {
+          let spotData = {
+            month: this.month,
+            year: this.year,
+            spot_id: this.spot_id,
+            page:this.page
+          }
+          this.$store.dispatch('guest/getGuestsBySpot', spotData);
+        } else {
+          let data = {
+            month: this.month,
+            year: this.year,
+            company_id: this.company_id,
+            page:this.page
+          }
+          this.$store.dispatch('guest/getGuestsByCompany', data);
+        }
+      },
     },
     computed: {
       years: function () {
@@ -125,10 +168,16 @@
         return this.$store.getters['spot/spotsByCompany']
       },
       guests() {
-        return this.$store.getters['guest/guestsByCompany']
-      },
-      guestsBySpot() {
         return this.$store.getters['guest/guestsBySpot']
+      },
+      guestsCurrentPage(){
+        return this.$store.getters['guest/guestsCurrentPage']
+      },
+      guestsPerPage(){
+        return this.$store.getters['guest/guestsPerPage']
+      },
+      guestsTotal(){
+        return this.$store.getters['guest/guestsTotal']
       },
       months: function () {
         let months = this.$store.getters['app/get_months']
@@ -154,14 +203,16 @@
             let spotData = {
               month: this.month,
               year: this.year,
-              spot_id: this.spot_id
+              spot_id: this.spot_id,
+              page: this.page
             }
             this.$store.dispatch('guest/getGuestsBySpot', spotData);
           } else {
             let data = {
               month: this.month,
               year: this.year,
-              company_id: this.company_id
+              company_id: this.company_id,
+              page: this.page
             }
             this.$store.dispatch('guest/getGuestsByCompany', data);
           }
@@ -174,14 +225,16 @@
             let spotData = {
               month: this.month,
               year: this.year,
-              spot_id: this.spot_id
+              spot_id: this.spot_id,
+              page: this.page
             }
             this.$store.dispatch('guest/getGuestsBySpot', spotData);
           } else {
             let data = {
               month: this.month,
               year: this.year,
-              company_id: this.company_id
+              company_id: this.company_id,
+              page: this.page
             }
             this.$store.dispatch('guest/getGuestsByCompany', data);
           }
@@ -193,9 +246,18 @@
           let spotData = {
             month: this.month,
             year: this.year,
-            spot_id: this.spot_id
+            spot_id: this.spot_id,
+            page: this.page
           }
-          if (this.spot_id !== 'all') {
+          let data = {
+            month: this.month,
+            year: this.year,
+            company_id: this.company_id,
+            page: this.page
+          }
+          if (this.spot_id === 'all') {
+            this.$store.dispatch('guest/getGuestsByCompany', data);
+          }else{
             this.$store.dispatch('guest/getGuestsBySpot', spotData);
           }
         }

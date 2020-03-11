@@ -3,7 +3,7 @@
     <oy-page-header>
       <div slot="actions">
         <oy-button
-          title="Создать стиль"
+          title="Создать"
           type="success"
           :svgIcon="'AddIcon'"
           @click="showModal"
@@ -24,14 +24,19 @@
         <tr>
           <th scope="col">Страница</th>
           <th scope="col">Зона</th>
-          <!--          <th></th>-->
         </tr>
         </thead>
-        <tbody>
+        <tbody v-if="styles">
         <tr v-for="style in styles" :key="style.id">
-          <td>{{ style.name }}</td>
-          <td>{{ style.title }}</td>
-          <!--          <td style="text-align: right"><oy-dot :active-color="style.enabled ? '#37a967':'red'"/></td>-->
+          <td>
+            <smsIcon v-show="style.type===1" :color="'#f04641'"/>
+            <callIcon v-show="style.type===2" :color="'#f04641'"/>
+            <voucherIcon v-show="style.type===3" :color="'#f04641'"/>
+            {{ style.name }}</td>
+          <td >{{ style.spot }}</td>
+        </tr>
+        <tr v-if="!styles.length" class="no-data text-center">
+          <td colspan="14">Нет данных</td>
         </tr>
         </tbody>
       </table>
@@ -41,9 +46,12 @@
 
 <script>
   import storeStyle from "@/components/dashboard/company/modals/storeStyle";
+  import smsIcon from "@/components/icons/smsIcon";
+  import callIcon from "@/components/icons/callIcon";
+  import voucherIcon from "@/components/icons/voucherIcon";
 
   export default {
-    components: {storeStyle},
+    components: {storeStyle,smsIcon,callIcon,voucherIcon},
     data() {
       return {
         company_id: this.$route.params.id

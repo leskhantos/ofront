@@ -1,28 +1,21 @@
 <template>
   <oy-page>
-    <div class="row">
-      <div class="col-lg-8">
-      </div>
-      <div class="col-lg-4 float-right row">
-        <oy-select class="col"
+    <div class="d-flex flex-wrap justify-content-end fixed-top">
+        <oy-select
                    firstOption="Месяц"
                    @childToParent="onChangeMonth"
                    :options="months"
                    :selected="month"
                    v-model="month"
-                   :disabled="true"
-
         />
 
-        <oy-select class="col"
+        <oy-select
                    first-option="Год"
                    @childToParent="onChangeYear"
                    :options="years"
                    :selected="year"
                    v-model="year"
-                   :disabled="true"
         />
-      </div>
     </div>
     <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <oy-page-header title="Гости"></oy-page-header>
@@ -302,6 +295,12 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .fixed-top{
+    position:absolute;
+    top: 135px;
+    left: auto;
+    right: 1.7rem;
+    overflow: hidden;
+  }
 </style>

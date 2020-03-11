@@ -181,7 +181,7 @@ export const getters = {
     } else {
       let map = new Map(Object.entries(data))
       map.forEach(value => {
-        load.push(value.load_guests)
+        load.push(value.load)
         auth.push(value.auth_guests)
         newOnes.push(value.new)
         old.push(value.old)

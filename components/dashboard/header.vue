@@ -30,6 +30,9 @@
         <user-menu-item title="Выйти" icon="icon-power" @click="onItemClick('logout')"/>
       </user-menu>
     </div>
+    <client-only>
+      <FlashMessage :position="'left top'"/>
+    </client-only>
   </header>
 </template>
 
@@ -192,8 +195,8 @@
 
     .page-header__title {
       display: flex;
-
       a {
+        text-decoration: none;
         font-weight: bold;
         font-size: x-large;
         color: #575962;

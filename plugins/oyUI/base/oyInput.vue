@@ -9,6 +9,7 @@
       class="form-control form-control-sm"
       :value="value"
       @input="$emit('input', $event.target.value)"
+      @keyup.enter="$emit('sendEnter')"
       :type="type"
       v-if="!options"
       :placeholder="placeholder"

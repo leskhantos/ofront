@@ -10,29 +10,24 @@
           :value="name"
         />
       </div>
-
       <div class="row">
         <oy-input
           label="Адрес подключения"
           v-model="form.spot.address"
-          input-class="col-lg-6"
+          input-class="col-lg-12"
           :error="errors['address']"
-        />
-        <oy-input
-          label="Настройки"
-          v-model="form.spot.settings"
-          input-class="col-lg-6"
-          :error="errors['settings']"
         />
       </div>
       <div class="row">
-        <oy-input
+      <oy-input
           v-model="form.spot.ident"
-          input-class="col-lg-6"
+          input-class="col-lg-12"
           label="Идентификатор"
           :error="errors['ident']"
         />
-        <oy-select class="col-lg-6"
+      </div>
+      <div class="row">
+      <oy-select class="col-lg-12"
                    @childToParent="onChange"
                    label="Тип авторизации"
                    firstOption="Выберите тип"

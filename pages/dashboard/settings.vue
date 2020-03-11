@@ -1,7 +1,7 @@
 <template>
   <oy-page>
     <oy-page-header/>
-    <oy-page-body :style="{borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <div :style="{borderBottom: '1px solid rgba(0,0,0,.1)' }" class="d-flex flex-column">
       <setting-item title="URL ссылка переадресации после авторизации:" :value="settings.redirect_url"/>
       <setting-item title="Время жизни автоматической авторизации для устройства:"
                     :value="settings.session_auth_timer"/>
@@ -16,7 +16,7 @@
       <setting-item title="Возможное количество устройств на один ваучер:" :value="settings.voucher_max_devices"/>
       <setting-item title="Включить мониторинг активности зоны:" :value="settings.monitoring_enabled"/>
       <setting-item title="Таймер простоя зоны до оповещения о неактивности:" :value="settings.monitoring_alert_timer"/>
-    </oy-page-body>
+    </div>
   </oy-page>
 </template>
 

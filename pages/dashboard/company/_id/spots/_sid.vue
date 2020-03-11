@@ -1,6 +1,6 @@
 <template>
   <div class="spot-page">
-    <nav class="nav nav-pills nav-fill">
+    <nav class="nav nav-pills nav-fill fixed-top">
       <div class="nav-item nav-link border" :class="{active: isActive('mainSpot')}"
            @click="switchComponents('mainSpot')">
         Основное
@@ -126,7 +126,15 @@
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
-
+    .fixed-top{
+      position:absolute;
+      top: 58px;
+      left: auto;
+      right: auto;
+      overflow: hidden;
+      width: 82.4%;
+      background-color:#f5f5f5;
+    }
     &__title {
       margin-top: .5rem;
       margin-right: .1rem;

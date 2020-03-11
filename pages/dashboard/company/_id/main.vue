@@ -1,60 +1,49 @@
 <template>
   <oy-page>
-    <div class="row">
-      <div class="col-lg-4">
-      </div>
-      <div class="col-lg-8 float-right row">
-        <oy-select class="col-lg-8"
+    <div class="d-flex flex-wrap justify-content-end fixed-top">
+        <oy-select
                    firstOption="Все зоны"
                    @childToParent="onChangeSpot"
                    :options="spots"
                    v-model="spot_id"
                    :disabled="false"
         />
-        <oy-select class="col"
+        <oy-select
                    firstOption="Месяц"
                    @childToParent="onChangeMonth"
                    :options="months"
                    :selected="month"
                    v-model="month"
-                   :disabled="true"
         />
 
-        <oy-select class="col"
+        <oy-select
                    first-option="Год"
                    @childToParent="onChangeYear"
                    :options="years"
                    :selected="year"
                    v-model="year"
-                   :disabled="true"
         />
-      </div>
     </div>
-    <oy-page-body v-if="spot_id==='all'" :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <oy-page-header title="Гости"></oy-page-header>
-      <div class="guest-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
-        <guest :series="guestsSeries" :chartOptions="monthChartOptions"/>
-      </div>
+        <div v-if="spot_id==='all'"  class="guest-charts-card">
+          <guest :series="guestsSeries" :chartOptions="monthChartOptions" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }"/>
+          <company-pie-charts v-if="spot_id==='all'" :guest-series="guests" :device-series="devices" :browser-series="browsers"
+                              :os-series="os"/>
+        </div>
+        <div v-else class="guest-charts-card" >
+          <guest :series="guestsSeriesSpot" :chartOptions="monthChartOptionsSpot" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }"/>
+          <oy-page-header v-if="spotType===1" title="SMS"></oy-page-header>
+          <oy-page-header v-else-if="spotType===2" title="Звонки"></oy-page-header>
+          <oy-page-header v-else title="Ваучеры"></oy-page-header>
+          <div class="voucher-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
+            <voucher :series="allStatsSeries" :chartOptions="monthChartOptionsSpot"/>
+          </div>
 
-      <company-pie-charts :guest-series="guests" :device-series="devices" :browser-series="browsers"
-                          :os-series="os"/>
-    </oy-page-body>
-    <oy-page-body v-else :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
-      <oy-page-header title="Гости"></oy-page-header>
-      <div class="guest-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
-        <guest :series="guestsSeriesSpot" :chartOptions="monthChartOptionsSpot"/>
-      </div>
-
-      <oy-page-header v-if="spotType===1" title="SMS"></oy-page-header>
-      <oy-page-header v-else-if="spotType===2" title="Звонки"></oy-page-header>
-      <oy-page-header v-else title="Ваучеры"></oy-page-header>
-      <div class="voucher-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
-        <voucher :series="allStatsSeries" :chartOptions="monthChartOptionsSpot"/>
-      </div>
-
-      <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guestsSpot"
-                       :device-series="devicesSpot" :browser-series="browsersSpot"
-                       :os-series="osSpot"/>
+          <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guestsSpot"
+                           :device-series="devicesSpot" :browser-series="browsersSpot"
+                           :os-series="osSpot"/>
+        </div>
     </oy-page-body>
   </oy-page>
 </template>
@@ -389,6 +378,12 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .fixed-top{
+    position:absolute;
+    top: 115px;
+    left: auto;
+    right: 1.7rem;
+    overflow: hidden;
+  }
 </style>
