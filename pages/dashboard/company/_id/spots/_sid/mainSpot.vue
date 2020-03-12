@@ -1,7 +1,7 @@
 <template>
   <oy-page>
     <oy-page-header/>
-    <oy-page-body :style="{borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body>
       <main-item title="Название:" :value="spot.address"/>
       <main-item title="Адрес:" :value="spot.address"/>
       <main-item title="Идентификатор:" :value="spot.ident"/>

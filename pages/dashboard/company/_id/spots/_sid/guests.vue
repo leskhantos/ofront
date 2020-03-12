@@ -17,7 +17,7 @@
                    v-model="year"
         />
     </div>
-    <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body>
       <table class="table table-striped">
         <thead>
         <tr>
