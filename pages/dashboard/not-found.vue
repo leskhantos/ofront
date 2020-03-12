@@ -4,7 +4,11 @@
     <nuxt-link :to="{ name: 'dashboard-statistics' }">Вернуться назад</nuxt-link>
   </div>
 </template>
-
+<script>
+  export default {
+    layout: "dashboard"
+  }
+</script>
 <style lang="scss" scoped>
   .not-found-page {
     text-align: center;

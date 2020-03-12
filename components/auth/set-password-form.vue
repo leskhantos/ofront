@@ -47,6 +47,9 @@
             this.$store.commit("app/SET_PASSWORD_MODE", false);
             this.flashMessage.success({
               title: "Пароль обновлен",
+              position: 'left top',
+              x: 550,
+              y: 0
             });
           }
         } catch (e) {

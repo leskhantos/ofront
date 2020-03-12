@@ -80,6 +80,9 @@
           this.$store.commit("app/SET_UPDATE_USER", false);
           this.flashMessage.success({
             title: "Пользователь обновлен",
+            position: 'left top',
+            x: 550,
+            y: 0
           });
           this.$router.push({name: "dashboard-users"});
         } catch (e) {

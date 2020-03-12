@@ -107,4 +107,7 @@
   .device-page .active{
     background-color: #575962;
   }
+  .nav-item{
+    border-radius: 0;
+  }
 </style>

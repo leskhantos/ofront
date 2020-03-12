@@ -6,7 +6,7 @@
       <th scope="col">Номер</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody v-if="phoneList">
     <tr v-for="phone in phoneList">
       <td data-label="Дата и время">{{ phone.created }}</td>
       <td data-label="Номер">{{ phone.phone}}</td>

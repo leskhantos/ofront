@@ -82,6 +82,9 @@
           this.$store.commit("app/SET_NEW_SPOT", false);
           this.flashMessage.success({
             title: "Зона добавлена",
+            position: 'left top',
+            x: 550,
+            y: 0
           });
           await this.$store.dispatch('company/getSpots', this.company_id)
         } catch (e) {

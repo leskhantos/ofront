@@ -73,6 +73,9 @@
           await this.$store.dispatch('company/getStyles', this.company_id)
           this.flashMessage.success({
             title: "Страница добавлена",
+            position: 'left top',
+            x: 550,
+            y: 0
           });
         } catch (e) {
           console.log(e)
