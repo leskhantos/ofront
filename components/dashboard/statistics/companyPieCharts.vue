@@ -9,7 +9,7 @@
         <apexchart ref="don" type="donut" height="240" :options="guestChartOptions" :series="guestSeries"/>
       </div>
     </div>
-    <div class="row two-donuts" :style="{ borderTop: '1px solid rgba(0,0,0,.1)'}">
+    <div class="row two-donuts" >
       <div class="col">
         <apexchart ref="don" type="donut" height="240" :options="osChartOptions" :series="osSeries"/>
       </div>

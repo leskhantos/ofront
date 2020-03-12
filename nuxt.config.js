@@ -64,7 +64,7 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-
+    'portal-vue/nuxt'
   ],
   /*
   ** Build configuration

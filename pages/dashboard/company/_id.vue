@@ -1,33 +1,38 @@
 <template>
   <div class="company-page">
-    <nav class="nav nav-pills nav-fill fixed-top" v-show="showOnly">
-      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('main')}" @click="switchComponents('main')">
-        Основное
-      </div>
-      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('guests')}" @click="switchComponents('guests')">
-        Гости
-      </div>
-      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('spots')}" @click="switchComponents('spots')">
-        Зоны
-      </div>
-      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('styles')}" @click="switchComponents('styles')">
-        Стили
-      </div>
-      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('accounts')}"
-           @click="switchComponents('accounts')">
-        Аккаунты
-      </div>
-      <div class="nav-item nav-link border-top border-bottom" :class="{active: isActive('control')}" @click="switchComponents('control')">
-        Управление
-      </div>
-    </nav>
-    <nuxt-child :style="{marginTop: '3rem'}"/>
+    <portal to="company-nav">
+      <nav class="nav nav-pills nav-fill" v-show="showOnly">
+        <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('main')}" @click="switchComponents('main')">
+          Основное
+        </div>
+        <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('guests')}" @click="switchComponents('guests')">
+          Гости
+        </div>
+        <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('spots')}" @click="switchComponents('spots')">
+          Зоны
+        </div>
+        <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('styles')}" @click="switchComponents('styles')">
+          Стили
+        </div>
+        <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('accounts')}"
+             @click="switchComponents('accounts')">
+          Аккаунты
+        </div>
+        <div class="nav-item nav-link border-top border-bottom rounded-0" :class="{active: isActive('control')}" @click="switchComponents('control')">
+          Управление
+        </div>
+      </nav>
+    </portal>
+    <nuxt-child />
   </div>
 </template>
 
 <script>
+  import { Portal } from 'portal-vue'
+
   export default {
     layout: "dashboard",
+    components: {Portal},
     data() {
       return {
         isActiveItem: 'main',
@@ -117,18 +122,6 @@
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
-      .fixed-top{
-      position:absolute;
-      top: 57px;
-      left: auto;
-      right: auto;
-      overflow: hidden;
-      width: 82.6%;
-      background-color: #ffffff;
-        &:hover{
-          cursor: pointer;
-        }
-    }
     &__title {
       margin-top: .5rem;
       margin-right: .1rem;
@@ -146,11 +139,16 @@
     &::-webkit-scrollbar-thumb {
       background-color: rgba(0, 0, 0, 0.15);
     }
-    .nav-item {
-      border-radius: 0;
+  }
+  .nav-item {
+    border-radius: 0;
+    background-color: #ffffff;
+    &:hover{
+      cursor: pointer;
     }
-    .active {
-      background-color: #575962;
-    }
+  }
+  .active{
+    background-color: #575962 !important;
+    border: 1px!important;
   }
 </style>

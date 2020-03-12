@@ -1,39 +1,44 @@
 <template>
   <div class="spot-page">
-    <nav class="nav nav-pills nav-fill fixed-top">
-      <div class="nav-item nav-link border" :class="{active: isActive('mainSpot')}"
+    <portal to="spot-nav">
+    <nav class="nav nav-pills nav-fill">
+      <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('mainSpot')}"
            @click="switchComponents('mainSpot')">
         Основное
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('statistics')}"
+      <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('statistics')}"
            @click="switchComponents('statistics')">
         Статистика
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('guests')}" @click="switchComponents('guests')">
+      <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('guests')}" @click="switchComponents('guests')">
         Гости
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('sessions')}"
+      <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('sessions')}"
            @click="switchComponents('sessions')">
         Сессии
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('actions')}" @click="switchComponents('actions')">
+      <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('actions')}" @click="switchComponents('actions')">
         События
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('mutable')}" @click="switchComponents('mutable')">
+      <div class="nav-item nav-link  border-top border-bottom rounded-0" :class="{active: isActive('mutable')}" @click="switchComponents('mutable')">
         {{ changeableNav }}
       </div>
     </nav>
+    </portal>
     <nuxt-child/>
   </div>
 </template>
 
 <script>
+  import { Portal } from 'portal-vue'
+
   export default {
     data() {
       return {
         isActiveItem: 'mainSpot',
       }
     },
+    components: {Portal},
     created() {
       this.$store.dispatch('spot/getSpot', this.$route.params.sid);
     },
@@ -126,18 +131,6 @@
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
-    .fixed-top{
-      position:absolute;
-      top: 57px;
-      left: auto;
-      right: auto;
-      overflow: hidden;
-      width: 82.7%;
-      background-color: #ffffff;
-      &:hover{
-        cursor: pointer;
-      }
-    }
     &__title {
       margin-top: .5rem;
       margin-right: .1rem;
@@ -155,11 +148,16 @@
     &::-webkit-scrollbar-thumb {
       background-color: rgba(0, 0, 0, 0.15);
     }
-    .nav-item{
-      border-radius: 0;
+  }
+  .nav-item{
+    border-radius: 0;
+    background-color: #ffffff;
+    &:hover{
+      cursor: pointer;
     }
-    .active {
-      background-color: #575962;
-    }
+  }
+  .active {
+    background-color: #575962 !important;
+    border: 1px!important;
   }
 </style>
