@@ -1,6 +1,6 @@
 <template>
   <oy-page>
-    <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body>
       <form @submit.prevent="sendRequest">
         <div class="d-flex justify-content-center">
           <oy-input :placeholder="'Запрос'" v-model="request" class="col-lg-5"/>

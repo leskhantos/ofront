@@ -1,7 +1,7 @@
 <template>
   <oy-page>
     <oy-page-header/>
-    <div :style="{borderBottom: '1px solid rgba(0,0,0,.1)' }" class="d-flex flex-column">
+    <div class="d-flex flex-column">
       <setting-item title="URL ссылка переадресации после авторизации:" :value="settings.redirect_url ? settings.redirect_url:'нет данных'"/>
       <setting-item title="Время жизни автоматической авторизации для устройства:"
                     :value="settings.session_auth_timer ? settings.session_auth_timer : 'нет данных'"/>

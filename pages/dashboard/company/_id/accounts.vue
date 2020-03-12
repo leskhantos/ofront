@@ -19,7 +19,7 @@
         </oy-modal>
       </div>
     </oy-page-header>
-    <oy-page-body :style="{ borderTop: '1px solid rgba(0,0,0,.1)', borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body>
       <table class="table table-striped">
         <thead>
         <tr>

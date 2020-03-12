@@ -24,19 +24,19 @@
                    v-model="year"
         />
     </div>
-    <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
+    <oy-page-body >
       <oy-page-header title="Гости"></oy-page-header>
         <div v-if="spot_id==='all'"  >
-          <guest class="guest-charts-card" :series="guestsSeries" :chartOptions="monthChartOptions" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }"/>
+          <guest class="guest-charts-card" :series="guestsSeries" :chartOptions="monthChartOptions" />
           <company-pie-charts v-if="spot_id==='all'" :guest-series="guests" :device-series="devices" :browser-series="browsers"
                               :os-series="os"/>
         </div>
         <div v-else  >
-          <guest class="guest-charts-card" :series="guestsSeriesSpot" :chartOptions="monthChartOptionsSpot" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }"/>
+          <guest class="guest-charts-card" :series="guestsSeriesSpot" :chartOptions="monthChartOptionsSpot"/>
           <oy-page-header v-if="spotType===1" title="SMS"></oy-page-header>
           <oy-page-header v-else-if="spotType===2" title="Звонки"></oy-page-header>
           <oy-page-header v-else title="Ваучеры"></oy-page-header>
-          <div class="voucher-charts-card" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }">
+          <div class="voucher-charts-card" >
             <voucher :series="allStatsSeries" :chartOptions="monthChartOptionsSpot"/>
           </div>
 
