@@ -93,6 +93,9 @@
           this.$store.commit("app/SET_NEW_COMPANY", false);
           this.flashMessage.success({
             title: "Компания добавлена",
+            position: 'left top',
+            x: 550,
+            y: 0
           })
           this.$router.push({name: "dashboard-company-id", params: {id: company.data.id}});
         } catch (e) {

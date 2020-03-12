@@ -26,13 +26,13 @@
     </div>
     <oy-page-body :style="{  borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <oy-page-header title="Гости"></oy-page-header>
-        <div v-if="spot_id==='all'"  class="guest-charts-card">
-          <guest :series="guestsSeries" :chartOptions="monthChartOptions" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }"/>
+        <div v-if="spot_id==='all'"  >
+          <guest class="guest-charts-card" :series="guestsSeries" :chartOptions="monthChartOptions" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }"/>
           <company-pie-charts v-if="spot_id==='all'" :guest-series="guests" :device-series="devices" :browser-series="browsers"
                               :os-series="os"/>
         </div>
-        <div v-else class="guest-charts-card" >
-          <guest :series="guestsSeriesSpot" :chartOptions="monthChartOptionsSpot" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }"/>
+        <div v-else  >
+          <guest class="guest-charts-card" :series="guestsSeriesSpot" :chartOptions="monthChartOptionsSpot" :style="{  borderBottom: '3px solid rgba(0,0,0,.1)' }"/>
           <oy-page-header v-if="spotType===1" title="SMS"></oy-page-header>
           <oy-page-header v-else-if="spotType===2" title="Звонки"></oy-page-header>
           <oy-page-header v-else title="Ваучеры"></oy-page-header>
@@ -385,5 +385,12 @@
     left: auto;
     right: 1.7rem;
     overflow: hidden;
+  }
+  .guest-charts-card,
+  .voucher-charts-card{
+    padding: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 22px -12px #607d8b;
+    margin: 1rem 0;
   }
 </style>

@@ -66,6 +66,9 @@
           if (e.response.data.message) {
             this.flashMessage.error({
               title: e.response.data.message,
+              position: 'left top',
+              x: 550,
+              y: 0
             });
           }
         }

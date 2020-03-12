@@ -61,6 +61,9 @@
           this.$store.commit("app/SET_NEW_USER", false);
           this.flashMessage.success({
             title: "Пользователь добавлен",
+            position: 'left top',
+            x: 550,
+            y: 0
           });
           this.$router.push({name: "dashboard-users"});
         } catch (e) {

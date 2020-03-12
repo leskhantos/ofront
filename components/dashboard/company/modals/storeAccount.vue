@@ -53,6 +53,9 @@
           await this.$store.dispatch('company/getAccounts', this.company_id)
           this.flashMessage.success({
             title: "Аккаунт добавлен",
+            position: 'left top',
+            x: 550,
+            y: 0
           });
         } catch (e) {
           console.log(e)

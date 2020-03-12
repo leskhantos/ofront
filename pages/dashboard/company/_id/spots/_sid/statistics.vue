@@ -30,7 +30,7 @@
         <voucher :series="allStatsSeries" :chartOptions="monthChartOptions"/>
       </div>
 
-      <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guests"
+      <spot-pie-charts class="spot-pie-charts-card" :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guests"
                        :device-series="devices" :browser-series="browsers"
                        :os-series="os"/>
     </oy-page-body>
@@ -302,5 +302,12 @@
     left: auto;
     right: 1.7rem;
     overflow: hidden;
+  }
+  .guest-charts-card,
+  .voucher-charts-card{
+    padding: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 22px -12px #607d8b;
+    margin: 1rem 0;
   }
 </style>

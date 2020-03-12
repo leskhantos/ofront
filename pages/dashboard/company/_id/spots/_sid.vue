@@ -128,12 +128,15 @@
     overflow-y: auto;
     .fixed-top{
       position:absolute;
-      top: 58px;
+      top: 57px;
       left: auto;
       right: auto;
       overflow: hidden;
-      width: 82.4%;
-      background-color:#f5f5f5;
+      width: 82.7%;
+      background-color: #ffffff;
+      &:hover{
+        cursor: pointer;
+      }
     }
     &__title {
       margin-top: .5rem;
@@ -152,7 +155,9 @@
     &::-webkit-scrollbar-thumb {
       background-color: rgba(0, 0, 0, 0.15);
     }
-
+    .nav-item{
+      border-radius: 0;
+    }
     .active {
       background-color: #575962;
     }

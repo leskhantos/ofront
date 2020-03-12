@@ -81,7 +81,7 @@
             title: "Компания обновлена",
             position: 'left top',
             x: 550,
-            y: 550
+            y: 0
           });
           await this.$store.dispatch("company/getCompany", this.$route.params.id);
           this.$router.push({name: "dashboard-company-id-control", params: {id: data.data.id}});
@@ -91,7 +91,7 @@
             title: e.response.data.message,
             position: 'left top',
             x: 550,
-            y: 550
+            y: 0
           });
         }
       }

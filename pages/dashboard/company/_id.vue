@@ -1,23 +1,23 @@
 <template>
   <div class="company-page">
     <nav class="nav nav-pills nav-fill fixed-top" v-show="showOnly">
-      <div class="nav-item nav-link border" :class="{active: isActive('main')}" @click="switchComponents('main')">
+      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('main')}" @click="switchComponents('main')">
         Основное
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('guests')}" @click="switchComponents('guests')">
+      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('guests')}" @click="switchComponents('guests')">
         Гости
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('spots')}" @click="switchComponents('spots')">
+      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('spots')}" @click="switchComponents('spots')">
         Зоны
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('styles')}" @click="switchComponents('styles')">
+      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('styles')}" @click="switchComponents('styles')">
         Стили
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('accounts')}"
+      <div class="nav-item nav-link border-right border-top border-bottom" :class="{active: isActive('accounts')}"
            @click="switchComponents('accounts')">
         Аккаунты
       </div>
-      <div class="nav-item nav-link border" :class="{active: isActive('control')}" @click="switchComponents('control')">
+      <div class="nav-item nav-link border-top border-bottom" :class="{active: isActive('control')}" @click="switchComponents('control')">
         Управление
       </div>
     </nav>
@@ -119,12 +119,15 @@
     overflow-y: auto;
       .fixed-top{
       position:absolute;
-      top: 58px;
+      top: 57px;
       left: auto;
       right: auto;
       overflow: hidden;
-      width: 82.4%;
-      background-color:#f5f5f5;
+      width: 82.6%;
+      background-color: #ffffff;
+        &:hover{
+          cursor: pointer;
+        }
     }
     &__title {
       margin-top: .5rem;
@@ -143,7 +146,9 @@
     &::-webkit-scrollbar-thumb {
       background-color: rgba(0, 0, 0, 0.15);
     }
-
+    .nav-item {
+      border-radius: 0;
+    }
     .active {
       background-color: #575962;
     }

@@ -5,7 +5,15 @@ export const state = () => ({
   sessionsBySpot:[],
   sessionsDataCurrentPage: null,
   sessionsDataPerPage: null,
-  sessionsDataTotal:null
+  sessionsDataTotal:null,
+  callsBySpot:[],
+  callsBySpotCurrentPage: null,
+  callsBySpotPerPage: null,
+  callsBySpotTotal:null,
+  smsBySpot:[],
+  smsBySpotCurrentPage: null,
+  smsBySpotPerPage: null,
+  smsBySpotTotal:null,
 });
 
 export const getters = {
@@ -26,7 +34,7 @@ export const getters = {
     ]
   },
   sessionsBySpotData(state){
-    return state.sessionsBySpot.data
+    return state.sessionsBySpot
   },
   sessionsDataCurrentPage(state){
     return state.sessionsDataCurrentPage
@@ -36,7 +44,31 @@ export const getters = {
   } ,
   sessionsDataTotal(state){
     return state.sessionsDataTotal
-  }
+  },
+  callsBySpot(state){
+    return state.callsBySpot
+  } ,
+  callsBySpotCurrentPage(state){
+    return state.callsBySpotCurrentPage
+  } ,
+  callsBySpotPerPage(state){
+    return state.callsBySpotPerPage
+  } ,
+  callsBySpotTotal(state){
+    return state.callsBySpotTotal
+  },
+  smsBySpot(state){
+    return state.smsBySpot
+  },
+  smsBySpotCurrentPage(state){
+    return state.smsBySpotCurrentPage
+  } ,
+  smsBySpotPerPage(state){
+    return state.smsBySpotPerPage
+  } ,
+  smsBySpotTotal(state){
+    return state.smsBySpotTotal
+  },
 };
 
 export const mutations = {
@@ -60,7 +92,31 @@ export const mutations = {
   },
   SET_SESSIONS_BY_SPOT(state, sessionsBySpot) {
     state.sessionsBySpot = sessionsBySpot
-  }
+  } ,
+  SET_CALLS_BY_SPOT(state, callsBySpot) {
+    state.callsBySpot = callsBySpot
+  },
+  SET_CALLS_BY_SPOT_CUR_PAGE(state, callsBySpotCurrentPage) {
+    state.callsBySpotCurrentPage = callsBySpotCurrentPage
+  },
+  SET_CALLS_BY_SPOT_PER_PAGE(state, callsBySpotPerPage) {
+    state.callsBySpotPerPage = callsBySpotPerPage
+  },
+  SET_CALLS_BY_SPOT_TOTAL(state, callsBySpotTotal) {
+    state.callsBySpotTotal = callsBySpotTotal
+  },
+  SET_SMS_BY_SPOT(state, smsBySpot) {
+    state.smsBySpot = smsBySpot
+  },
+  SET_SMS_BY_SPOT_CUR_PAGE(state, smsBySpotCurrentPage) {
+    state.smsBySpotCurrentPage = smsBySpotCurrentPage
+  },
+  SET_SMS_BY_SPOT_PER_PAGE(state, smsBySpotPerPage) {
+    state.smsBySpotPerPage = smsBySpotPerPage
+  },
+  SET_SMS_BY_SPOT_TOTAL(state, smsBySpotTotal) {
+    state.smsBySpotTotal = smsBySpotTotal
+  },
 };
 
 export const actions = {
@@ -82,25 +138,31 @@ export const actions = {
     }).catch((err) => {
     });
   },
-    async getSessionsBySpot({commit}, payload) {
-    if(payload.session_type==3){
-      await this.$axios.get(`spot/${payload.spot_id}/session?session_type=${payload.session_type}&month=${payload.month}&year=${payload.year}&device_mac=${payload.device_mac}&page=${payload.page}`).then((response) => {
-        commit('SET_SESSIONS_BY_SPOT', response.data);
-        commit('SET_SESSIONS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
-        commit('SET_SESSIONS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
-        commit('SET_SESSIONS_BY_SPOT_TOTAL', response.data.meta.total);
-      }).catch((err) => {
-      });
-    }else{
-      await this.$axios.get(`spot/${payload.spot_id}/session?session_type=${payload.session_type}&device_mac=${payload.device_mac}&page=${payload.page}`).then((response) => {
-        commit('SET_SESSIONS_BY_SPOT', response.data);
-        commit('SET_SESSIONS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
-        commit('SET_SESSIONS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
-        commit('SET_SESSIONS_BY_SPOT_TOTAL', response.data.meta.total);
-      }).catch((err) => {
-      });
-    }
-
+  async getSessionsBySpot({commit}, payload) {
+    await this.$axios.get(`spot/${payload.spot_id}/session?session_type=${payload.session_type}&month=${payload.month}&year=${payload.year}&device_mac=${payload.device_mac}&page=${payload.page}`).then((response) => {
+      commit('SET_SESSIONS_BY_SPOT', response.data.data);
+      commit('SET_SESSIONS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
+      commit('SET_SESSIONS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
+      commit('SET_SESSIONS_BY_SPOT_TOTAL', response.data.meta.total);
+    }).catch((err) => {
+    });
   },
-
+  async getCallsBySpot({commit}, payload) {
+    await this.$axios.get(`spot/${payload.spot_id}/call?&month=${payload.month}&year=${payload.year}&search=${payload.query}&page=${payload.page}`).then((response) => {
+      commit('SET_CALLS_BY_SPOT', response.data.data);
+      commit('SET_CALLS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
+      commit('SET_CALLS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
+      commit('SET_CALLS_BY_SPOT_TOTAL', response.data.meta.total);
+    }).catch((err) => {
+    });
+  },
+  async getSmsBySpot({commit}, payload) {
+    await this.$axios.get(`spot/${payload.spot_id}/sms?&month=${payload.month}&year=${payload.year}&search=${payload.query}&page=${payload.page}`).then((response) => {
+      commit('SET_SMS_BY_SPOT', response.data.data);
+      commit('SET_SMS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
+      commit('SET_SMS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
+      commit('SET_SMS_BY_SPOT_TOTAL', response.data.meta.total);
+    }).catch((err) => {
+    });
+  },
 };

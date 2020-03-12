@@ -24,11 +24,17 @@
               await this.$store.dispatch("company/getCompanies");
               this.flashMessage.warning({
                 title: "Компания удалена",
+                position: 'left top',
+                x: 550,
+                y: 0
               });
               this.$router.push({name: "dashboard-statistics"});
             } catch (e) {
               this.flashMessage.error({
                 title: e.response.data.message,
+                position: 'left top',
+                x: 550,
+                y: 0
               });
             }
           }

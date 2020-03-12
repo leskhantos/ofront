@@ -1,41 +1,30 @@
 <template>
   <oy-page>
     <div class="d-flex">
-        <div class="d-flex mr-auto" >
-          <oy-input @sendEnter="sendSearch" :style="{ paddingRight:'1.2rem', width:'25rem'}" v-model="request"/>
-          <oy-button :style="{marginBottom:'1.2rem', width:'10rem'}" buttonType="submit"
-                     type="submit"
-                     class="btn btn-success"
-                     :block="true"
-                     title="Обновить"
-                     :svgIcon="'FilterIcon'"
-                     @click="sendSearch"
-          />
-        </div>
-        <div class="d-flex ml-auto">
-          <oy-select v-show="session_type==='3'"
-                     firstOption="Месяц"
-                     @childToParent="onChangeMonth"
-                     :options="months"
-                     :selected="month"
-                     v-model="month"
-          />
+      <div class="d-flex ml-auto">
+        <oy-select v-show="session_type==='3'"
+                   firstOption="Месяц"
+                   @childToParent="onChangeMonth"
+                   :options="months"
+                   :selected="month"
+                   v-model="month"
+        />
 
-          <oy-select v-show="session_type==='3'"
-                     first-option="Год"
-                     @childToParent="onChangeYear"
-                     :options="years"
-                     :selected="year"
-                     v-model="year"
-          />
-          <oy-select
-            firstOption="Тип"
-            @childToParent="onChangeSessionType"
-            :options="sessionTypes"
-            v-model="session_type"
-            :selected="1"
-          />
-        </div>
+        <oy-select v-show="session_type==='3'"
+                   first-option="Год"
+                   @childToParent="onChangeYear"
+                   :options="years"
+                   :selected="year"
+                   v-model="year"
+        />
+        <oy-select
+          firstOption="Тип"
+          @childToParent="onChangeSessionType"
+          :options="sessionTypes"
+          v-model="session_type"
+          :selected="1"
+        />
+      </div>
     </div>
     <oy-page-body :style="{ borderBottom: '1px solid rgba(0,0,0,.1)' }">
       <table class="table table-striped" >
@@ -63,12 +52,12 @@
         </tbody>
       </table>
       <table-pagination v-show="sessionsDataPerPage < sessionsDataTotal" :listData="sessionsData"
-                          :pageNumber="sessionsDataCurrentPage"
-                          :size="sessionsDataPerPage"
-                          :total="sessionsDataTotal"
-                          @prevPage="prevPage"
-                          @nextPage="nextPage"
-                          @page="selPage"
+                        :pageNumber="sessionsDataCurrentPage"
+                        :size="sessionsDataPerPage"
+                        :total="sessionsDataTotal"
+                        @prevPage="prevPage"
+                        @nextPage="nextPage"
+                        @page="selPage"
       />
     </oy-page-body>
   </oy-page>
@@ -81,8 +70,7 @@
     components: {devicesIcon, tablePagination},
     data() {
       return {
-        request:'',
-        spot_id:this.$route.params.sid,
+        device_id:this.$route.params.device,
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1,
         session_type: 1,
@@ -96,13 +84,11 @@
       let data = {
         month: month,
         year: year,
-        spot_id: this.$route.params.sid,
+        device_id:this.$route.params.device,
         session_type: this.session_type,
-        device_mac: this.request,
         page: this.page
       }
-      this.$store.dispatch('spot/getSessionsBySpot',data );
-      this.sessions= this.$store.getters['spot/sessionsBySpotData']
+      this.$store.dispatch('device/getSessionsByDevice',data );
     },
     methods: {
       onChangeMonth(val) {
@@ -119,48 +105,34 @@
         let data = {
           month: this.month,
           year: this.year,
-          spot_id: this.spot_id,
+          device_id: this.device_id,
           session_type: this.session_type,
-          device_mac: this.request,
           page: this.page-1
         }
-        this.$store.dispatch('spot/getSessionsBySpot',data);
+        this.$store.dispatch('device/getSessionsByDevice',data);
       },
       nextPage(val){
         this.page = val
         let data = {
           month: this.month,
           year: this.year,
-          spot_id: this.spot_id,
+          device_id: this.device_id,
           session_type: this.session_type,
-          device_mac: this.request,
           page: this.page+1
         }
-        this.$store.dispatch('spot/getSessionsBySpot',data);
+        this.$store.dispatch('device/getSessionsByDevice',data);
       },
       selPage(val){
         this.page = val
         let data = {
           month: this.month,
           year: this.year,
-          spot_id: this.spot_id,
+          device_id: this.device_id,
           session_type: this.session_type,
-          device_mac: this.request,
           page: this.page
         }
-        this.$store.dispatch('spot/getSessionsBySpot',data);
+        this.$store.dispatch('device/getSessionsByDevice',data);
       },
-      sendSearch(){
-        let data = {
-          month: this.month,
-          year: this.year,
-          spot_id: this.spot_id,
-          session_type: this.session_type,
-          device_mac: this.request,
-          page: 1
-        }
-        this.$store.dispatch('spot/getSessionsBySpot',data);
-      }
     },
     computed: {
       years: function () {
@@ -185,16 +157,16 @@
           return months
       },
       sessionsData(){
-        return this.$store.getters['spot/sessionsBySpotData']
+        return this.$store.getters['device/sessionsByDevice']
       },
       sessionsDataCurrentPage(){
-        return this.$store.getters['spot/sessionsDataCurrentPage']
+        return this.$store.getters['device/sessionsDataCurrentPage']
       },
       sessionsDataPerPage(){
-        return this.$store.getters['spot/sessionsDataPerPage']
+        return this.$store.getters['device/sessionsDataPerPage']
       },
       sessionsDataTotal(){
-        return this.$store.getters['spot/sessionsDataTotal']
+        return this.$store.getters['device/sessionsDataTotal']
       },
     },
     watch: {
@@ -204,12 +176,11 @@
           let data = {
             month: this.month,
             year: this.year,
-            spot_id: this.spot_id,
+            device_id: this.device_id,
             session_type: 3,
-            device_mac: this.request,
             page: this.page
           }
-          this.$store.dispatch('spot/getSessionsBySpot',data );
+          this.$store.dispatch('device/getSessionsByDevice',data );
         }
       },
       year: {
@@ -218,12 +189,11 @@
           let data = {
             month: this.month,
             year: this.year,
-            spot_id: this.spot_id,
+            device_id: this.device_id,
             session_type: 3,
-            device_mac: this.request,
             page: this.page
           }
-          this.$store.dispatch('spot/getSessionsBySpot',data );
+          this.$store.dispatch('device/getSessionsByDevice',data );
         }
       },
       session_type: {
@@ -232,12 +202,11 @@
           let data = {
             month: this.month,
             year: this.year,
-            spot_id: this.spot_id,
+            device_id: this.device_id,
             session_type: this.session_type,
-            device_mac: this.request,
             page: this.page
           }
-          this.$store.dispatch('spot/getSessionsBySpot',data );
+          this.$store.dispatch('device/getSessionsByDevice',data );
         }
       },
     },

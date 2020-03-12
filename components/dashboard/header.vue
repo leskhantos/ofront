@@ -10,7 +10,7 @@
           {{ title }}
         </nuxt-link>
         <div v-show="showOnly">
-          <slash-icon/>
+          <img :src="separator" alt="separator" height="34px"/>
           {{ spotName }}
         </div>
       </div>
@@ -42,10 +42,9 @@
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
   import oyAvatar from "../../plugins/oyUI/base/oyAvatar";
   import MenuOpenIcon from "../icons/menuOpenIcon";
-  import SpotIcon from "../icons/spotIcon";
-  import SlashIcon from "../icons/slashIcon";
 
   const Cookie = process.client ? require('js-cookie') : undefined
+  import separator from "@/static/separator.png"
 
   export default {
     mounted() {
@@ -56,6 +55,7 @@
       window.removeEventListener("click", this.menuClickHandler, true);
     },
     data: () => ({
+      separator: separator,
       user_menu_opened: false,
       title: '',
       route: '',
@@ -84,8 +84,6 @@
       },
     },
     components: {
-      SlashIcon,
-      SpotIcon,
       MenuOpenIcon,
       userMenu,
       userMenuItem,
@@ -125,6 +123,9 @@
             await this.$store.dispatch('spot/getSpot', this.$route.params.sid)
             this.spotName = this.spot.address
           }
+        }else if(this.$route.params.device){
+          this.route = {name: 'dashboard-statistics'}
+          this.title = 'Устройство';
         } else {
           switch (this.$route.name) {
             case 'dashboard-users':
@@ -180,12 +181,11 @@
     min-width: 320px;
     backface-visibility: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
-    background-color: #ffffff;
+    background-color: #F4F4F4;
     padding: 0.7rem 2rem;
     display: flex;
     align-items: center;
     flex-direction: row;
-
     .right-buttons {
       flex: 1;
       display: flex;
@@ -196,9 +196,10 @@
     .page-header__title {
       display: flex;
       a {
+        padding-top:3px;
         text-decoration: none;
         font-weight: bold;
-        font-size: x-large;
+        font-size: medium;
         color: #575962;
       }
     }

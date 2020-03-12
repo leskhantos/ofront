@@ -32,7 +32,10 @@
           <td>{{guest.datetime}}</td>
           <td>
             <devices-icon/>
-            {{guest.device_mac}}
+            <nuxt-link
+              :to="{ name: 'dashboard-device-mainDevice', params: { device:guest.id_device } }">
+              {{guest.device_mac}}
+            </nuxt-link>
           </td>
           <td>{{guest.data_auth}}</td>
           <td style="text-align: center">{{guest.sessions}}</td>

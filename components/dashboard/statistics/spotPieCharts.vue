@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row ">
+    <div class="row three-donuts">
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
         <apexchart ref="dev" type="donut" height="240" :options="deviceChartOptions" :series="deviceSeries"/>
       </div>
@@ -9,11 +9,11 @@
         <apexchart ref="dev" type="donut" height="240" :options="statChartOptions" :series="statSeries"/>
       </div>
 
-      <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
+      <div class="col" >
         <apexchart ref="dev" type="donut" height="240" :options="guestChartOptions" :series="guestSeries"/>
       </div>
     </div>
-    <div class="row" :style="{ borderTop: '1px solid rgba(0,0,0,.1)'}">
+    <div class="row two-donuts" :style="{ borderTop: '1px solid rgba(0,0,0,.1)'}">
       <div class="col" :style="{ borderRight: '1px solid rgba(0,0,0,.1)'}">
         <apexchart ref="dev" type="donut" height="240" :options="osChartOptions" :series="osSeries"/>
       </div>
@@ -226,6 +226,12 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+  .three-donuts,
+  .two-donuts{
+    padding: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0px 1px 22px -12px #607d8b;
+    margin: 1rem 0;
+  }
 </style>
