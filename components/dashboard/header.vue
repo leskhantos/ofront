@@ -1,5 +1,6 @@
 <template>
-  <header class="application-header">
+  <header class="d-flex flex-column">
+  <div class="application-header">
     <div class="mobile-buttons" @click="$store.commit('app/TOGGLE_SIDEBAR',true)">
       <menu-open-icon/>
     </div>
@@ -33,6 +34,11 @@
     <client-only>
       <FlashMessage :position="'left top'"/>
     </client-only>
+    </div>
+    <portal-target name="company-nav">
+    </portal-target>
+    <portal-target name="spot-nav">
+    </portal-target>
   </header>
 </template>
 
@@ -42,6 +48,7 @@
   import userMenuHeader from "@/components/dashboard/header/user-menu-header.vue";
   import oyAvatar from "../../plugins/oyUI/base/oyAvatar";
   import MenuOpenIcon from "../icons/menuOpenIcon";
+  import { PortalTarget } from 'portal-vue'
 
   const Cookie = process.client ? require('js-cookie') : undefined
   import separator from "@/static/separator.png"
@@ -88,7 +95,8 @@
       userMenu,
       userMenuItem,
       userMenuHeader,
-      oyAvatar
+      oyAvatar,
+      PortalTarget,
     },
     methods: {
       toggleUserMenu() {

@@ -381,7 +381,7 @@
 <style lang="scss" scoped>
   .fixed-top{
     position:absolute;
-    top: 115px;
+    top: 130px;
     left: auto;
     right: 1.7rem;
     overflow: hidden;
