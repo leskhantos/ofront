@@ -65,6 +65,12 @@
             name: this.company.name,
             enabled: this.checkVal
           })
+          this.flashMessage.success({
+            title: "Компания обновлена",
+            position: 'left top',
+            x: 550,
+            y: 0
+          });
           await this.$store.dispatch("company/getCompanies");
         } catch (e) {
           console.log(e.response)
@@ -95,9 +101,6 @@
           });
         }
       }
-    },
-    created() {
-      this.checkVal = this.checked
     },
     watch: {
       checkVal: {

@@ -62,7 +62,7 @@
     }),
     computed: {
       types: function () {
-        return this.$store.getters['users/types']
+        return this.$store.getters['spot/spotTypes']
       }
     },
     methods: {

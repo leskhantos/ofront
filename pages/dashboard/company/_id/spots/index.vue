@@ -14,7 +14,7 @@
           :visible="set_new_spot"
           @close="set_new_spot = false"
         >
-          <storeSpot :company_id="company_id"/>
+          <storeSpot :company_id="Number(company_id)"/>
         </oy-modal>
       </div>
     </oy-page-header>
