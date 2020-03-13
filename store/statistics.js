@@ -237,7 +237,7 @@ export const getters = {
   // all stats by company
   allCallsByCompany(state) {
     let calls = state.allCallsDataByCompany
-    if (Array.isArray(calls)) {
+    if (calls===0) {
       return []
     } else {
       return [calls.requests, calls.checked]
@@ -245,7 +245,7 @@ export const getters = {
   },
   allGuestsByCompany(state) {
     let guests = state.allGuestsDataByCompany
-    if (Array.isArray(guests)) {
+    if (guests===0) {
       return []
     } else {
       return [guests.load, guests.auth, guests.new, guests.old]
@@ -253,7 +253,7 @@ export const getters = {
   },
   allDevicesByCompany(state) {
     let devices = state.allDevicesDataByCompany
-    if (Array.isArray(devices)) {
+    if (devices===0) {
       return []
     } else {
       return [devices.mobile, devices.tablet, devices.computer, devices.type_other]
@@ -261,7 +261,7 @@ export const getters = {
   },
   allBrowsersByCompany(state) {
     let devices = state.allDevicesDataByCompany
-    if (Array.isArray(devices)) {
+    if (devices===0) {
       return []
     } else {
       return [devices.android_browser, devices.edge, devices.firefox, devices.chrome, devices.opera, devices.safari, devices.yandex_browser, devices.webkit, devices.browser_other]
@@ -269,7 +269,7 @@ export const getters = {
   },
   allOsByCompany(state) {
     let devices = state.allDevicesDataByCompany
-    if (Array.isArray(devices)) {
+    if (devices===0) {
       return []
     } else {
       return [devices.android, devices.linux, devices.ios, devices.windows, devices.windows_phone, devices.os_other]
@@ -427,7 +427,7 @@ export const getters = {
   },
   allGuestsBySpot(state) {
     let guests = state.allGuestsDataBySpot
-    if (Array.isArray(guests)) {
+    if (guests===0) {
       return []
     } else {
       return [guests.load, guests.auth, guests.new, guests.old]
@@ -435,7 +435,7 @@ export const getters = {
   },
   allDevicesBySpot(state) {
     let devices = state.allDevicesDataBySpot
-    if (Array.isArray(devices)) {
+    if (devices===0) {
       return []
     } else {
       return [devices.mobile, devices.tablet, devices.computer, devices.type_other]
@@ -443,7 +443,7 @@ export const getters = {
   },
   allBrowsersBySpot(state) {
     let devices = state.allDevicesDataBySpot
-    if (Array.isArray(devices)) {
+    if (devices===0) {
       return []
     } else {
       return [devices.android_browser, devices.edge, devices.firefox, devices.chrome, devices.opera, devices.safari, devices.yandex_browser, devices.webkit, devices.browser_other]
@@ -451,7 +451,7 @@ export const getters = {
   },
   allOsBySpot(state) {
     let devices = state.allDevicesDataBySpot
-    if (Array.isArray(devices)) {
+    if (devices===0) {
       return []
     } else {
       return [devices.android, devices.linux, devices.ios, devices.windows, devices.windows_phone, devices.os_other]
