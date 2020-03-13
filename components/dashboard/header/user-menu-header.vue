@@ -3,13 +3,13 @@
     <oyAvatar :focused="focused" :title="title"/>
     <div class="ml-3">
       <div :style="{ fontWeight: '600', fontSize: '95%' }">{{ this.user.name }}</div>
-      <div :style="{ fontSize: '80%' }">Администратор</div>
+      <div :style="{ fontSize: '80%' }">{{ role }}</div>
     </div>
   </div>
 </template>
 
 <script>
-  import oyAvatar from "../../../plugins/oyUI/base/oyAvatar";
+  import oyAvatar from "@/plugins/oyUI/base/oyAvatar";
 
   export default {
     data() {
@@ -19,6 +19,18 @@
     },
     components: {
       oyAvatar
+    },
+    computed: {
+      role: function () {
+        switch (this.user.type){
+          case 'admin':
+            return 'Администратор';
+          case 'manager':
+            return 'Менеджер';
+          default:
+            return 'Поддержка';
+        }
+      }
     },
     props: {
       focused: {
