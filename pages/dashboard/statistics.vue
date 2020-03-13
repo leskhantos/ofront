@@ -46,7 +46,7 @@
 
         <oy-page-header title=""></oy-page-header>
         <div class="donuts-charts-card">
-          <main-pie-charts :callsSeries="calls" :smsSeries="sms" :vouchersSeries="vouchers"/>
+          <main-pie-charts  :callsSeries="calls" :smsSeries="sms" :vouchersSeries="vouchers"/>
         </div>
       </oy-page-body>
     </oy-page>
@@ -108,38 +108,29 @@
         let sms = this.$store.getters['statistics/stats'].sms
         if(sms===0){
           return []
-        }else if(sms.delivered===0 && sms.all_sms && sms.resend){
-          return [0, sms.all_sms,sms.resend]
-        }else if(sms.delivered && sms.all_sms===0 && sms.resend){
-          return [sms.delivered, 0,sms.resend]
-        }else if(sms.delivered && sms.all_sms && sms.resend===0){
-          return [sms.delivered, sms.all_sms,0]
         } else {
-          return [sms.delivered, sms.all_sms, sms.resend]
+          // return [sms.delivered, sms.all_sms, sms.resend]
         }
       },
       calls: function () {
-        let call = this.$store.getters['statistics/stats'].call
-        if(call===0){
-          return []
-        }else if(call.requests===0 && call.checked){
-          return [0, call.checked]
-        }else if(call.checked===0 && call.requests){
-          return [call.requests, 0]
-        }else {
-          return [call.requests, call.checked]
-        }
+        const call = this.stats.call
+        console.log(this.$store.getters['statistics/stats'])
+        return call !== 0 ? [call.requests, call.checked] : []
+        // let call = this.$store.getters['statistics/stats']
+        // console.log(this.$store.getters['statistics/stats'])
+        // console.log(call)
+        // if(call===0){
+        //   return []
+        // }else {
+        //   return [call.requests, call.checked]
+        // }
       },
       vouchers: function () {
         let vouchers = this.$store.getters['statistics/stats'].voucher
         if(vouchers===0){
           return []
-        }else if(vouchers.all_vouchers===0 && vouchers.auth){
-          return [0, vouchers.auth]
-        }else if(vouchers.all_vouchers && vouchers.auth===0){
-          return [vouchers.all_vouchers, 0]
         }else {
-          return [vouchers.all_vouchers, vouchers.auth]
+          // return [vouchers.all_vouchers, vouchers.auth]
         }
       },
       years: function () {

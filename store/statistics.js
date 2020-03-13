@@ -34,9 +34,7 @@ export const state = () => ({
 
 export const getters = {
   //all stats
-  stats(state) {
-    return state.allStats;
-  },
+  stats: state => state.allStats,
 
   // all stats by month
   daysInMonth(state) {
