@@ -73,6 +73,10 @@
         selectedRow: `url("data:image/svg+xml;charset=UTF-8,%3c?xml version='1.0' encoding='UTF-8'?%3e%3c!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3e%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3e%3cpath d='M1.438 16.872l-1.438 7.128 7.127-1.438 12.642-12.64-5.69-5.69-12.641 12.64zm2.271 2.253l-.85-.849 11.141-11.125.849.849-11.14 11.125zm20.291-13.436l-2.817 2.819-5.69-5.691 2.816-2.817 5.691 5.689z'/%3e%3c/svg%3e"), pointer`
       }
     },
+    async asyncData ({ store }) {
+      await store.dispatch('users/getUsers');
+      return {}
+    },
     components: {
       storeForm, updateUser
     },
@@ -117,11 +121,7 @@
           return this.$store.getters["users/activeUsers"];
         }
       },
-
     },
-    mounted() {
-      this.$store.dispatch("users/getUsers");
-    }
   };
 </script>
 <style lang="scss" scoped>
