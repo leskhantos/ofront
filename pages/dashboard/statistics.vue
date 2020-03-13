@@ -107,33 +107,16 @@
         return days;
       },
       sms: function () {
-        let sms = this.$store.getters['statistics/stats'].sms
-        if(sms===0){
-          return []
-        } else {
-          // return [sms.delivered, sms.all_sms, sms.resend]
-        }
+        const sms = this.stats.sms
+        return sms !== 0 ? [sms.delivered, sms.all_sms, sms.resend] : []
       },
       calls: function () {
         const call = this.stats.call
         return call !== 0 ? [call.requests, call.checked] : []
-        // return call !== 0 ? [call.requests, call.checked] : []
-        // let call = this.$store.getters['statistics/stats']
-        // console.log(this.$store.getters['statistics/stats'])
-        // console.log(call)
-        // if(call===0){
-        //   return []
-        // }else {
-        //   return [call.requests, call.checked]
-        // }
       },
       vouchers: function () {
-        let vouchers = this.$store.getters['statistics/stats'].voucher
-        if(vouchers===0){
-          return []
-        }else {
-          // return [vouchers.all_vouchers, vouchers.auth]
-        }
+        const voucher = this.stats.voucher
+        return voucher !== 0 ? [voucher.all_vouchers, voucher.auth] : []
       },
       years: function () {
         return this.$store.getters['app/get_years']
