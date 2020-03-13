@@ -105,7 +105,7 @@
         return days;
       },
       sms: function () {
-        let sms = this.$store.getters['statistics/stats']
+        let sms = this.$store.getters['statistics/stats'].sms
         if(sms.delivered===0 && sms.all_sms===0 && sms.resend===0){
           return [0, 0, 0]
         }else if(sms.delivered===0 && sms.all_sms && sms.resend){
@@ -119,7 +119,7 @@
         }
       },
       calls: function () {
-        let call = this.$store.getters['statistics/stats']
+        let call = this.$store.getters['statistics/stats'].call
         if(call.requests===0 && call.checked===0){
           return [0, 0]
         }else if(call.requests===0 && call.checked){
@@ -131,7 +131,7 @@
         }
       },
       vouchers: function () {
-        let vouchers = this.$store.getters['statistics/stats']
+        let vouchers = this.$store.getters['statistics/stats'].voucher
         if(vouchers.all_vouchers===0 && vouchers.auth===0){
           return [0, 0]
         }else if(vouchers.all_vouchers===0 && vouchers.auth){
