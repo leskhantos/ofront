@@ -52,7 +52,19 @@ export const mutations = {
 export const actions = {
   async getCompanies({commit}) {
     await this.$axios.get('companies').then((response) => {
-      commit('SET_COMPANIES_LIST', response.data);
+      let arr = response.data
+        arr = arr.sort(function(a, b){
+        let nameA = a.name.toLowerCase();
+        let nameB = b.name.toLowerCase();
+        if (nameA > nameB) {
+          return 1;
+        }
+        if (nameA < nameB) {
+          return -1;
+        }
+        return 0;
+      });
+      commit('SET_COMPANIES_LIST', arr);
     }).catch((err) => {
 
     });
