@@ -11,8 +11,8 @@
           {{ title }}
         </nuxt-link>
         <div v-show="showOnly">
-          <img :src="separator" alt="separator" height="34px"/>
-          {{ spotName }}
+          <img :src="separator" alt="separator"/>
+          <h6>{{ spotName }}</h6>
         </div>
       </div>
     </div>
@@ -204,12 +204,21 @@
     .page-header__title {
       display: flex;
       a {
-        padding-top:3px;
         text-decoration: none;
         font-weight: bold;
         font-size: medium;
         color: #575962;
       }
+     div{
+       img{
+       position:absolute;
+       top:0;
+      }
+       h6{
+         margin-top:2px;
+         margin-left: 40px;
+       }
+     }
     }
 
     .mobile-buttons {
