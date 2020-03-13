@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export const state = () => ({
   //all stats
   allStats: {},
@@ -460,9 +462,7 @@ export const getters = {
 export const mutations = {
   //all stats
 
-  SET_ALL_STATS(state, allStats) {
-    state.allStats = allStats;
-  },
+  SET_ALL_STATS: (state, stats) => Vue.set(state, 'allStats', stats),
 
   // all stats by month
   SET_ALL_STATS_DAYS_PER_MONTH(state, allStatsDaysPerMonth) {
@@ -535,9 +535,8 @@ export const mutations = {
 export const actions = {
   //all statistics
   async getAllStats({commit}) {
-    await this.$axios.get('all/stats').then((response) => {
-      commit('SET_ALL_STATS', response.data);
-    });
+    const response = await this.$axios.get('all/stats')
+    commit('SET_ALL_STATS', response.data);
   },
 
   //all stats per month

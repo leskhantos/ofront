@@ -75,12 +75,14 @@
         titleTemplate: "%s | Статистика"
       };
     },
+    async asyncData ({ store }) {
+      await store.dispatch('statistics/getAllStats');
+      return {}
+    },
     created() {
       let date = new Date();
-
       this.form.month = date.getMonth() + 1
       this.form.year = date.getFullYear()
-      this.$store.dispatch('statistics/getAllStats');
       this.$store.dispatch('statistics/getAllPerMonth', this.form);
     },
 
@@ -114,8 +116,8 @@
       },
       calls: function () {
         const call = this.stats.call
-        console.log(this.$store.getters['statistics/stats'])
         return call !== 0 ? [call.requests, call.checked] : []
+        // return call !== 0 ? [call.requests, call.checked] : []
         // let call = this.$store.getters['statistics/stats']
         // console.log(this.$store.getters['statistics/stats'])
         // console.log(call)
