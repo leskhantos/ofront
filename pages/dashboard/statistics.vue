@@ -106,7 +106,7 @@
       },
       sms: function () {
         let sms = this.$store.getters['statistics/stats'].sms
-        if(sms.delivered===0 && sms.all_sms===0 && sms.resend===0){
+        if(sms===0){
           return [0, 0, 0]
         }else if(sms.delivered===0 && sms.all_sms && sms.resend){
           return [0, sms.all_sms,sms.resend]
@@ -120,7 +120,7 @@
       },
       calls: function () {
         let call = this.$store.getters['statistics/stats'].call
-        if(call.requests===0 && call.checked===0){
+        if(call===0){
           return [0, 0]
         }else if(call.requests===0 && call.checked){
           return [0, call.checked]
@@ -132,7 +132,7 @@
       },
       vouchers: function () {
         let vouchers = this.$store.getters['statistics/stats'].voucher
-        if(vouchers.all_vouchers===0 && vouchers.auth===0){
+        if(vouchers===0){
           return [0, 0]
         }else if(vouchers.all_vouchers===0 && vouchers.auth){
           return [0, vouchers.auth]
