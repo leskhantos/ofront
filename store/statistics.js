@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export const state = () => ({
   //all stats
   allStats: {},
@@ -34,14 +36,11 @@ export const state = () => ({
 
 export const getters = {
   //all stats
-  stats(state) {
-    return state.allStats;
-  },
+  stats: state => state.allStats,
 
   // all stats by month
-  daysInMonth(state) {
-    return state.allStatsDaysPerMonth
-  },
+  daysInMonth:state=> state.allStatsDaysPerMonth ,
+
   allSmsStatsPerMonth(state) {
     let data = state.allSmsPerMonth
     let all = []
@@ -135,9 +134,8 @@ export const getters = {
   },
 
   // all stats by month and company
-  daysInMonthByCompany(state) {
-    return state.allStatsDaysByCompanyPerMonth
-  },
+  daysInMonthByCompany:state=> state.allStatsDaysByCompanyPerMonth,
+
   allCallsByCompanyPerMonth(state) {
     let data = state.allCallByCompanyPerMonth
     let requests = []
@@ -408,9 +406,7 @@ export const getters = {
       },
     ]
   },
-  spotType(state) {
-    return state.spotType
-  },
+  spotType: state => state.spotType,
 
   //all stats by spot
   allStatsDataBySpot(state) {
@@ -462,9 +458,7 @@ export const getters = {
 export const mutations = {
   //all stats
 
-  SET_ALL_STATS(state, allStats) {
-    state.allStats = allStats;
-  },
+  SET_ALL_STATS: (state, stats) => Vue.set(state, 'allStats', stats),
 
   // all stats by month
   SET_ALL_STATS_DAYS_PER_MONTH(state, allStatsDaysPerMonth) {
@@ -537,58 +531,52 @@ export const mutations = {
 export const actions = {
   //all statistics
   async getAllStats({commit}) {
-    await this.$axios.get('all/stats').then((response) => {
-      commit('SET_ALL_STATS', response.data);
-    });
+    const response = await this.$axios.get('all/stats')
+    commit('SET_ALL_STATS', response.data);
   },
 
   //all stats per month
   async getAllPerMonth({commit}, payload) {
-    await this.$axios.get(`all/stats/month?month=${payload.month}&year=${payload.year}`).then((response) => {
+    const response = await this.$axios.get(`all/stats/month?month=${payload.month}&year=${payload.year}`);
       commit('SET_ALL_STATS_DAYS_PER_MONTH', response.data.days);
       commit('SET_ALL_SMS_PER_MONTH', response.data.sms);
       commit('SET_ALL_CALLS_PER_MONTH', response.data.calls);
       commit('SET_ALL_VOUCHERS_PER_MONTH', response.data.vouchers);
-    });
   },
 
 
   //statistics by company per month
   async getAllByCompanyPerMonth({commit}, payload) {
-    await this.$axios.get(`company/${payload.company_id}/stats/month?month=${payload.month}&year=${payload.year}`).then((response) => {
+    const response = await this.$axios.get(`company/${payload.company_id}/stats/month?month=${payload.month}&year=${payload.year}`)
       commit('SET_ALL_STATS_DAYS_BY_COMPANY_PER_MONTH', response.data.days);
       commit('SET_ALL_CALLS_BY_COMPANY_PER_MONTH', response.data.calls);
       commit('SET_ALL_GUESTS_BY_COMPANY_PER_MONTH', response.data.guests);
       commit('SET_ALL_VOUCHERS_BY_COMPANY_PER_MONTH', response.data.vouchers);
-    });
   },
   //all statistics by company
   async getAllDataByCompany({commit}, payload) {
-    await this.$axios.get(`company/${payload.company_id}/stats`).then((response) => {
+    const response = await this.$axios.get(`company/${payload.company_id}/stats`)
       commit('SET_CALLS_DATA_BY_COMPANY', response.data.call);
       commit('SET_GUESTS_DATA_BY_COMPANY', response.data.guest);
       commit('SET_DEVICES_DATA_BY_COMPANY', response.data.device);
-    });
   },
 
 
   //statistics by company per month
   async getAllBySpotPerMonth({commit}, payload) {
-    await this.$axios.get(`spot/${payload.spot_id}/stats/month?month=${payload.month}&year=${payload.year}`).then((response) => {
+    const response = await this.$axios.get(`spot/${payload.spot_id}/stats/month?month=${payload.month}&year=${payload.year}`)
       commit('SET_ALL_STATS_DAYS_BY_SPOT_PER_MONTH', response.data.days);
       commit('SET_ALL_GUESTS_BY_SPOT_PER_MONTH', response.data.guests);
       commit('SET_SPOT_TYPE', response.data.type);
       commit('SET_ALL_STATS_BY_SPOT_PER_MONTH', response.data.stats);
-    });
   },
 
   //all statistics by spot
   async getAllDataBySpot({commit}, payload) {
-    await this.$axios.get(`spot/${payload.spot_id}/stats`).then((response) => {
+    const response = await this.$axios.get(`spot/${payload.spot_id}/stats`)
       commit('SET_SPOT_TYPE_ALL', response.data.type);
       commit('SET_STATS_DATA_BY_SPOT', response.data.stats);
       commit('SET_GUESTS_DATA_BY_SPOT', response.data.guest);
       commit('SET_DEVICES_DATA_BY_SPOT', response.data.device);
-    });
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <oy-page>
     <oy-page-header/>
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column" v-if="settings">
       <setting-item title="URL ссылка переадресации после авторизации:" :value="settings.redirect_url ? settings.redirect_url:'нет данных'"/>
       <setting-item title="Время жизни автоматической авторизации для устройства:"
                     :value="settings.session_auth_timer ? settings.session_auth_timer : 'нет данных'"/>
@@ -31,13 +31,14 @@
         titleTemplate: "%s | Настройки"
       };
     },
+    async asyncData ({ store }) {
+      await store.dispatch('setting/getSettings');
+      return {}
+    },
     computed: {
       settings: function () {
         return this.$store.getters['setting/settings']
       }
-    },
-    created() {
-      this.$store.dispatch('setting/getSettings')
     }
   };
 </script>
