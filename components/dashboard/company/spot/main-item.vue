@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex justify-content-between">
-      <h5 :style="{marginLeft:'20rem'}">{{ title }}</h5>
-      <oy-input :value="value" :style="{width:'30rem', marginRight:'20rem'}"/>
+  <div class="main-item">
+      <h5>{{ title }}</h5>
+      <oy-input :value="value"/>
   </div>
 </template>
 
@@ -23,7 +23,7 @@
 
 <style lang="scss" scoped>
   .main-item {
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
+    display: flex;
     margin-top: 1rem;
   }
 </style>

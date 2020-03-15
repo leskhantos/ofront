@@ -1,7 +1,6 @@
 <template>
   <oy-page>
-    <oy-page-header/>
-    <oy-page-body>
+    <oy-page-body class="d-flex flex-column">
       <main-item title="Название:" :value="spot.address"/>
       <main-item title="Адрес:" :value="spot.address"/>
       <main-item title="Идентификатор:" :value="spot.ident"/>
@@ -10,8 +9,8 @@
       <main-item title="Время жизни сессии:" :value="spot.type"/>
       <main-item title="Переадресация:" :value="spot.type"/>
       <main-item title="Таймер активности" :value="spot.type"/>
-      <oy-switch :style="{marginLeft:'20rem'}" :marginLeft="'10.1rem'" title="Международные номера" :checked="false"/>
-      <oy-switch :style="{marginLeft:'20rem'}" :marginLeft="'20rem'" title="Включен" :checked="spot.enabled"/>
+      <oy-switch title="Международные номера" :checked="false"/>
+      <oy-switch title="Включен" :checked="spot.enabled"/>
     </oy-page-body>
   </oy-page>
 </template>
