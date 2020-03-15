@@ -25,7 +25,7 @@
   import diagnoseIcon from "@/components/icons/diagnoseIcon";
 
   export default {
-    components: {AddIcon, AddUserIcon, PassGenerateIcon,FilterIcon, diagnoseIcon},
+    components: {AddIcon, AddUserIcon, PassGenerateIcon, FilterIcon, diagnoseIcon},
     props: {
       title: {
         type: String,
@@ -78,7 +78,8 @@
 <style lang="scss" scoped>
   .btn {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    align-content: center;
     padding: 0.25rem 0.5rem;
 
     .icon-plus {
