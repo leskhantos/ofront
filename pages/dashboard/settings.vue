@@ -1,8 +1,7 @@
 <template>
   <oy-page>
-    <oy-page-header/>
     <div class="d-flex flex-column" v-if="settings">
-      <setting-item title="URL ссылка переадресации после авторизации:" :value="settings.redirect_url ? settings.redirect_url:'нет данных'"/>
+      <setting-item title="URL ссылка переадресации после авторизации:" v-model="payload.redirect_url"/>
       <setting-item title="Время жизни автоматической авторизации для устройства:"
                     :value="settings.session_auth_timer ? settings.session_auth_timer : 'нет данных'"/>
       <setting-item title="Время жизни сессии устройства:" :value="settings.session_timer ? settings.session_timer : 'нет данных'"/>
@@ -16,6 +15,15 @@
       <setting-item title="Возможное количество устройств на один ваучер:" :value="settings.voucher_max_devices?settings.voucher_max_devices: 'нет данных'"/>
       <setting-item title="Включить мониторинг активности зоны:" :value="settings.monitoring_enabled?settings.monitoring_enabled: 'нет данных'"/>
       <setting-item title="Таймер простоя зоны до оповещения о неактивности:" :value="settings.monitoring_alert_timer?settings.monitoring_alert_timer: 'нет данных'"/>
+    </div>
+    <div class="d-flex justify-content-end">
+      <oy-button
+        title="Сохранить"
+        type="success"
+        @click="saveSettings"
+        :svgIcon="'saveIcon'"
+      >
+      </oy-button>
     </div>
   </oy-page>
 </template>
@@ -31,6 +39,13 @@
         titleTemplate: "%s | Настройки"
       };
     },
+    data(){
+      return{
+        payload:{
+          redirect_url:''
+        }
+      }
+    },
     async asyncData ({ store }) {
       await store.dispatch('setting/getSettings');
       return {}
@@ -38,6 +53,15 @@
     computed: {
       settings: function () {
         return this.$store.getters['setting/settings']
+      }
+    },
+    methods:{
+      saveSettings: function(){
+      }
+    },
+    mounted() {
+      if (this.settings){
+        this.payload.redirect_url = this.settings.redirect_url
       }
     }
   };

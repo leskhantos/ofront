@@ -1,8 +1,13 @@
 <template>
   <div class="d-flex justify-content-between">
       <h6 class="mr-auto">{{ title }}</h6>
-      <oy-input :value="value" :style="{paddingRight:'.2rem'}"/>
-      <p>{{ unit }}</p>
+    <label>
+      <input :value="value"        class="form-control form-control-sm"
+             @input="$emit('input', $event.target.value)"
+             @keyup.enter="$emit('sendEnter')"
+             :style="{paddingRight:'.2rem'}"/>
+    </label>
+    <p>{{ unit }}</p>
   </div>
 </template>
 

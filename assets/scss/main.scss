@@ -8,6 +8,9 @@
 @import 'tables';
 // @import 'fluid-font';
 
+html {
+  overflow: hidden
+}
 body {
   font-size: 14px;
   font-family: 'Open Sans', sans-serif !important;

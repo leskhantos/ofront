@@ -8,6 +8,7 @@ export const state = () => ({
   set_new_style: false,
   set_new_account: false,
   confirm_delete:false,
+  activate_voucher:false,
   errors: {}
 });
 
@@ -41,6 +42,9 @@ export const getters = {
   },
   confirm_delete(state) {
     return state.confirm_delete;
+  },
+  activate_voucher(state) {
+    return state.activate_voucher;
   },
   get_years(){
     let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
@@ -98,6 +102,9 @@ export const mutations = {
   },
   CONFIRM_DELETE(state, confirm_delete) {
     state.confirm_delete = confirm_delete;
+  },
+  ACTIVATE_VOUCHER(state, activate_voucher) {
+    state.activate_voucher = activate_voucher;
   },
 };
 

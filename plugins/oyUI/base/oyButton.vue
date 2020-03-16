@@ -23,9 +23,12 @@
   import AddIcon from "@/components/icons/addIcon";
   import FilterIcon from "@/components/icons/filterIcon";
   import diagnoseIcon from "@/components/icons/diagnoseIcon";
+  import saveIcon from "@/components/icons/saveIcon";
+  import generateIcon from "@/components/icons/generateIcon";
+  import activateIcon from "@/components/icons/activateIcon";
 
   export default {
-    components: {AddIcon, AddUserIcon, PassGenerateIcon, FilterIcon, diagnoseIcon},
+    components: {AddIcon, AddUserIcon, PassGenerateIcon, FilterIcon, diagnoseIcon, saveIcon, generateIcon, activateIcon},
     props: {
       title: {
         type: String,
