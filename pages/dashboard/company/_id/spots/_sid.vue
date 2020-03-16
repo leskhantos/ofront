@@ -20,7 +20,13 @@
       <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('actions')}" @click="switchComponents('actions')">
         События
       </div>
-      <div class="nav-item nav-link  border-top border-bottom rounded-0" :class="{active: isActive('mutable')}" @click="switchComponents('mutable')">
+      <div v-show="this.spot.type===3" class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('list')}" @click="switchComponents('list')">
+        Листы
+      </div>
+      <div v-show="this.spot.type===3" class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('voucher')}" @click="switchComponents('voucher')">
+        Ваучеры
+      </div>
+      <div v-show="this.spot.type===1 || this.spot.type===2" class="nav-item nav-link  border-top border-bottom rounded-0" :class="{active: isActive('mutable')}" @click="switchComponents('mutable')">
         {{ changeableNav }}
       </div>
     </nav>
@@ -51,8 +57,6 @@
           return 'SMS';
         }else if(this.spot.type===2){
           return 'Звонки'
-        }else {
-          return 'Ваучеры'
         }
       }
     },
@@ -84,6 +88,18 @@
               params: {id: this.$route.params.id, sid: this.$route.params.sid}
             })
             break;
+          case 'list':
+            this.$router.push({
+              name: 'dashboard-company-id-spots-sid-list',
+              params: {id: this.$route.params.id, sid: this.$route.params.sid}
+            })
+            break;
+            case 'voucher':
+            this.$router.push({
+              name: 'dashboard-company-id-spots-sid-voucher',
+              params: {id: this.$route.params.id, sid: this.$route.params.sid}
+            })
+            break;
           case 'mutable':
             this.$router.push({
               name: 'dashboard-company-id-spots-sid-mutable',
@@ -112,6 +128,12 @@
             break;
           case 'dashboard-company-id-spots-sid-actions':
             this.isActiveItem = 'actions';
+            break;
+          case 'dashboard-company-id-spots-sid-list':
+            this.isActiveItem = 'list';
+            break;
+          case 'dashboard-company-id-spots-sid-voucher':
+            this.isActiveItem = 'voucher';
             break;
           case 'dashboard-company-id-spots-sid-mutable':
             this.isActiveItem = 'mutable';
