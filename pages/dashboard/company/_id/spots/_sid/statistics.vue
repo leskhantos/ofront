@@ -62,7 +62,7 @@
         spot_id: this.$route.params.sid
       }
       this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
-      this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.$route.params.sid});
+      this.$store.dispatch('statistics/getAllDataBySpot', data);
     },
     methods: {
       onChangeMonth(val) {
@@ -278,6 +278,8 @@
             spot_id: this.spot_id
           }
           this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
+          this.$store.dispatch('statistics/getAllDataBySpot', data);
+
         }
       },
       year: {
@@ -289,6 +291,8 @@
             spot_id: this.spot_id
           }
           this.$store.dispatch('statistics/getAllBySpotPerMonth', data);
+          this.$store.dispatch('statistics/getAllDataBySpot', data);
+
         }
       }
     }

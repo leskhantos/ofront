@@ -14,10 +14,7 @@ export default function ({$axios, store, app}) {
     if (error.response.status === 422) {
       store.dispatch('app/setErrors', error.response.data)
     } else if (error.response.status === 401) {
-      if (
-        // error.config.url === 'auth/user' &&
-        error.response.status === 401
-      ) {
+      if (error.response.status === 401) {
         store.commit('setAuth', null);
         app.router.push({name: 'index'});
       }

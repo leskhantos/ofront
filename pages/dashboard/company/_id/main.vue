@@ -329,6 +329,7 @@
             company_id: this.company_id
           }
           this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
+          this.$store.dispatch('statistics/getAllDataByCompany', data);
           let spotData = {
             month: this.month,
             year: this.year,
@@ -336,7 +337,7 @@
           }
           if (this.spot_id !== 'all') {
             this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
-            this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
+            this.$store.dispatch('statistics/getAllDataBySpot', spotData);
           }
         }
       },
@@ -349,6 +350,7 @@
             company_id: this.company_id
           }
           this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
+          this.$store.dispatch('statistics/getAllDataByCompany', data);
           let spotData = {
             month: this.month,
             year: this.year,
@@ -356,7 +358,7 @@
           }
           if (this.spot_id !== 'all') {
             this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
-            this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
+            this.$store.dispatch('statistics/getAllDataBySpot', spotData);
           }
         }
       },
@@ -370,7 +372,7 @@
           }
           if (this.spot_id !== 'all') {
             this.$store.dispatch('statistics/getAllBySpotPerMonth', spotData);
-            this.$store.dispatch('statistics/getAllDataBySpot', {spot_id: this.spot_id});
+            this.$store.dispatch('statistics/getAllDataBySpot', spotData);
           }
         }
       }
