@@ -26,9 +26,10 @@
   import saveIcon from "@/components/icons/saveIcon";
   import generateIcon from "@/components/icons/generateIcon";
   import activateIcon from "@/components/icons/activateIcon";
+  import printIcon from "@/components/icons/printIcon";
 
   export default {
-    components: {AddIcon, AddUserIcon, PassGenerateIcon, FilterIcon, diagnoseIcon, saveIcon, generateIcon, activateIcon},
+    components: {AddIcon, AddUserIcon, PassGenerateIcon, FilterIcon, diagnoseIcon, saveIcon, generateIcon, activateIcon, printIcon},
     props: {
       title: {
         type: String,

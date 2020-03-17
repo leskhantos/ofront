@@ -16,7 +16,7 @@
           :visible="activate_voucher"
           @close="activate_voucher = false"
         >
-          <activate-voucher/>
+          <activate-voucher :spot_id="this.spot_id"/>
         </oy-modal>
       </div>
       <div class="d-flex ml-auto">
@@ -93,6 +93,9 @@
           this.$store.commit('app/ACTIVATE_VOUCHER', value);
         }
       },
+    },
+    created() {
+      this.$store.dispatch('voucher/getVouchers', {spot_id: this.$route.params.sid,activity:1});
     },
     watch: {
           type: {

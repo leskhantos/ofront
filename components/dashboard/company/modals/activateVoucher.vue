@@ -42,6 +42,12 @@
 
 <script>
     export default {
+      props: {
+        spot_id:{
+          type: Number,
+          required: false
+        }
+      },
         name: "activateVoucher",
       data: () => ({
         form:{
@@ -63,6 +69,7 @@
              }
            }
            await this.$axios.put(`vouchers/${payload.id}`, payload.form);
+           await this.$store.dispatch('voucher/getVouchers', {spot_id: this.spot_id, activity:1})
            this.$store.commit('app/ACTIVATE_VOUCHER', false);
            this.flashMessage.success({
              title: "Ваучер активирован",
