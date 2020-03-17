@@ -285,7 +285,7 @@ export const getters = {
       let resend = []
       let delivered = []
       if (data === 0) {
-        for (let i = 1; i <= state.allStatsDaysPerMonth; i++) {
+        for (let i = 1; i <= state.allStatsDaysBySpotPerMonth; i++) {
           all.push(0);
           resend.push(0);
           delivered.push(0);
@@ -298,7 +298,6 @@ export const getters = {
           delivered.push(value.delivered)
         })
       }
-
       return [
         {
           name: "Доставлено",
@@ -426,7 +425,7 @@ export const getters = {
     if (guests===0) {
       return []
     } else {
-      return [guests.load, guests.auth, guests.new, guests.old]
+      return [guests.load, guests.auth_guests, guests.new, guests.old]
     }
   },
   allDevicesBySpot(state) {
