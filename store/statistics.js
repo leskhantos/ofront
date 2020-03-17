@@ -246,7 +246,7 @@ export const getters = {
     if (guests===0) {
       return []
     } else {
-      return [guests.load, guests.auth, guests.new, guests.old]
+      return [guests.load, guests.auth_guests, guests.new, guests.old]
     }
   },
   allDevicesByCompany(state) {
@@ -285,7 +285,7 @@ export const getters = {
       let resend = []
       let delivered = []
       if (data === 0) {
-        for (let i = 1; i <= state.allStatsDaysPerMonth; i++) {
+        for (let i = 1; i <= state.allStatsDaysBySpotPerMonth; i++) {
           all.push(0);
           resend.push(0);
           delivered.push(0);
@@ -298,7 +298,6 @@ export const getters = {
           delivered.push(value.delivered)
         })
       }
-
       return [
         {
           name: "Доставлено",
@@ -426,7 +425,7 @@ export const getters = {
     if (guests===0) {
       return []
     } else {
-      return [guests.load, guests.auth, guests.new, guests.old]
+      return [guests.load, guests.auth_guests, guests.new, guests.old]
     }
   },
   allDevicesBySpot(state) {
@@ -530,8 +529,8 @@ export const mutations = {
 
 export const actions = {
   //all statistics
-  async getAllStats({commit}) {
-    const response = await this.$axios.get('all/stats')
+  async getAllStats({commit}, payload) {
+    const response = await this.$axios.get(`all/stats?month=${payload.month}&year=${payload.year}`)
     commit('SET_ALL_STATS', response.data);
   },
 
@@ -555,7 +554,7 @@ export const actions = {
   },
   //all statistics by company
   async getAllDataByCompany({commit}, payload) {
-    const response = await this.$axios.get(`company/${payload.company_id}/stats`)
+    const response = await this.$axios.get(`company/${payload.company_id}/stats?month=${payload.month}&year=${payload.year}`)
       commit('SET_CALLS_DATA_BY_COMPANY', response.data.call);
       commit('SET_GUESTS_DATA_BY_COMPANY', response.data.guest);
       commit('SET_DEVICES_DATA_BY_COMPANY', response.data.device);
@@ -573,7 +572,7 @@ export const actions = {
 
   //all statistics by spot
   async getAllDataBySpot({commit}, payload) {
-    const response = await this.$axios.get(`spot/${payload.spot_id}/stats`)
+    const response = await this.$axios.get(`spot/${payload.spot_id}/stats?month=${payload.month}&year=${payload.year}`)
       commit('SET_SPOT_TYPE_ALL', response.data.type);
       commit('SET_STATS_DATA_BY_SPOT', response.data.stats);
       commit('SET_GUESTS_DATA_BY_SPOT', response.data.guest);

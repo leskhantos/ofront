@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-start" :style="{ paddingBottom:'.5rem'}">
-      <h5>{{ title }}:</h5>
-      <span class="switch" :style="{ marginLeft: marginLeft}">
+    <h5>{{ title }}:</h5>
+    <span class="switch" :style="{ marginLeft: marginLeft}">
         <input type="checkbox" class="switch" id="switch-normal" v-model="val" :checked="val"
                @change="change()">
         <label for="switch-normal"></label>
@@ -151,7 +151,5 @@
         background-color: $switch-disabled-bg;
       }
     }
-
   }
-
 </style>

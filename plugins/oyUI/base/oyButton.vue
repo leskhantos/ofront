@@ -23,9 +23,13 @@
   import AddIcon from "@/components/icons/addIcon";
   import FilterIcon from "@/components/icons/filterIcon";
   import diagnoseIcon from "@/components/icons/diagnoseIcon";
+  import saveIcon from "@/components/icons/saveIcon";
+  import generateIcon from "@/components/icons/generateIcon";
+  import activateIcon from "@/components/icons/activateIcon";
+  import printIcon from "@/components/icons/printIcon";
 
   export default {
-    components: {AddIcon, AddUserIcon, PassGenerateIcon,FilterIcon, diagnoseIcon},
+    components: {AddIcon, AddUserIcon, PassGenerateIcon, FilterIcon, diagnoseIcon, saveIcon, generateIcon, activateIcon, printIcon},
     props: {
       title: {
         type: String,
@@ -78,7 +82,8 @@
 <style lang="scss" scoped>
   .btn {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    align-content: center;
     padding: 0.25rem 0.5rem;
 
     .icon-plus {

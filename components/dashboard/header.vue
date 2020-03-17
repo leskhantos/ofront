@@ -215,7 +215,7 @@
        top:0;
       }
        h6{
-         margin-top:2px;
+         margin-top:2.5px;
          margin-left: 40px;
        }
      }

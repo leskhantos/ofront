@@ -62,7 +62,7 @@
         company_id: this.$route.params.id
       }
       this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
-      this.$store.dispatch('statistics/getAllDataByCompany', {company_id: this.$route.params.id});
+      this.$store.dispatch('statistics/getAllDataByCompany', data);
       this.$store.dispatch('spot/getSpotsByCompany', this.$route.params.id);
       this.$store.dispatch("company/getCompany", this.$route.params.id);
     },

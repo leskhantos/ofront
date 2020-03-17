@@ -76,7 +76,12 @@
       };
     },
     async asyncData ({ store }) {
-      await store.dispatch('statistics/getAllStats');
+      let date = new Date();
+      let payload = {
+        month: date.getMonth() + 1,
+        year: date.getFullYear()
+      }
+      await store.dispatch('statistics/getAllStats',payload);
       return {}
     },
     created() {
@@ -176,12 +181,14 @@
         immediate: false,
         handler() {
           this.$store.dispatch('statistics/getAllPerMonth', this.form);
+          this.$store.dispatch('statistics/getAllStats', this.form);
         }
       },
       'form.year': {
         immediate: false,
         handler() {
           this.$store.dispatch('statistics/getAllPerMonth', this.form);
+          this.$store.dispatch('statistics/getAllStats', this.form);
         }
       }
     }
