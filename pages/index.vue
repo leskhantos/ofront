@@ -137,6 +137,7 @@
         bottom: 0;
         transition: 0.2s;
         outline: none;
+        font-family: 'Roboto', sans-serif !important;
       }
 
       .button:hover {
