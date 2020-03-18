@@ -27,14 +27,6 @@
                  :options="types"
       />
     </div>
-    <div class="row" v-show="form.type">
-      <oy-input
-        label="Настройки"
-        v-model="form.settings"
-        input-class="col-lg-12"
-        :error="errors['settings']"
-      />
-    </div>
 
     <div class="mt-3">
       <oy-button type="success" buttonType="submit" title="Сохранить" :block="true"/>
@@ -56,8 +48,7 @@
       form: {
         address: '',
         ident: '',
-        type: null,
-        settings: ''
+        type: null
       }
     }),
     computed: {
@@ -75,8 +66,7 @@
             company_id: this.company_id,
             address: this.form.address,
             ident: this.form.ident,
-            type: this.form.type,
-            settings: this.form.settings
+            type: this.form.type
           };
           await this.$axios.post('company/spot', payload)
           this.$store.commit("app/SET_NEW_SPOT", false);
