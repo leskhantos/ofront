@@ -47,13 +47,13 @@
       </table>
     </oy-page-body>
     <div class="body" id="printTable" style="width: 100%;height: 100%;margin: 0;padding: 0;background-color: #FAFAFA;font: 12pt 'Tahoma'; display: none;">
-      <div class="page" style="min-height: 297mm; padding:10mm;margin: 10mm auto;border-radius: 5px;background: white;box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
+      <div class="page" style="min-height: 297mm; padding: 5mm;margin: 5mm auto;border-radius: 5px;background: white; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);">
         <div class="d-flex flex-wrap">
-          <div v-for="voucher in  vouchers" class="card" style="width: 15rem;border-radius: 0;border: 1px solid; height: 6.9rem" :key="voucher.id">
+          <div v-for="voucher in  vouchers" class="card" style="width: 15.7rem;border-radius: 0;border: 1px solid; height: auto" :key="voucher.id">
             <div class="card-body" style=" padding:.3rem;">
               <h6 class="card-title font-weight-bold" style="font-size: 15px; margin-bottom: 0.15rem;">ID:{{voucher.id}}</h6>
-              <p class="card-text d-flex justify-content-center" style="font-size: 15px;font-weight: 700; margin-bottom: 0.1rem;">Your Wi-Fi code</p>
-              <h5 class="d-flex justify-content-center font-weight-bold" style="font-size: 36px; color: #000000;">
+              <p class="card-text d-flex justify-content-center" style="font-size: 15px;font-weight: 700; margin-bottom: 0.15rem;">Your Wi-Fi code</p>
+              <h5 class="d-flex justify-content-center font-weight-bold" style="font-size: 36px; color: #000000; margin-bottom: 0.5rem;">
                 {{voucher.code}}
               </h5>
             </div>

@@ -112,7 +112,6 @@
         let end = date.getFullYear()+'-'+month+'-'+dayEnd+'T'+hour+':'+minute;
         this.form.startDate = start.toString()
         this.form.endDate = end.toString();
-        console.log(this.form)
       },
       watch: {
          'form.startDate':{

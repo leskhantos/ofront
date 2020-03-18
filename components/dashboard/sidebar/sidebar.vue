@@ -12,7 +12,16 @@
           <i class="icon icon-arrow-left mr-3"></i>
         </div>
       </div>
-      <div class="dashboard-layout__sidebar--system-nav">
+      <div v-if="this.user.type==='manager'" class="dashboard-layout__sidebar--system-nav">
+        <menu-header title="Основное"/>
+        <menu-item icon="icon-location-pin" title="Зоны" :route="{ name: 'dashboard-spot' }"/>
+        <menu-item icon="icon-layers" title="Стили" :route="{ name: 'dashboard-users' }"/>
+        <menu-item icon="icon-chart" title="Статистика" :route="{ name: 'dashboard-settings' }"/>
+        <menu-item icon="icon-settings" title="События" :route="{ name: 'dashboard-settings' }"/>
+        <menu-header title="Управление">
+        </menu-header>
+      </div>
+      <div v-else class="dashboard-layout__sidebar--system-nav">
         <menu-header title="Основное"/>
         <menu-item icon="icon-chart" title="Статистика" :route="{ name: 'dashboard-statistics' }"/>
         <menu-item icon="icon-user" title="Пользователи" :route="{ name: 'dashboard-users' }"/>
@@ -29,7 +38,15 @@
         </menu-header>
       </div>
     </div>
-    <div class="dashboard-layout__sidebar--dynamic-section custom-sroll">
+    <div v-if="this.user.type==='manager'" class="dashboard-layout__sidebar--dynamic-section custom-scroll">
+      <div class="dashboard-layout__sidebar--companies-nav">
+        <menu-item icon="icon-people" title="Гости" :route="{ name: 'dashboard-users' }"/>
+        <menu-item icon="icon-phone" title="Звонки" :route="{ name: 'dashboard-users' }"/>
+        <menu-item icon="icon-paper-plane" title="СМС" :route="{ name: 'dashboard-users' }"/>
+        <menu-item icon="icon-doc" title="Ваучеры" :route="{ name: 'dashboard-users' }"/>
+      </div>
+    </div>
+    <div v-else class="dashboard-layout__sidebar--dynamic-section custom-scroll">
       <div class="dashboard-layout__sidebar--companies-nav">
         <menu-item
           v-for="company in allCompanies"
@@ -92,6 +109,9 @@
       }
     },
     computed: {
+      user: function(){
+        return this.$store.getters['users/user']
+      },
       set_new_company: {
         get: function () {
           return this.$store.getters["app/set_new_company"];
