@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page">
-    <no-ssr>
+    <client-only>
       <FlashMessage :position="'right top'"/>
-    </no-ssr>
+    </client-only>
     <div class="auth-page__bg" :style="{ backgroundImage: `url(${bg})` }">
       <div class="auth-page__gradient-wrapper">
         <form @submit.prevent="login" class="auth-page__card">
@@ -129,7 +129,6 @@
         border: 0;
         border-radius: 0 0 4px 4px;
         color: #fff;
-        font-family: "Roboto";
         font-size: 17px;
         padding-top: 4px;
         text-decoration: none;
