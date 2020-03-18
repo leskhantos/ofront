@@ -1,7 +1,6 @@
 <template>
   <oy-page>
     <oy-page-body class="d-flex flex-column">
-      <main-item title="Название:" :value="spot.address"/>
       <main-item title="Адрес:" :value="spot.address"/>
       <main-item title="Идентификатор:" :value="spot.ident"/>
       <main-item title="Страница:" :value="spot.page_id"/>
