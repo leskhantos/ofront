@@ -16,7 +16,7 @@
           :visible="activate_voucher"
           @close="activate_voucher = false"
         >
-          <activate-voucher :spot_id="this.spot_id"/>
+          <activate-voucher :spot_id="Number(this.spot_id)"/>
         </oy-modal>
       </div>
       <div class="d-flex ml-auto">

@@ -5,6 +5,7 @@
         label="ID Ваучера"
         input-class="col-lg-12"
         v-model="form.id"
+        :error="errors['id']"
       />
     </div>
     <div class="row">
@@ -12,7 +13,7 @@
         label="Комната"
         input-class="col-lg-12"
         v-model="form.room"
-
+        :error="errors['room']"
       />
     </div>
     <div class="row">
@@ -22,7 +23,6 @@
         type="datetime-local"
         v-model="form.startDate"
         :value="form.startDate"
-
       />
     </div>
 
@@ -61,14 +61,15 @@
        async activate(){
          try{
            let  payload = {
-             id: this.form.id,
+             spot_id: this.spot_id,
              form:{
+               id: this.form.id,
                room: this.form.room,
                dt_start: this.form.startDate,
                dt_end:this.form.endDate
              }
            }
-           await this.$axios.put(`vouchers/${payload.id}`, payload.form);
+           await this.$axios.put(`vouchers/${payload.spot_id}`, payload.form);
            await this.$store.dispatch('voucher/getVouchers', {spot_id: this.spot_id, activity:1})
            this.$store.commit('app/ACTIVATE_VOUCHER', false);
            this.flashMessage.success({
@@ -79,12 +80,14 @@
            });
          }catch(e)
          {
-           this.flashMessage.error({
-             title: e.response.data.message,
-             position: 'left top',
-             x: 550,
-             y: 0
-           });
+           if(typeof(e.response.data) == "object"){
+             console.log(e)
+           }else{
+             let payload = {
+               id: [e.response.data]
+             }
+             this.$store.dispatch('app/setErrors', payload)
+           }
          }
 
         }
