@@ -70,6 +70,6 @@
   .row button {
     margin-bottom: 18px;
     margin-top: 25px;
-    padding: 0 0 0 30px;
+    padding: 0 0 0 .5rem;
   }
 </style>
