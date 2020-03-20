@@ -31,7 +31,7 @@
           <td>
             <smsIcon v-show="style.type===1" :color="'#f04641'"/>
             <callIcon v-show="style.type===2" :color="'#f04641'"/>
-            <voucherIcon v-show="style.type===3" :color="'#f04641'"/>
+            <voucherIcon v-show="style.type===3" :color="'#f04641'" width="24px" height="24px"/>
             {{ style.name }}</td>
           <td >{{ style.spot }}</td>
         </tr>
