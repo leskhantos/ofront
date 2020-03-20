@@ -25,7 +25,7 @@
     </div>
     <date-pick
       v-if="showStart"
-      :style="{width:'8rem', position:'fixed',right:'36rem'}"
+      :style="{width:'8rem', position:'fixed',right:'28%'}"
       :hasInputElement="false"
       v-model="form.startDate"
       :pickTime="true"
@@ -44,9 +44,8 @@
       </div>
       <date-pick
         @click="showEnd=false"
-        class="d-flex justify-content-end"
         v-if="showEnd && !showStart"
-        :style="{width:'8rem', position:'fixed',right:'26.5rem'}"
+        :style="{width:'8rem', position:'fixed',right:'28%'}"
         :hasInputElement="false"
         v-model="form.endDate"
         :pickTime="true"
@@ -68,7 +67,7 @@
 <script>
   import DatePick from "vue-date-pick";
   import "vue-date-pick/dist/vueDatePick.css";
-    export default {
+  export default {
       components: {DatePick},
       props: {
         spot_id:{
@@ -211,4 +210,5 @@
 </script>
 
 <style lang="scss" scoped>
+
 </style>

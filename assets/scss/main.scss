@@ -48,6 +48,21 @@ body {
 .vdpTimeUnit > input:focus {
   border-bottom-color: #f04641!important;
 }
+.vdpTimeControls .vdpTimeUnit input[type=number]::-webkit-outer-spin-button,
+.vdpTimeControls .vdpTimeUnit input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+.vdpTimeControls .vdpTimeUnit input[type=number] {
+  -moz-appearance:textfield !important;
+}
+@-moz-document url-prefix() {
+  form .vdpComponent{
+    right:30% !important;
+  }
+}
+
 // $min_width: 320px;
 // $max_width: 1200px;
 // $min_font: 16px;
