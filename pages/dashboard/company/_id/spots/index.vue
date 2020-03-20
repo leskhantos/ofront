@@ -34,7 +34,7 @@
           <td>
             <smsIcon v-show="spot.type===1" :color="'#f04641'"/>
             <callIcon v-show="spot.type===2" :color="'#f04641'"/>
-            <voucherIcon v-show="spot.type===3" :color="'#f04641'"/>
+            <voucherIcon v-show="spot.type===3" :color="'#f04641'" width="24px" height="24px"/>
             <nuxt-link
               :to="{ name: 'dashboard-company-id-spots-sid-mainSpot', params: { id:company_id, sid: spot.id } }">
               {{spot.address }}
