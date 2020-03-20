@@ -26,13 +26,6 @@ export const getters = {
   spotsByCompany(state) {
     return state.spotsByCompany
   },
-  spotTypes(){
-    return [
-      {id:1, name:'SMS'},
-      {id:2, name:'Звонки'},
-      {id:3, name:'Ваучеры'}
-    ]
-  },
   sessionTypes(){
     return [
       {id:1, name:'Активные'},

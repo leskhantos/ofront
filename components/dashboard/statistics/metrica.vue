@@ -18,9 +18,10 @@
   import newDeviceIcon from "../../icons/newDeviceIcon";
   import authGuestIcon from "../../icons/authGuestIcon";
   import actualSessionIcon from "../../icons/actualSessionIcon";
+  import voucherIcon from "../../icons/voucherIcon"
 
   export default {
-    components: {SpotIcon, companyIcon, pageIcon, devicesIcon, newDeviceIcon, authGuestIcon, actualSessionIcon},
+    components: {SpotIcon, companyIcon, pageIcon, devicesIcon, newDeviceIcon, authGuestIcon, actualSessionIcon, voucherIcon},
     props: {
       title: {
         type: String,

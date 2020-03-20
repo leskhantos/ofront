@@ -53,7 +53,7 @@
     }),
     computed: {
       types: function () {
-        return this.$store.getters['spot/spotTypes']
+        return this.$store.getters['spot/spotTypesByCompany']
       }
     },
     methods: {

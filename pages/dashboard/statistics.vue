@@ -3,11 +3,12 @@
     <div class="statistics-page_metric-items d-flex flex-wrap">
       <metric title="Компании" :number="stats.count_company" :currentIcon="'companyIcon'"/>
       <metric title="Зон" :number="stats.count_spot" :currentIcon="'SpotIcon'"/>
-      <metric title="Персональных страниц" :number="stats.pages" :currentIcon="'pageIcon'"/>
+      <metric title="Персональных стилей" :number="stats.pages" :currentIcon="'pageIcon'"/>
       <metric title="Сохраненных устройств" :number="stats.count_all_device" :currentIcon="'devicesIcon'"/>
       <metric title="Новых устройств" :number="stats.count_new_device" :currentIcon="'newDeviceIcon'"/>
       <metric title="Авторизованных гостей" :number="stats.auth_guest" :currentIcon="'authGuestIcon'"/>
       <metric title="Актуальных сессий" :number="stats.session" :currentIcon="'actualSessionIcon'"/>
+      <metric title="Всего ваучеров" :number="stats.count_vouchers" :currentIcon="'voucherIcon'"/>
     </div>
     <oy-page>
       <div class="d-flex justify-content-end">
