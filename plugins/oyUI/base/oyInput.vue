@@ -14,6 +14,7 @@
       v-if="!options"
       :placeholder="placeholder"
       :required="required"
+      @focus="$emit('focus')"
     />
     <transition name="input-error">
       <small v-if="error" class="oy-input__error">{{ error[0] }}</small>
