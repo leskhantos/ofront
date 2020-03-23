@@ -97,7 +97,7 @@
             x: 550,
             y: 0
           })
-          this.$router.push({name: "dashboard-company-id", params: {id: company.data.id}});
+          this.$router.push({name: "dashboard-company-id-main", params: {id: company.data.id}});
         } catch (e) {
           console.log(e)
         }

@@ -92,7 +92,7 @@
     },
     methods: {
       showModal() {
-        this.$store.dispatch('users/getTypes');
+        this.$store.dispatch('spot/getSpotTypes')
         return this.set_new_company = true;
       },
       async logout() {
