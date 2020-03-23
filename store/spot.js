@@ -1,5 +1,6 @@
 export const state = () => ({
   spot: {},
+  spotTypes:[],
   spotTypesByCompany: [],
   spotsByCompany: [],
   sessionsBySpot:[],
@@ -19,6 +20,9 @@ export const state = () => ({
 export const getters = {
   spot(state) {
     return state.spot
+  },
+  spotTypes(state) {
+    return state.spotTypes
   },
   spotTypesByCompany(state) {
     return state.spotTypesByCompany
@@ -75,6 +79,9 @@ export const mutations = {
   SET_SPOT(state, spot) {
     state.spot = spot
   },
+  SET_TYPES(state, spotTypes) {
+    state.spotTypes = spotTypes
+  },
   SET_TYPES_BY_COMPANY_SPOT(state, spotTypesByCompany) {
     state.spotTypesByCompany = spotTypesByCompany
   },
@@ -123,6 +130,12 @@ export const actions = {
   async getSpot({commit}, spot_id) {
     await this.$axios.get(`spot/${spot_id}`).then((response) => {
       commit('SET_SPOT', response.data);
+    }).catch((err) => {
+    });
+  },
+  async getSpotTypes({commit}) {
+    await this.$axios.get(`spots/types`).then((response) => {
+      commit('SET_TYPES', response.data);
     }).catch((err) => {
     });
   },
