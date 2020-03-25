@@ -2,7 +2,7 @@
   <div class="spot-page">
     <portal to="spot-nav">
     <nav class="nav nav-pills nav-fill">
-      <div class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('mainSpot')}"
+      <div v-if="user.type!=='client'" class="nav-item nav-link border-right border-top border-bottom rounded-0" :class="{active: isActive('mainSpot')}"
            @click="switchComponents('mainSpot')">
         Основное
       </div>
@@ -58,6 +58,9 @@
         }else if(this.spot.type===2){
           return 'Звонки'
         }
+      },
+      user: function () {
+        return this.$store.getters['users/user']
       }
     },
     methods: {
