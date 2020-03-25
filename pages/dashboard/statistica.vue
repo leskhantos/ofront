@@ -1,51 +1,51 @@
 <template>
-  <oy-page>
+  <div class="statistics-page">
     <div class="d-flex flex-wrap justify-content-end fixed-top">
-        <oy-select
-                   firstOption="Все зоны"
-                   @childToParent="onChangeSpot"
-                   :options="spots"
-                   v-model="spot_id"
-                   :disabled="false"
-        />
-        <oy-select
-                   firstOption="Месяц"
-                   @childToParent="onChangeMonth"
-                   :options="months"
-                   :selected="month"
-                   v-model="month"
-        />
+      <oy-select
+        firstOption="Все зоны"
+        @childToParent="onChangeSpot"
+        :options="spots"
+        v-model="spot_id"
+        :disabled="false"
+      />
+      <oy-select
+        firstOption="Месяц"
+        @childToParent="onChangeMonth"
+        :options="months"
+        :selected="month"
+        v-model="month"
+      />
 
-        <oy-select
-                   first-option="Год"
-                   @childToParent="onChangeYear"
-                   :options="years"
-                   :selected="year"
-                   v-model="year"
-        />
+      <oy-select
+        first-option="Год"
+        @childToParent="onChangeYear"
+        :options="years"
+        :selected="year"
+        v-model="year"
+      />
     </div>
     <oy-page-body >
       <oy-page-header title="Гости"></oy-page-header>
-        <div v-if="spot_id==='all'"  >
-          <guest class="guest-charts-card" :series="guestsSeries" :chartOptions="monthChartOptions" />
-          <company-pie-charts v-if="spot_id==='all'" :guest-series="guests" :device-series="devices" :browser-series="browsers"
-                              :os-series="os"/>
+      <div v-if="spot_id==='all'"  >
+        <guest class="guest-charts-card" :series="guestsSeries" :chartOptions="monthChartOptions" />
+        <company-pie-charts v-if="spot_id==='all'" :guest-series="guests" :device-series="devices" :browser-series="browsers"
+                            :os-series="os"/>
+      </div>
+      <div v-else  >
+        <guest class="guest-charts-card" :series="guestsSeriesSpot" :chartOptions="monthChartOptionsSpot"/>
+        <oy-page-header v-if="spotType===1" title="SMS"></oy-page-header>
+        <oy-page-header v-else-if="spotType===2" title="Звонки"></oy-page-header>
+        <oy-page-header v-else title="Ваучеры"></oy-page-header>
+        <div class="voucher-charts-card" >
+          <voucher :series="allStatsSeries" :chartOptions="monthChartOptionsSpot"/>
         </div>
-        <div v-else  >
-          <guest class="guest-charts-card" :series="guestsSeriesSpot" :chartOptions="monthChartOptionsSpot"/>
-          <oy-page-header v-if="spotType===1" title="SMS"></oy-page-header>
-          <oy-page-header v-else-if="spotType===2" title="Звонки"></oy-page-header>
-          <oy-page-header v-else title="Ваучеры"></oy-page-header>
-          <div class="voucher-charts-card" >
-            <voucher :series="allStatsSeries" :chartOptions="monthChartOptionsSpot"/>
-          </div>
 
-          <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guestsSpot"
-                           :device-series="devicesSpot" :browser-series="browsersSpot"
-                           :os-series="osSpot"/>
-        </div>
+        <spot-pie-charts :statSeries="stats" :statChartOptions="statChartOptions" :guest-series="guestsSpot"
+                         :device-series="devicesSpot" :browser-series="browsersSpot"
+                         :os-series="osSpot"/>
+      </div>
     </oy-page-body>
-  </oy-page>
+  </div>
 </template>
 
 <script>
@@ -64,6 +64,21 @@
         company_id: this.$route.params.id,
         spot_id: 'all'
       }
+    },
+    layout: "dashboard",
+    created() {
+      let date = new Date();
+      let month = date.getMonth() + 1
+      let year = date.getFullYear()
+      let data = {
+        month: month,
+        year: year,
+        company_id: this.$store.getters['users/user'].id_company
+      }
+      this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
+      this.$store.dispatch('statistics/getAllDataByCompany', data);
+      this.$store.dispatch('spot/getSpotsByCompany', data.company_id);
+      this.$store.dispatch("company/getCompany", data.company_id);
     },
     computed: {
       spotType: function () {
@@ -381,18 +396,37 @@
 </script>
 
 <style lang="scss" scoped>
-  .fixed-top{
-    position:absolute;
-    top: 130px;
-    left: auto;
-    right: 1.7rem;
-    overflow: hidden;
-  }
-  .guest-charts-card,
-  .voucher-charts-card{
+  .statistics-page {
     padding: 1rem;
-    background-color: #ffffff;
-    box-shadow: 0px 1px 22px -12px #607d8b;
-    margin: 1rem 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+
+    &::-webkit-scrollbar {
+      width: 0.3rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    .fixed-top{
+      position:absolute;
+      top: 100px;
+      left: auto;
+      right: 1.7rem;
+      overflow: hidden;
+    }
+    .guest-charts-card,
+    .voucher-charts-card{
+      padding: 1rem;
+      background-color: #ffffff;
+      box-shadow: 0px 1px 22px -12px #607d8b;
+      margin: 1rem 0;
+    }
   }
 </style>

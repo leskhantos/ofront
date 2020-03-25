@@ -66,8 +66,8 @@
     data() {
       return {
         form: {
-          year: null,
-          month: null,
+          year: new Date().getFullYear(),
+          month: new Date().getMonth() + 1,
         }
       }
     },
@@ -83,15 +83,9 @@
         year: date.getFullYear()
       }
       await store.dispatch('statistics/getAllStats',payload);
+      await store.dispatch('statistics/getAllPerMonth',payload);
       return {}
     },
-    created() {
-      let date = new Date();
-      this.form.month = date.getMonth() + 1
-      this.form.year = date.getFullYear()
-      this.$store.dispatch('statistics/getAllPerMonth', this.form);
-    },
-
     methods: {
       onChangeMonth(val) {
         this.form.month = val
@@ -180,16 +174,22 @@
     watch: {
       'form.month': {
         immediate: false,
-        handler() {
-          this.$store.dispatch('statistics/getAllPerMonth', this.form);
-          this.$store.dispatch('statistics/getAllStats', this.form);
-        }
+        handler(newVal,oldVal) {
+          if(oldVal===null){
+          }else{
+            this.$store.dispatch('statistics/getAllPerMonth', this.form);
+            this.$store.dispatch('statistics/getAllStats', this.form);
+          }
+          }
       },
       'form.year': {
         immediate: false,
-        handler() {
-          this.$store.dispatch('statistics/getAllPerMonth', this.form);
-          this.$store.dispatch('statistics/getAllStats', this.form);
+        handler(newVal,oldVal) {
+          if(oldVal===null){
+          }else{
+            this.$store.dispatch('statistics/getAllPerMonth', this.form);
+            this.$store.dispatch('statistics/getAllStats', this.form);
+          }
         }
       }
     }

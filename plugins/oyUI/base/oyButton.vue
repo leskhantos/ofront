@@ -11,9 +11,9 @@
         <component :is="svgIcon"/>
       </slot>
     </div>
-    <span
-      v-if="title"
-    >{{ title }}</span>
+       <span
+         v-if="title"
+       >{{ title }}</span>
   </button>
 </template>
 
@@ -85,13 +85,16 @@
     justify-content: center;
     align-content: center;
     padding: 0.25rem 0.5rem;
-
+    font-weight: normal;
     .icon-plus {
       font-size: 16px;
 
       &-wrapper {
         padding-right: .5rem;
       }
+    }
+    span{
+      padding-top: 2px;
     }
 
     &-block {

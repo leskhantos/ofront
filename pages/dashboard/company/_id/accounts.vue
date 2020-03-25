@@ -31,7 +31,7 @@
         </thead>
         <tbody v-if="accounts">
         <tr v-for="account in accounts" :key="account.id">
-          <td>{{ account.email }}</td>
+          <td>{{ account.login }}</td>
           <td>{{ dateTransform(account.last_online, true) }}</td>
           <td>{{account.last_ip ? account.last_ip : 'нет данных'}}</td>
           <td class="row">

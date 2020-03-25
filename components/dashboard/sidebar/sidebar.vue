@@ -12,12 +12,12 @@
           <i class="icon icon-arrow-left mr-3"></i>
         </div>
       </div>
-      <div v-if="this.user.type==='manager'" class="dashboard-layout__sidebar--system-nav">
+      <div v-if="this.user.type==='client'" class="dashboard-layout__sidebar--system-nav">
         <menu-header title="Основное"/>
         <menu-item icon="icon-location-pin" title="Зоны" :route="{ name: 'dashboard-spot' }"/>
-        <menu-item icon="icon-layers" title="Стили" :route="{ name: 'dashboard-users' }"/>
-        <menu-item icon="icon-chart" title="Статистика" :route="{ name: 'dashboard-settings' }"/>
-        <menu-item icon="icon-settings" title="События" :route="{ name: 'dashboard-settings' }"/>
+        <menu-item icon="icon-layers" title="Стили" :route="{ name: 'dashboard-style' }"/>
+        <menu-item icon="icon-chart" title="Статистика" :route="{ name: 'dashboard-statistica' }"/>
+        <menu-item icon="icon-settings" title="События" :route="{ name: 'dashboard-action' }"/>
         <menu-header title="Управление">
         </menu-header>
       </div>
@@ -38,12 +38,14 @@
         </menu-header>
       </div>
     </div>
-    <div v-if="this.user.type==='manager'" class="dashboard-layout__sidebar--dynamic-section custom-scroll">
+    <div v-if="this.user.type==='client'" class="dashboard-layout__sidebar--dynamic-section custom-scroll">
       <div class="dashboard-layout__sidebar--companies-nav">
-        <menu-item icon="icon-people" title="Гости" :route="{ name: 'dashboard-users' }"/>
-        <menu-item icon="icon-phone" title="Звонки" :route="{ name: 'dashboard-users' }"/>
-        <menu-item icon="icon-paper-plane" title="СМС" :route="{ name: 'dashboard-users' }"/>
-        <menu-item icon="icon-doc" title="Ваучеры" :route="{ name: 'dashboard-users' }"/>
+        <menu-item icon="icon-people" title="Гости" :route="{ name: 'dashboard-guests' }"/>
+        <div v-for="item in spotsTypes">
+          <menu-item v-if="item.name==='Звонки'" icon="icon-phone" title="Звонки" :route="{ name: 'dashboard-calls' }"/>
+          <menu-item v-if="item.name==='Смс'" icon="icon-paper-plane" title="СМС" :route="{ name: 'dashboard-sms' }"/>
+          <menu-item v-if="item.name==='Ваучеры'" icon="icon-doc" title="Ваучеры" :route="{ name: 'dashboard-vouchers' }"/>
+        </div>
       </div>
     </div>
     <div v-else class="dashboard-layout__sidebar--dynamic-section custom-scroll">
@@ -123,6 +125,9 @@
       allCompanies: function () {
         return this.$store.getters["company/companies"];
       },
+      spotsTypes: function(){
+        return this.$store.getters['spot/spotTypesByCompany']
+      },
       sidebar_state: {
         get: function () {
           return this.$store.getters["app/sidebar_opened"];
@@ -134,6 +139,9 @@
     },
     mounted() {
       this.$store.dispatch("company/getCompanies");
+      if(this.user.type==='client'){
+        this.$store.dispatch("spot/getSpotTypesByCompany", this.$store.state.users.user.id_company);
+      }
     }
   };
 </script>
