@@ -36,7 +36,10 @@ export const mutations = {
 export const actions = {
   async getUsers({commit}) {
     await this.$axios.get('users').then((response) => {
-      commit('SET_USERS_LIST', response.data);
+      let users = response.data.filter(function(user) {
+        return user.type!=='client'
+      })
+      commit('SET_USERS_LIST', users);
     });
   },
   async getTypes({commit}) {
