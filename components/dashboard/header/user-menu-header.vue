@@ -27,8 +27,10 @@
             return 'Администратор';
           case 'manager':
             return 'Менеджер';
-          default:
+          case 'support':
             return 'Поддержка';
+          default:
+            return this.user.login;
         }
       }
     },

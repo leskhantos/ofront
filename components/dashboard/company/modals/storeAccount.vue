@@ -44,8 +44,8 @@
       async storeAccount() {
         try {
           const payload = {
-            company_id: this.company_id,
-            email: this.form.email,
+            id_company: this.company_id,
+            login: this.form.email,
             password: this.form.password,
           };
           await this.$axios.post('account', payload)

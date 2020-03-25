@@ -17,7 +17,21 @@
       </div>
     </div>
 
-    <div class="right-buttons">
+    <div class="right-buttons" v-if="avatar.type ==='client'">
+      <user-menu :visible="user_menu_opened" v-if="avatar.login">
+        <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar.login[0]"/>
+        <oyAvatar
+          slot="trigger"
+          :focused="user_menu_opened"
+          :title="avatar.login[0]"
+          @click="toggleUserMenu"
+          cursor="pointer"
+        />
+        <user-menu-item title="Сменить пароль" icon="icon-lock" @click="onItemClick('password')"/>
+        <user-menu-item title="Выйти" icon="icon-power" @click="onItemClick('logout')"/>
+      </user-menu>
+    </div>
+    <div class="right-buttons" v-else>
       <user-menu :visible="user_menu_opened" v-if="avatar.name">
         <user-menu-header slot="header" :focused="user_menu_opened" :title="avatar.name[0]"/>
         <oyAvatar
@@ -151,6 +165,38 @@
             case 'dashboard-diagnostics':
               this.title = 'Диагностика';
               this.route = {name: 'dashboard-diagnostics'};
+              break;
+            case 'dashboard-spot':
+              this.title = 'Зоны';
+              this.route = {name: 'dashboard-spot'};
+              break;
+            case 'dashboard-style':
+              this.title = 'Стили';
+              this.route = {name: 'dashboard-style'};
+              break;
+            case 'dashboard-statistica':
+              this.title = 'Статистика';
+              this.route = {name: 'dashboard-statistica'};
+              break;
+            case 'dashboard-action':
+              this.title = 'События';
+              this.route = {name: 'dashboard-action'};
+              break;
+            case 'dashboard-guests':
+              this.title = 'Гости';
+              this.route = {name: 'dashboard-guests'};
+              break;
+            case 'dashboard-calls':
+              this.title = 'Звонки';
+              this.route = {name: 'dashboard-calls'};
+              break;
+            case 'dashboard-sms':
+              this.title = 'СМС';
+              this.route = {name: 'dashboard-sms'};
+              break;
+            case 'dashboard-vouchers':
+              this.title = 'Ваучеры';
+              this.route = {name: 'dashboard-vouchers'};
               break;
             default:
               this.title = 'default';

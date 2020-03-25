@@ -60,7 +60,11 @@
             }
             this.$store.commit('setAuth', auth)
             Cookie.set('auth', auth)
-            this.$router.push('/dashboard/statistics')
+            if (res.data.type==='client'){
+              this.$router.push('/dashboard/spot')
+            }else{
+              this.$router.push('/dashboard/statistics')
+            }
           })
         } catch (e) {
           if (e.response.data.message) {

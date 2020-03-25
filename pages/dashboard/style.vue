@@ -1,0 +1,55 @@
+<template>
+  <oy-page>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">Страница</th>
+        <th scope="col">Зона</th>
+      </tr>
+      </thead>
+      <tbody v-if="styles">
+      <tr v-for="style in styles" :key="style.id">
+        <td>
+          <smsIcon v-show="style.type===1" :color="'#f04641'"/>
+          <callIcon v-show="style.type===2" :color="'#f04641'"/>
+          <voucherIcon v-show="style.type===3" :color="'#f04641'" width="24px" height="24px"/>
+          {{ style.name }}</td>
+        <td >{{ style.spot }}</td>
+      </tr>
+      <tr v-if="!styles.length" class="no-data text-center">
+        <td colspan="14">Нет данных</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </oy-page>
+</template>
+
+<script>
+  import smsIcon from "@/components/icons/smsIcon";
+  import callIcon from "@/components/icons/callIcon";
+  import voucherIcon from "@/components/icons/voucherIcon";
+    export default {
+      components: {smsIcon,callIcon,voucherIcon},
+      name: "style",
+      layout:'dashboard',
+      computed: {
+        styles: function () {
+          return this.$store.getters['company/styles']
+        },
+      },
+      methods: {
+        getId: async function () {
+          const id = await this.$store.getters['users/user'].id_company
+          await this.$store.dispatch('company/getStyles',id)
+        }
+      },
+      created() {
+        this.getId()
+      }
+    }
+</script>
+
+<style scoped>
+
+</style>
