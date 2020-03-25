@@ -53,7 +53,7 @@
   import calls from "@/components/dashboard/statistics/calls";
   import voucher from "@/components/dashboard/statistics/voucher";
   import companyPieCharts from "@/components/dashboard/statistics/companyPieCharts";
-  import spotPieCharts from "../../../../components/dashboard/statistics/spotPieCharts";
+  import spotPieCharts from "@/components/dashboard/statistics/spotPieCharts";
 
   export default {
     components: {guest, calls, voucher, companyPieCharts, spotPieCharts},
