@@ -36,6 +36,7 @@
     computed: {
       active: function () {
         if (this.route.params === undefined) return this.$route.name === this.route.name;
+        else if (this.route.params.cabinet) return this.$route.name === this.route.name;
         else {
           const prop_param = this.getFirstObjectKeyValue(this.route.params);
           const url_param = this.getFirstObjectKeyValue(this.$route.params);

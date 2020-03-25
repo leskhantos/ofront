@@ -61,24 +61,25 @@
       return {
         year: new Date().getFullYear(),
         month: new Date().getMonth() + 1,
-        company_id: this.$route.params.id,
+        company_id: this.$route.params.cabinet,
         spot_id: 'all'
       }
     },
     layout: "dashboard",
-    created() {
+    async asyncData ({ store, params }) {
       let date = new Date();
       let month = date.getMonth() + 1
       let year = date.getFullYear()
       let data = {
         month: month,
         year: year,
-        company_id: this.$store.getters['users/user'].id_company
+        company_id: params.cabinet
       }
-      this.$store.dispatch('statistics/getAllByCompanyPerMonth', data);
-      this.$store.dispatch('statistics/getAllDataByCompany', data);
-      this.$store.dispatch('spot/getSpotsByCompany', data.company_id);
-      this.$store.dispatch("company/getCompany", data.company_id);
+      await store.dispatch('statistics/getAllByCompanyPerMonth', data);
+      await store.dispatch('statistics/getAllDataByCompany', data);
+      await store.dispatch('spot/getSpotsByCompany', params.cabinet);
+      await store.dispatch('company/getCompany', params.cabinet);
+      return {}
     },
     computed: {
       spotType: function () {

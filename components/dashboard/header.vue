@@ -7,7 +7,11 @@
 
     <div class="page-header">
       <div class="page-header__title">
-        <nuxt-link :to="this.route">
+
+        <nuxt-link v-if="avatar.type==='client'" :to="{name:'dashboard-cabinet-spot', params:{cabinet:avatar.id_company}}">
+          {{ title }}
+        </nuxt-link>
+        <nuxt-link v-else :to="this.route">
           {{ title }}
         </nuxt-link>
         <div v-show="showOnly">
@@ -166,17 +170,17 @@
               this.title = 'Диагностика';
               this.route = {name: 'dashboard-diagnostics'};
               break;
-            case 'dashboard-spot':
+            case 'dashboard-cabinet-spot':
               this.title = 'Зоны';
-              this.route = {name: 'dashboard-spot'};
+              this.route = {name: 'dashboard-cabinet-spot'};
               break;
-            case 'dashboard-style':
+            case 'dashboard-cabinet-style':
               this.title = 'Стили';
-              this.route = {name: 'dashboard-style'};
+              this.route = {name: 'dashboard-cabinet-style'};
               break;
-            case 'dashboard-statistica':
+            case 'dashboard-cabinet-statistica':
               this.title = 'Статистика';
-              this.route = {name: 'dashboard-statistica'};
+              this.route = {name: 'dashboard-cabinet-statistica'};
               break;
             case 'dashboard-action':
               this.title = 'События';

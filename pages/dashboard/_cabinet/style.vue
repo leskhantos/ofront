@@ -33,20 +33,15 @@
       components: {smsIcon,callIcon,voucherIcon},
       name: "style",
       layout:'dashboard',
+      async asyncData ({ store, route }) {
+        await store.dispatch('company/getStyles', route.params.cabinet);
+        return {}
+      },
       computed: {
         styles: function () {
           return this.$store.getters['company/styles']
         },
       },
-      methods: {
-        getId: async function () {
-          const id = await this.$store.getters['users/user'].id_company
-          await this.$store.dispatch('company/getStyles',id)
-        }
-      },
-      created() {
-        this.getId()
-      }
     }
 </script>
 

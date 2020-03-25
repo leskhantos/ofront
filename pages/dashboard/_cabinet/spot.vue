@@ -17,7 +17,10 @@
             <smsIcon v-show="spot.type===1" :color="'#f04641'"/>
             <callIcon v-show="spot.type===2" :color="'#f04641'"/>
             <voucherIcon v-show="spot.type===3" :color="'#f04641'" width="24px" height="24px"/>
+            <nuxt-link
+              :to="{ name: 'dashboard-company-id-spots-sid-statistics', params: { id: company_id, sid: spot.id } }">
               {{spot.address }}
+            </nuxt-link>
           </td>
           <td>{{ spot.page_name }}</td>
           <td style="text-align: center">{{ spot.last_active? spot.last_active: 'нет данных'}}</td>
@@ -42,21 +45,20 @@
       components: {smsIcon, callIcon, voucherIcon},
       name: "spot",
       layout:'dashboard',
-
+      data(){
+        return{
+          company_id: this.$route.params.cabinet
+        }
+      },
+      async asyncData ({ store, route }) {
+        await store.dispatch('company/getSpots', route.params.cabinet);
+        return {}
+      },
       computed: {
         spots: function () {
           return this.$store.getters['company/spots']
         },
       },
-      methods: {
-         getId: async function () {
-          const id = await this.$store.getters['users/user'].id_company
-          await this.$store.dispatch('company/getSpots',id)
-         }
-      },
-      created() {
-        this.getId()
-      }
     }
 </script>
 

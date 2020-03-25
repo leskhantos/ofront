@@ -61,7 +61,7 @@
             this.$store.commit('setAuth', auth)
             Cookie.set('auth', auth)
             if (res.data.type==='client'){
-              this.$router.push('/dashboard/spot')
+              this.$router.push({ name: 'dashboard-cabinet-spot', params: { cabinet: res.data.company_id } })
             }else{
               this.$router.push('/dashboard/statistics')
             }
