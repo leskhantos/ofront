@@ -46,10 +46,12 @@
             await this.$axios.put(`put-users/${this.$store.getters['users/user'].id}/pass`, this.form)
             this.$store.commit("app/SET_PASSWORD_MODE", false);
             this.flashMessage.success({
-              title: "Пароль обновлен",
-              position: 'left top',
-              x: 550,
-              y: 0
+              message: "Пароль обновлен",
+              blockClass:'custom_alert_block',
+              contentClass: 'custom_alert_content',
+              wrapperClass: 'custom_alert_wrapper',
+              x: (this.$vssWidth-300)*0.6,
+              y: 5
             });
           }
         } catch (e) {

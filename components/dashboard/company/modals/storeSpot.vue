@@ -71,10 +71,12 @@
           await this.$axios.post('company/spot', payload)
           this.$store.commit("app/SET_NEW_SPOT", false);
           this.flashMessage.success({
-            title: "Зона добавлена",
-            position: 'left top',
-            x: 550,
-            y: 0
+            message: "Зона добавлена",
+            blockClass:'custom_alert_block',
+            contentClass: 'custom_alert_content',
+            wrapperClass: 'custom_alert_wrapper',
+            x: (this.$vssWidth-300)*0.6,
+            y: 5
           });
           await this.$store.dispatch('company/getSpots', this.company_id)
         } catch (e) {

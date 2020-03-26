@@ -69,10 +69,13 @@
         } catch (e) {
           if (e.response.data.message) {
             this.flashMessage.error({
-              title: e.response.data.message,
+              message: e.response.data.message,
               position: 'left top',
-              x: 550,
-              y: 0
+              blockClass:'custom_alert_block_err',
+              contentClass: 'custom_alert_content',
+              wrapperClass: 'custom_alert_wrapper',
+              x: this.$vssWidth*0.4,
+              y: 5
             });
           }
         }

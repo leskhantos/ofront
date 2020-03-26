@@ -53,7 +53,25 @@ body {
   -webkit-appearance: none !important;
   margin: 0 !important;
 }
-
+.custom_alert_block{
+  width:20% !important;
+  background-color: #37a967 !important;
+}
+.custom_alert_block_err{
+  width:20% !important;
+  background-color: #dc3545 !important;
+}
+.custom_alert_wrapper{
+  display: flex;
+  justify-content: center;
+}
+.custom_alert_content{
+  border-left:none !important;
+  p{
+    font-size:16px;
+    margin: .5rem;
+  }
+}
 .vdpTimeControls .vdpTimeUnit input[type=number] {
   -moz-appearance:textfield !important;
 }

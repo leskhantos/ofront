@@ -43,6 +43,7 @@ export default {
     './plugins/mixins/validation',
     './plugins/axios',
     {src: './plugins/vue-flash-message', mode: 'client'},
+    {src: './plugins/vue-screen-size', mode: 'client'},
     {src: './plugins/oyUI/oyUI', ssr: false},
     {src: './plugins/apexchart', ssr: false}
   ],

@@ -72,10 +72,12 @@
           this.$store.commit("app/SET_NEW_STYLE", false);
           await this.$store.dispatch('company/getStyles', this.company_id)
           this.flashMessage.success({
-            title: "Страница добавлена",
-            position: 'left top',
-            x: 550,
-            y: 0
+            message: "Страница добавлена",
+            blockClass:'custom_alert_block',
+            contentClass: 'custom_alert_content',
+            wrapperClass: 'custom_alert_wrapper',
+            x: (this.$vssWidth-300)*0.6,
+            y: 5
           });
         } catch (e) {
           console.log(e)

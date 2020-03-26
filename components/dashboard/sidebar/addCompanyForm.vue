@@ -92,10 +92,12 @@
           await this.$store.dispatch("company/getCompanies");
           this.$store.commit("app/SET_NEW_COMPANY", false);
           this.flashMessage.success({
-            title: "Компания добавлена",
-            position: 'left top',
-            x: 550,
-            y: 0
+            message: "Компания добавлена",
+            blockClass:'custom_alert_block',
+            contentClass: 'custom_alert_content',
+            wrapperClass: 'custom_alert_wrapper',
+            x: (this.$vssWidth-300)*0.6,
+            y: 5
           })
           this.$router.push({name: "dashboard-company-id-main", params: {id: company.data.id}});
         } catch (e) {

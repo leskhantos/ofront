@@ -60,10 +60,12 @@
           await this.$store.dispatch("users/getUsers");
           this.$store.commit("app/SET_NEW_USER", false);
           this.flashMessage.success({
-            title: "Пользователь добавлен",
-            position: 'left top',
-            x: 550,
-            y: 0
+            message: "Пользователь добавлен",
+            blockClass:'custom_alert_block',
+            contentClass: 'custom_alert_content',
+            wrapperClass: 'custom_alert_wrapper',
+            x: (this.$vssWidth-300)*0.6,
+            y: 5
           });
           this.$router.push({name: "dashboard-users"});
         } catch (e) {
