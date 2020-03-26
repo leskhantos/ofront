@@ -8,6 +8,7 @@
         v-model="form.id"
         :error="errors['id']"
         @focus="focusInputs"
+        :focus="true"
       />
     </div>
     <div class="row">
