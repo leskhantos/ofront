@@ -54,7 +54,7 @@
             login: this.form.username,
             password: this.form.password
           };
-          await this.$axios.post('auth/login', data).then((res) => {
+            const res = await this.$axios.post('auth/login', data)
             const auth = {
               accessToken: res.data.access_token
             }
@@ -63,9 +63,8 @@
             if (res.data.type==='client'){
               this.$router.push({ name: 'dashboard-cabinet-spot', params: { cabinet: res.data.company_id } })
             }else{
-              this.$router.push('/dashboard/statistics')
+              this.$router.push({ name: 'dashboard-statistics'})
             }
-          })
         } catch (e) {
           if (e.response.data.message) {
             this.flashMessage.error({

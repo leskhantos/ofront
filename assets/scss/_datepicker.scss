@@ -1,0 +1,31 @@
+.vdpArrowPrev:after {
+  border-right-color: #f04641!important;
+}
+.vdpArrowNext:after {
+  border-left-color: #f04641!important;
+}
+
+.vdpCell.today {
+  color: #f04641!important;
+}
+.vdpCell.selectable:hover .vdpCellContent,
+.vdpCell.selected .vdpCellContent {
+  background: #f04641!important;
+}
+.vdpTimeUnit > input:hover,
+.vdpTimeUnit > input:focus {
+  border-bottom-color: #f04641!important;
+}
+.vdpTimeControls .vdpTimeUnit input[type=number]::-webkit-outer-spin-button,
+.vdpTimeControls .vdpTimeUnit input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+.vdpTimeControls .vdpTimeUnit input[type=number] {
+  -moz-appearance:textfield !important;
+}
+@-moz-document url-prefix() {
+  form .vdpComponent{
+    right:30% !important;
+  }
+}

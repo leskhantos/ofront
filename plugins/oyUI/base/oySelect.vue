@@ -6,7 +6,7 @@
       style="min-width:100%"
       @change="$emit('childToParent', $event.target.value)"
     >
-      <option selected value="all" :disabled="disabled">{{ firstOption }}</option>
+      <option selected value="all" :disabled="disabled" v-if="firstOption">{{ firstOption }}</option>
       <option
         :key="option.id"
         :value="option.id"

@@ -1,6 +1,7 @@
 import https from 'https'
+const Cookie = process.client ? require('js-cookie') : undefined
 
-export default function ({$axios, store, app}) {
+export default function ({$axios, store, app, redirect}) {
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
@@ -13,13 +14,14 @@ export default function ({$axios, store, app}) {
 
     if (error.response.status === 422) {
       store.dispatch('app/setErrors', error.response.data)
-    } else if (error.response.status === 401) {
-      if (error.response.status === 401) {
-        store.commit('setAuth', null);
-        app.router.push({name: 'index'});
-      }
-      store.dispatch('app/setErrors', error.response.data)
-    } else if (error.response.status === 404) {
+    }
+    if (error.response.status === 401) {
+      store.commit('setAuth', null)
+      Cookie.remove('auth')
+      app.router.push({name: 'index'});
+    }
+
+    if (error.response.status === 404) {
       console.log(error.response.data)
       app.router.push({name: 'dashboard-not-found'});
 

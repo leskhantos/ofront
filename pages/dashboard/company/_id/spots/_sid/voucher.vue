@@ -21,7 +21,6 @@
       </div>
       <div class="d-flex ml-auto">
         <oy-select
-          first-option="Статус"
           @childToParent="onChange"
           :options="types"
           :selected="type"
