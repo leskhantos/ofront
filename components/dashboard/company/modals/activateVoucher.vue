@@ -135,10 +135,12 @@
            await this.$store.dispatch('voucher/getVouchers', {spot_id: this.spot_id, activity:1})
            this.$store.commit('app/ACTIVATE_VOUCHER', false);
            this.flashMessage.success({
-             title: "Ваучер активирован",
-             position: 'left top',
-             x: 550,
-             y: 0
+             message: "Ваучер активирован",
+             blockClass:'custom_alert_block',
+             contentClass: 'custom_alert_content',
+             wrapperClass: 'custom_alert_wrapper',
+             x: (this.$vssWidth-300)*0.6,
+             y: 5
            });
          }catch(e)
          {

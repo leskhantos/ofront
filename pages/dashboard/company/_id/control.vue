@@ -66,10 +66,12 @@
             enabled: this.checkVal
           })
           this.flashMessage.success({
-            title: "Компания обновлена",
-            position: 'left top',
-            x: 550,
-            y: 0
+            message: "Компания обновлена",
+            blockClass:'custom_alert_block',
+            contentClass: 'custom_alert_content',
+            wrapperClass: 'custom_alert_wrapper',
+            x: (this.$vssWidth-300)*0.6,
+            y: 5
           });
           await this.$store.dispatch("company/getCompanies");
         } catch (e) {
@@ -84,20 +86,24 @@
           })
           await this.$store.dispatch("company/getCompanies");
           this.flashMessage.success({
-            title: "Компания обновлена",
-            position: 'left top',
-            x: 550,
-            y: 0
+            message: "Компания обновлена",
+            blockClass:'custom_alert_block',
+            contentClass: 'custom_alert_content',
+            wrapperClass: 'custom_alert_wrapper',
+            x: (this.$vssWidth-300)*0.6,
+            y: 5
           });
           await this.$store.dispatch("company/getCompany", this.$route.params.id);
           this.$router.push({name: "dashboard-company-id-control", params: {id: data.data.id}});
           this.newName = ""
         } catch (e) {
           this.flashMessage.error({
-            title: e.response.data.message,
-            position: 'left top',
-            x: 550,
-            y: 0
+            message: e.response.data.message,
+            blockClass:'custom_alert_block_err',
+            contentClass: 'custom_alert_content',
+            wrapperClass: 'custom_alert_wrapper',
+            x: (this.$vssWidth-300)*0.6,
+            y: 5
           });
         }
       }

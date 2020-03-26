@@ -22,19 +22,23 @@
             try {
               await this.$axios.delete(`company/${this.company.id}`)
               await this.$store.dispatch("company/getCompanies");
-              this.flashMessage.warning({
-                title: "Компания удалена",
-                position: 'left top',
-                x: 550,
-                y: 0
+              this.flashMessage.error({
+                message: "Компания удалена",
+                blockClass:'custom_alert_block_err',
+                contentClass: 'custom_alert_content',
+                wrapperClass: 'custom_alert_wrapper',
+                x: (this.$vssWidth-300)*0.6,
+                y: 5
               });
               this.$router.push({name: "dashboard-statistics"});
             } catch (e) {
               this.flashMessage.error({
-                title: e.response.data.message,
-                position: 'left top',
-                x: 550,
-                y: 0
+                message: e.response.data.message,
+                blockClass:'custom_alert_block_err',
+                contentClass: 'custom_alert_content',
+                wrapperClass: 'custom_alert_wrapper',
+                x: (this.$vssWidth-300)*0.6,
+                y: 5
               });
             }
           }

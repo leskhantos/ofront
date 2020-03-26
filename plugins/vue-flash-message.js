@@ -1,4 +1,6 @@
 import Vue from 'vue';
 import VueFlashMessage from '@smartweb/vue-flash-message';
 
-Vue.use(VueFlashMessage);
+Vue.use(VueFlashMessage,{
+  time:2000
+});
