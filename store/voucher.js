@@ -24,11 +24,11 @@ export const actions = {
   },
   async getVouchers({commit}, payload) {
     const response = await this.$axios.get(`vouchers/${payload.spot_id}/spot?activity=${payload.activity}`);
-    commit('SET_VOUCHERS', response.data);
+    commit('SET_VOUCHERS', response.data.reverse());
   },
   async getLists({commit},spot_id) {
     const response = await this.$axios.get(`vouchers/${spot_id}/list`);
-    commit('SET_LISTS', response.data);
+    commit('SET_LISTS', response.data.reverse());
   },
   async getPrintVouchers({commit},list_id) {
     const response = await this.$axios.get(`list/${list_id}/vouchers`);

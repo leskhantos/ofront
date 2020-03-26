@@ -6,6 +6,7 @@
   >
     <label v-if="label">{{ label }}</label>
     <input
+      ref="input"
       class="form-control form-control-sm"
       :value="value"
       @input="$emit('input', $event.target.value)"
@@ -67,6 +68,11 @@
       placeholder: {
         type: String,
         required: false
+      },
+      focus:{
+        type: Boolean,
+        required: false,
+        default: false
       }
     },
     computed: {
@@ -75,6 +81,11 @@
       },
       errorClass: function () {
         if (this.error) return "has-error";
+      }
+    },
+    mounted(){
+      if (this.focus){
+        this.$refs.input.focus();
       }
     }
   };
