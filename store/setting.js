@@ -16,9 +16,24 @@ export const mutations = {
 
 export const actions = {
   async getSettings({commit}) {
-    await this.$axios.get('settings').then((response) => {
+    try {
+      const response = await this.$axios.get('settings')
       commit('SET_SETTINGS', response.data[0]);
-    }).catch((err) => {
-    });
+    }catch(err) {
+    }
+  },
+  async setSettings({commit},payload) {
+    try{
+      await this.$axios.post('settings',payload)
+    } catch (err) {
+      console.log(error)
+    }
+  },
+  async updateSettings({commit},payload,) {
+    try{
+      await this.$axios.put(`settings/${payload.id}`,payload)
+    } catch (err) {
+      console.log(error)
+    }
   }
 };
