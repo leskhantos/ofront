@@ -7,7 +7,7 @@
                  aria-describedby="basic-addon2">
         </div>
       </form>
-      <oy-switch title="Включен" v-if="this.company.enabled === 1 || this.company.enabled === 0" v-model="checkVal" :checked="checked" :marginLeft="'2.5rem'"/>
+      <oy-switch title="Включен" v-if="this.company.enabled === 1 || this.company.enabled === 0" v-model="checkVal" :checked="checked" :marginLeft="'2rem'"/>
       <button type="submit" class="btn btn-success" @click="renameCompany(company.id)">Сохранить</button>
       <button class="btn btn-danger" @click="showModal">
         Удалить
