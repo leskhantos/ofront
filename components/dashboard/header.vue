@@ -202,8 +202,13 @@
               this.title = 'Ваучеры';
               this.route = {name: 'dashboard-vouchers'};
               break;
+            case 'dashboard-not-found':
+              this.title = '404';
+              this.route = {name: 'dashboard-not-found'};
+              break;
             default:
               this.title = 'default';
+              this.route = {name: 'dashboard-statistics'};
               break;
           }
         }
