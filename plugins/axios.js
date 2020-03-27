@@ -1,7 +1,7 @@
 import https from 'https'
-const Cookie = process.client ? require('js-cookie') : undefined
+const Cookie =  require('js-cookie')
 
-export default function ({$axios, store, app, redirect}) {
+export default function ({$axios, store, app}) {
   const agent = new https.Agent({
     rejectUnauthorized: false
   })
