@@ -1,7 +1,14 @@
 <template>
-  <div class="d-flex justify-content-start" :style="{ paddingBottom:'.5rem'}">
-    <h5>{{ title }}:</h5>
-    <span class="switch" :style="{ marginLeft: marginLeft}">
+  <div class="d-flex justify-content-start"
+       :class="[classes[0]]"
+       :style="{ paddingBottom:'.5rem'}">
+    <h5
+      :class="[classes[1]]"
+
+    >{{ title }}:</h5>
+    <span class="switch"
+          :class="[classes[2]]"
+          :style="{ marginLeft: marginLeft}">
         <input type="checkbox" class="switch" id="switch-normal" v-model="val" :checked="val"
                @change="change()">
         <label for="switch-normal"></label>
@@ -23,6 +30,11 @@
       marginLeft: {
         type: String,
         required: false
+      },
+      classes:{
+        type: Array,
+        required: false,
+        default: ['','']
       }
     },
     data() {
@@ -42,7 +54,9 @@
 </script>
 
 <style lang="scss" scoped>
-
+  .mr-auto{
+    padding-left:1rem;
+  }
   $font-size-base: 1rem;
   $font-size-lg: ($font-size-base * 1.25);
   $font-size-sm: ($font-size-base * .875);
