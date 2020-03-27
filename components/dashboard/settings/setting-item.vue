@@ -1,18 +1,20 @@
 <template>
-  <div class="d-flex justify-content-between"
+  <div class="row"
        :class="[errorClass]"
   >
-      <h6 class="mr-auto">{{ title }}</h6>
-    <label>
-      <input :value="value" class="form-control form-control-sm"
-             @input="$emit('input', $event.target.value)"
-             @keyup.enter="$emit('sendEnter')"
-             :style="{paddingRight:'.2rem'}"/>
-    </label>
-    <p>{{ unit }}</p>
-    <transition name="input-error">
-      <small v-if="error" class="error">{{ error[0] }}</small>
-    </transition>
+    <h6 class="mr-auto">{{ title }}</h6>
+    <div class="d-flex flex-column justify-content-start col-lg-6">
+      <label class="d-flex">
+        <input :value="value" class="form-control form-control-sm"
+               @input="$emit('input', $event.target.value)"
+               @keyup.enter="$emit('sendEnter')"
+               :style="{paddingRight:'.2rem'}"/>
+        {{unit}}
+      </label>
+      <transition name="input-error">
+        <small v-if="error" class="error">{{ error[0] }}</small>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -46,13 +48,16 @@
 </script>
 
 <style scoped lang="scss">
+  h6{
+    padding-left: 1rem;
+  }
   .error {
-    position: absolute;
+    position: relative;
     color: #dc3545;
-    bottom: -1.1rem;
+    margin-top: -8px;
   }
   .has-error {
-    input{
+   label input{
       border-color: #dc3545 !important;
     }
   }
