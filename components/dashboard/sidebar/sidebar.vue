@@ -4,7 +4,9 @@
       <div class="header-wrapper">
         <div class="header">
           <div class="logo">
-            <nuxt-link to="/dashboard/statistics"><img :src="logo" alt="logo" width="100px" class="img-fluid"/>
+            <nuxt-link v-if="this.user.type==='client'" :to="{ name: 'dashboard-cabinet-spot', params: { cabinet: user.id_company } }"><img :src="logo" alt="logo" width="100px" class="img-fluid"/>
+            </nuxt-link>
+            <nuxt-link v-else to="/dashboard/statistics"><img :src="logo" alt="logo" width="100px" class="img-fluid"/>
             </nuxt-link>
           </div>
         </div>
