@@ -9,9 +9,9 @@
     <span class="switch"
           :class="[classes[2]]"
           :style="{ marginLeft: marginLeft}">
-        <input type="checkbox" class="switch" id="switch-normal" v-model="val" :checked="val"
+        <input type="checkbox" class="switch" :id="id" v-model="val" :checked="val"
                @change="change()">
-        <label for="switch-normal"></label>
+      <label :for="id"></label>
       </span>
   </div>
 </template>
@@ -35,6 +35,11 @@
         type: Array,
         required: false,
         default: ['','']
+      },
+      id:{
+        type: String,
+        required: false,
+        default: 'switch-normal'
       }
     },
     data() {

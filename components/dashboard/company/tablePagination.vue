@@ -6,8 +6,18 @@
            @click="$emit('prevPage', pageNumber)" href="#" ><span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <li v-for="page in pageCount" :class="['page-item',{'active':page.id===pageNumber}]" @click="$emit('page',page.id)"  :key="page.id">
-        <a class="page-link" href="#">{{page.id}}</a>
+      <li v-for="page in pageCount" :class="['page-item',{'active':page===pageNumber}]" v-if="Math.abs(page- pageNumber) < 3 || page == total - 1 || page == 0" @click="$emit('page',page)" >
+        <a class="page-link" href="#">{{ page }}</a>
+      </li>
+      <li v-show="pageCount.length>2 && pageCount.slice(-1)[0] !==pageNumber && pageCount.slice(-2)[0] !==pageNumber && pageCount.slice(-3)[0] !==pageNumber " class="page-item disabled">
+        <a class="page-link"
+    href="#"><span aria-hidden="true">...</span>
+        </a>
+      </li>
+      <li v-show="pageCount.length>2  && pageCount.slice(-1)[0] !==pageNumber && pageCount.slice(-2)[0] !==pageNumber && pageCount.slice(-3)[0] !==pageNumber" :class="['page-item', {'disabled':pageNumber >= this.length}]">
+        <a class="page-link"
+           @click="$emit('page',pageCount.slice(-1)[0])" href="#"><span aria-hidden="true">{{pageCount.slice(-1)[0]}}</span>
+        </a>
       </li>
       <li :class="['page-item', {'disabled':pageNumber >= this.length}]">
         <a class="page-link"
@@ -49,8 +59,10 @@
             s = this.size;
           let arr = []
           let length =Math.ceil(t/s)
-          for (let i = 1; i <= length; i++){
-            arr.push({id: i});
+          if(length<=10){
+            for (let i = 1; i <= length; i++){
+              arr.push(i);
+            }
           }
           this.length = length
           return arr;

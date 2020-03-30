@@ -78,7 +78,7 @@
             x: (this.$vssWidth-300)*0.6,
             y: 5
           });
-          await this.$store.dispatch('company/getSpots', this.company_id)
+          await this.$store.dispatch('spot/getSpotsByCompany', this.company_id)
         } catch (e) {
           console.log(e)
         }

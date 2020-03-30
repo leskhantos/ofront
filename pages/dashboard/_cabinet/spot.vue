@@ -51,12 +51,12 @@
         }
       },
       async asyncData ({ store, route }) {
-        await store.dispatch('company/getSpots', route.params.cabinet);
+        await store.dispatch('spot/getSpotsByCompany', route.params.cabinet);
         return {}
       },
       computed: {
         spots: function () {
-          return this.$store.getters['company/spots']
+          return this.$store.getters['spot/spotsByCompany']
         },
       },
     }

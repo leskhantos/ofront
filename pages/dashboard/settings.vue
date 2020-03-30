@@ -98,7 +98,16 @@
           }else{
             await this.$store.dispatch('setting/setSettings', this.payload)
           }
+          this.flashMessage.success({
+            message: "Настройки сохранены",
+            blockClass:'custom_alert_block',
+            contentClass: 'custom_alert_content',
+            wrapperClass: 'custom_alert_wrapper',
+            x: (this.$vssWidth-300)*0.6,
+            y: 5
+          });
         }catch(err){
+          console.log(err)
         }
       }
     },
