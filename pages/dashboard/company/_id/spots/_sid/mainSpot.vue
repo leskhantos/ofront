@@ -9,8 +9,8 @@
       <main-item title="Время жизни сессии:" v-model="form.type"/>
       <main-item title="Переадресация:" v-model="form.type"/>
       <main-item title="Таймер активности" v-model="form.type"/>
-      <oy-switch title="Международные номера" :checked="false" :classes="['row','mr-auto','col-lg-6']"/>
-      <oy-switch title="Включен" :checked="spot.enabled" :classes="['row','mr-auto','col-lg-6']"/>
+      <oy-switch title="Международные номера" id="international-nums" :checked="false" :classes="['row','mr-auto','col-lg-6']"/>
+      <oy-switch title="Включен" :checked="spot.enabled" id="enabled" :classes="['row','mr-auto','col-lg-6']"/>
     </oy-page-body>
     <div class="d-flex justify-content-end">
       <oy-button
