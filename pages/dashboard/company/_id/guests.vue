@@ -89,7 +89,6 @@
         company_id: this.$route.params.id,
         page:1
       }
-      this.$store.dispatch('spot/getSpotsByCompany', this.$route.params.id);
       this.$store.dispatch('guest/getGuestsByCompany', data);
     },
     methods: {

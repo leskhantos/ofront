@@ -77,7 +77,7 @@
     },
     computed: {
       spots: function () {
-        return this.$store.getters['company/spots']
+        return this.$store.getters['spot/spotsByCompany']
       },
       set_new_spot: {
         get: function () {
@@ -87,9 +87,6 @@
           this.$store.commit('app/SET_NEW_SPOT', value);
         }
       },
-    },
-    mounted() {
-      this.$store.dispatch('company/getSpots', this.company_id)
     }
   }
 </script>
