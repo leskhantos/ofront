@@ -14,15 +14,8 @@
 </template>
 
 <script>
-  import oyPage from "../../plugins/oyUI/page/oyPage";
-  import oyPageHeader from "../../plugins/oyUI/page/oyPageHeader";
-  import oyPageBody from "../../plugins/oyUI/page/oyPageBody";
-
   export default {
     layout: "dashboard",
-    components: {
-      oyPage, oyPageHeader, oyPageBody
-    },
     data() {
       return {
         request: ''

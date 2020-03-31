@@ -29,7 +29,7 @@
 <script>
   import bg from '@/static/bg.jpg';
   import logo from '@/static/logo.png';
-  import Inputs from '../components/auth/inputs';
+  import Inputs from '@/components/auth/inputs';
 
   const Cookie = process.client ? require('js-cookie') : undefined
 
