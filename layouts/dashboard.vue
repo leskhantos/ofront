@@ -22,10 +22,10 @@
 </template>
 
 <script>
-  import dashHeader from "../components/dashboard/header";
-  import sidebar from "../components/dashboard/sidebar/sidebar";
-  import setPasswordForm from "../components/auth/set-password-form"
-  import oyModal from "../plugins/oyUI/base/oyModal";
+  import dashHeader from "@/components/dashboard/header";
+  import sidebar from "@/components/dashboard/sidebar/sidebar";
+  import setPasswordForm from "@/components/auth/set-password-form"
+  import oyModal from "@/plugins/oyUI/base/oyModal";
 
   export default {
     middleware: 'authenticated',

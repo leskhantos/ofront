@@ -4,7 +4,7 @@
     <div class="d-flex flex-column" >
       <setting-item title="URL ссылка переадресации после авторизации:" v-model="payload.redirect_url" :error="errors['redirect_url']"/>
       <setting-item title="Время жизни автоматической авторизации для устройства:"
-                    v-model="payload.session_auth_timer" :error="errors['session_auth_timer']"/>
+                    v-model="payload.session_auto_timer" :error="errors['session_auto_timer']"/>
       <setting-item title="Время жизни сессии устройства:" v-model="payload.session_timer" :error="errors['session_timer']"/>
       <setting-item title="Время ожидания звонка, кода из SMS или кода ваучера:" v-model="payload.wait_enter_timer" :error="errors['wait_enter_timer']"/>
       <setting-item title="Суточный лимит SMS на один номер:" v-model="payload.sms_phone_limit" :error="errors['sms_phone_limit']"/>
@@ -48,7 +48,7 @@
           date: '',
           user_id: null,
           redirect_url:'',
-          session_auth_timer:'',
+          session_auto_timer:'',
           session_timer:'',
           wait_enter_timer: '',
           sms_phone_limit: '',
@@ -123,7 +123,7 @@
       if (this.settings){
         this.payload.id = this.settings.id,
         this.payload.redirect_url = this.settings.redirect_url,
-        this.payload.session_auth_timer = this.settings.session_auth_timer,
+        this.payload.session_auto_timer = this.settings.session_auto_timer,
         this.payload.session_timer = this.settings.session_timer,
         this.payload.wait_enter_timer = this.settings.wait_enter_timer,
         this.payload.sms_phone_limit = this.settings.sms_phone_limit,
