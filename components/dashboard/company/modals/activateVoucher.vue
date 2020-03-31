@@ -174,11 +174,8 @@
         if (hour<10){
           day = '0'+day
         }
-        let dayEnd = day+1
         let start = date.getFullYear()+'-'+month+'-'+day+' '+hour+':'+minute;
-        let end = date.getFullYear()+'-'+month+'-'+dayEnd+' '+hour+':'+minute;
-        this.form.startDate = start.toString()
-        this.form.endDate = end.toString();
+        this.form.startDate = start.toString();
       },
       watch: {
          'form.startDate':{
@@ -202,9 +199,28 @@
              if (hour<10){
                day = '0'+day
              }
-             let dayEnd = day+1
-             let end = date.getFullYear()+'-'+month+'-'+dayEnd+' '+hour+':'+minute;
-
+             let lastDay = new Date(date.getFullYear(), month, 0);
+             let end;
+             if(day === lastDay.getDate() && month<=12){
+               let dayEnd = '01';
+               let year
+               let nextM = parseInt(month)
+               if(nextM<9){
+                 nextM+=1
+                 nextM= '0'+nextM
+                 year = date.getFullYear()
+               }else if(nextM===12){
+                 nextM = '01'
+                year = date.getFullYear() + 1
+               }else {
+                 nextM+=1;
+                 year = date.getFullYear()
+               }
+               end = year+'-'+nextM+'-'+dayEnd+' '+hour+':'+minute;
+             }else{
+               let dayEnd = day+1
+               end = date.getFullYear()+'-'+month+'-'+dayEnd+' '+hour+':'+minute;
+             }
              this.form.endDate = end.toString()
            }
          }
