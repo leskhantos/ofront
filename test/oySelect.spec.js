@@ -16,7 +16,6 @@ describe('oySelect.vue', () => {
     const err = wrapper.find('small').element.textContent
     expect(text).toBe('Label')
     expect(err).toBe('error')
-    //+1 because there is one static option which is disabled and selected
-    expect(wrapper.findAll('option')).toHaveLength(options.length + 1)
+    expect(wrapper.findAll('option')).toHaveLength(options.length)
   })
 })
