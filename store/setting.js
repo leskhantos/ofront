@@ -29,7 +29,7 @@ export const actions = {
       console.log(error)
     }
   },
-  async updateSettings({commit},payload,) {
+  async updateSettings({commit},payload) {
     try{
       await this.$axios.put(`settings/${payload.id}`,payload)
     } catch (err) {

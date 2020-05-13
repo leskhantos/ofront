@@ -152,7 +152,9 @@ export const actions = {
     });
   },
   async getSessionsBySpot({commit}, payload) {
-    await this.$axios.get(`spot/${payload.spot_id}/session?session_type=${payload.session_type}&month=${payload.month}&year=${payload.year}&device_mac=${payload.device_mac}&page=${payload.page}`).then((response) => {
+    await this.$axios.get(`spot/${payload.spot_id}/session`,{
+      params: payload
+    }).then((response) => {
       commit('SET_SESSIONS_BY_SPOT', response.data.data);
       commit('SET_SESSIONS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
       commit('SET_SESSIONS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
@@ -161,7 +163,9 @@ export const actions = {
     });
   },
   async getCallsBySpot({commit}, payload) {
-    await this.$axios.get(`spot/${payload.spot_id}/call?&month=${payload.month}&year=${payload.year}&search=${payload.query}&page=${payload.page}`).then((response) => {
+    await this.$axios.get(`spot/${payload.spot_id}/call`,{
+      params: payload
+    }).then((response) => {
       commit('SET_CALLS_BY_SPOT', response.data.data);
       commit('SET_CALLS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
       commit('SET_CALLS_BY_SPOT_PER_PAGE', response.data.meta.per_page);
@@ -170,7 +174,9 @@ export const actions = {
     });
   },
   async getSmsBySpot({commit}, payload) {
-    await this.$axios.get(`spot/${payload.spot_id}/sms?&month=${payload.month}&year=${payload.year}&search=${payload.query}&page=${payload.page}`).then((response) => {
+    await this.$axios.get(`spot/${payload.spot_id}/sms`,{
+      params: payload
+    }).then((response) => {
       commit('SET_SMS_BY_SPOT', response.data.data);
       commit('SET_SMS_BY_SPOT_CUR_PAGE', response.data.meta.current_page);
       commit('SET_SMS_BY_SPOT_PER_PAGE', response.data.meta.per_page);

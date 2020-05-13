@@ -530,13 +530,17 @@ export const mutations = {
 export const actions = {
   //all statistics
   async getAllStats({commit}, payload) {
-    const response = await this.$axios.get(`all/stats?month=${payload.month}&year=${payload.year}`)
+    const response = await this.$axios.get(`all/stats`,{
+      params:payload
+    })
     commit('SET_ALL_STATS', response.data);
   },
 
   //all stats per month
   async getAllPerMonth({commit}, payload) {
-    const response = await this.$axios.get(`all/stats/month?month=${payload.month}&year=${payload.year}`);
+    const response = await this.$axios.get(`all/stats/month`,{
+      params:payload
+    });
       commit('SET_ALL_STATS_DAYS_PER_MONTH', response.data.days);
       commit('SET_ALL_SMS_PER_MONTH', response.data.sms);
       commit('SET_ALL_CALLS_PER_MONTH', response.data.calls);
@@ -546,7 +550,9 @@ export const actions = {
 
   //statistics by company per month
   async getAllByCompanyPerMonth({commit}, payload) {
-    const response = await this.$axios.get(`company/${payload.company_id}/stats/month?month=${payload.month}&year=${payload.year}`)
+    const response = await this.$axios.get(`company/${payload.company_id}/stats/month`,{
+      params:payload
+    })
       commit('SET_ALL_STATS_DAYS_BY_COMPANY_PER_MONTH', response.data.days);
       commit('SET_ALL_CALLS_BY_COMPANY_PER_MONTH', response.data.calls);
       commit('SET_ALL_GUESTS_BY_COMPANY_PER_MONTH', response.data.guests);
@@ -554,7 +560,9 @@ export const actions = {
   },
   //all statistics by company
   async getAllDataByCompany({commit}, payload) {
-    const response = await this.$axios.get(`company/${payload.company_id}/stats?month=${payload.month}&year=${payload.year}`)
+    const response = await this.$axios.get(`company/${payload.company_id}/stats`,{
+      params:payload
+    })
       commit('SET_CALLS_DATA_BY_COMPANY', response.data.call);
       commit('SET_GUESTS_DATA_BY_COMPANY', response.data.guest);
       commit('SET_DEVICES_DATA_BY_COMPANY', response.data.device);
@@ -563,7 +571,9 @@ export const actions = {
 
   //statistics by company per month
   async getAllBySpotPerMonth({commit}, payload) {
-    const response = await this.$axios.get(`spot/${payload.spot_id}/stats/month?month=${payload.month}&year=${payload.year}`)
+    const response = await this.$axios.get(`spot/${payload.spot_id}/stats/month`,{
+      params:payload
+    })
       commit('SET_ALL_STATS_DAYS_BY_SPOT_PER_MONTH', response.data.days);
       commit('SET_ALL_GUESTS_BY_SPOT_PER_MONTH', response.data.guests);
       commit('SET_SPOT_TYPE', response.data.type);
@@ -572,7 +582,9 @@ export const actions = {
 
   //all statistics by spot
   async getAllDataBySpot({commit}, payload) {
-    const response = await this.$axios.get(`spot/${payload.spot_id}/stats?month=${payload.month}&year=${payload.year}`)
+    const response = await this.$axios.get(`spot/${payload.spot_id}/stats`,{
+      params:payload
+    })
       commit('SET_SPOT_TYPE_ALL', response.data.type);
       commit('SET_STATS_DATA_BY_SPOT', response.data.stats);
       commit('SET_GUESTS_DATA_BY_SPOT', response.data.guest);

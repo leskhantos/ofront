@@ -23,7 +23,9 @@ export const actions = {
     await this.$axios.get(`vouchers/${spot_id}/generate`);
   },
   async getVouchers({commit}, payload) {
-    const response = await this.$axios.get(`vouchers/${payload.spot_id}/spot?activity=${payload.activity}`);
+    const response = await this.$axios.get(`vouchers/${payload.spot_id}/spot`,{
+      params: payload
+    });
     commit('SET_VOUCHERS', response.data.reverse());
   },
   async getLists({commit},spot_id) {

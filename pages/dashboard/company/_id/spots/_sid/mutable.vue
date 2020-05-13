@@ -116,7 +116,7 @@
         month: month,
         year: year,
         spot_id: this.$route.params.sid,
-        query: this.request,
+        search: this.request,
         page: this.page
       }
       this.$store.dispatch('spot/getCallsBySpot', data);
@@ -135,7 +135,7 @@
           month: this.month,
           year: this.year,
           spot_id: this.spot_id,
-          query: this.request,
+          search: this.request,
           page: this.page - 1
         }
         this.$store.dispatch('spot/getCallsBySpot', data);
@@ -148,7 +148,7 @@
           month: this.month,
           year: this.year,
           spot_id: this.spot_id,
-          query: this.request,
+          search: this.request,
           page: this.page + 1
         }
         this.$store.dispatch('spot/getCallsBySpot', data);
@@ -161,7 +161,7 @@
           month: this.month,
           year: this.year,
           spot_id: this.spot_id,
-          query: this.request,
+          search: this.request,
           page: this.page
         }
         this.$store.dispatch('spot/getCallsBySpot', data);
@@ -173,7 +173,7 @@
           month: this.month,
           year: this.year,
           spot_id: this.spot_id,
-          query: this.request,
+          search: this.request,
           page: 1
         }
         this.$store.dispatch('spot/getCallsBySpot', data);
@@ -240,7 +240,7 @@
             month: this.month,
             year: this.year,
             spot_id: this.spot_id,
-            query: this.request,
+            search: this.request,
             page: this.page
           }
           this.$store.dispatch('spot/getCallsBySpot', data);
@@ -255,7 +255,7 @@
             month: this.month,
             year: this.year,
             spot_id: this.spot_id,
-            query: this.request,
+            search: this.request,
             page: this.page
           }
           this.$store.dispatch('spot/getCallsBySpot', data);

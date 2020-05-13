@@ -37,7 +37,9 @@ export const mutations = {
 
 export const actions = {
   async getGuestsByCompany({commit}, payload) {
-    await this.$axios.get(`company/${payload.company_id}/guests?month=${payload.month}&year=${payload.year}&page=${payload.page}`).then((response) => {
+    await this.$axios.get(`company/${payload.company_id}/guests`,{
+      params:payload
+    }).then((response) => {
       commit('SET_GUESTS_BY_SPOT', response.data.data);
       commit('GUESTS_CUR_PAGE', response.data.meta.current_page);
       commit('GUESTS_PER_PAGE', response.data.meta.per_page);
@@ -46,7 +48,9 @@ export const actions = {
     });
   },
   async getGuestsBySpot({commit}, payload) {
-    await this.$axios.get(`guest/${payload.spot_id}/spot?month=${payload.month}&year=${payload.year}&page=${payload.page}`).then((response) => {
+    await this.$axios.get(`guest/${payload.spot_id}/spot`,{
+      params:payload
+    }).then((response) => {
       commit('SET_GUESTS_BY_SPOT', response.data.data);
       commit('GUESTS_CUR_PAGE', response.data.meta.current_page);
       commit('GUESTS_PER_PAGE', response.data.meta.per_page);

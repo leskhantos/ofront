@@ -83,7 +83,9 @@ export const actions = {
     });
   },
   async getSessionsByDevice({commit}, payload) {
-    await this.$axios.get(`device/${payload.device_id}/sessions?session_type=${payload.session_type}&month=${payload.month}&year=${payload.year}&page=${payload.page}`).then((response) => {
+    await this.$axios.get(`device/${payload.device_id}/sessions`,{
+      params:payload
+    }).then((response) => {
       commit('SET_SESSIONS_BY_DEVICE', response.data.data);
       commit('SET_SESSIONS_BY_DEVICE_CUR_PAGE', response.data.meta.current_page);
       commit('SET_SESSIONS_BY_DEVICE_PER_PAGE', response.data.meta.per_page);
