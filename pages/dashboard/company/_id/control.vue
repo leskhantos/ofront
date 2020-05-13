@@ -61,7 +61,7 @@
       },
       async changeStatus() {
         try {
-          await this.$axios.put(`company/${this.company_id}`, {
+          await this.$axios.put(`companies/${this.company_id}`, {
             name: this.company.name,
             enabled: this.checkVal
           })
@@ -80,7 +80,7 @@
       },
       async renameCompany(company_id) {
         try {
-          let data = await this.$axios.put(`company/${company_id}`, {
+          let data = await this.$axios.put(`companies/${company_id}`, {
             name: this.newName,
             enabled: this.company.enabled
           })

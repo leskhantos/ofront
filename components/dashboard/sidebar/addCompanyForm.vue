@@ -78,7 +78,7 @@
       },
       async storeCompany() {
         try {
-          const company = await this.$axios.post('company', this.form.company)
+          const company = await this.$axios.post('companies', this.form.company)
           if (this.form.spot.address || this.form.spot.ident || this.form.spot.type || this.form.spot.settings) {
             const payload = {
               company_id: company.data.id,
@@ -87,7 +87,7 @@
               type: this.form.spot.type,
               settings: this.form.spot.settings
             };
-            await this.$axios.post('company/spot', payload)
+            await this.$axios.post('spots', payload)
           }
           await this.$store.dispatch("company/getCompanies");
           this.$store.commit("app/SET_NEW_COMPANY", false);

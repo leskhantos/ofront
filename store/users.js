@@ -43,7 +43,7 @@ export const actions = {
     });
   },
   async getTypes({commit}) {
-    await this.$axios.get('spots/types').then((response) => {
+    await this.$axios.get('spot/types').then((response) => {
       commit('SET_TYPES', response.data);
     });
   },

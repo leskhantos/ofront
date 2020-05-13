@@ -68,7 +68,7 @@
             ident: this.form.ident,
             type: this.form.type
           };
-          await this.$axios.post('company/spot', payload)
+          await this.$axios.post('spots', payload)
           this.$store.commit("app/SET_NEW_SPOT", false);
           this.flashMessage.success({
             message: "Зона добавлена",

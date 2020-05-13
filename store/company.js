@@ -60,7 +60,7 @@ export const actions = {
       commit('SET_COMPANIES_LIST', arr);
   },
   async getCompany({commit}, company_id) {
-   const response = await this.$axios.get(`company/${company_id}`)
+   const response = await this.$axios.get(`companies/${company_id}`)
       commit('SET_COMPANY', response.data);
   },
   // async getSpots({commit}, company_id) {

@@ -128,19 +128,19 @@ export const mutations = {
 
 export const actions = {
   async getSpot({commit}, spot_id) {
-    await this.$axios.get(`spot/${spot_id}`).then((response) => {
+    await this.$axios.get(`spots/${spot_id}`).then((response) => {
       commit('SET_SPOT', response.data);
     }).catch((err) => {
     });
   },
   async getSpotTypes({commit}) {
-    await this.$axios.get(`spots/types`).then((response) => {
+    await this.$axios.get(`spot/types`).then((response) => {
       commit('SET_TYPES', response.data);
     }).catch((err) => {
     });
   },
   async getSpotTypesByCompany({commit}, company_id) {
-    await this.$axios.get(`spots/types/${company_id}/company`).then((response) => {
+    await this.$axios.get(`spot/types/${company_id}/company`).then((response) => {
       commit('SET_TYPES_BY_COMPANY_SPOT', response.data);
     }).catch((err) => {
     });
