@@ -2,8 +2,20 @@
   <div>
     <h6>Вы хотите удалить компанию <b>{{company.name}}</b>?</h6>
     <div class="d-flex justify-content-between">
-      <button class="btn btn-danger" @click="deleteCompany">Удалить</button>
-      <button class="btn btn-warning" @click="$emit('close')">Закрыть</button>
+      <oy-button
+        @click="deleteCompany"
+        title="Удалить"
+        type="danger"
+        :svgIcon="'deleteIcon'"
+      >
+      </oy-button>
+      <oy-button
+        @click="$emit('close')"
+        title="Закрыть"
+        type="secondary"
+        :svgIcon="'closeIcon'"
+      >
+      </oy-button>
     </div>
   </div>
 
@@ -13,14 +25,14 @@
     export default {
         props:{
           company:{
-            type:Object,
-            required:false
+            type: Object,
+            required:true
           },
         },
       methods:{
         async deleteCompany() {
             try {
-              await this.$axios.delete(`company/${this.company.id}`)
+              await this.$axios.delete(`companies/${this.company.id}`)
               await this.$store.dispatch("company/getCompanies");
               this.flashMessage.error({
                 message: "Компания удалена",

@@ -8,17 +8,29 @@
         </div>
       </form>
       <oy-switch title="Включен" v-if="this.company.enabled === 1 || this.company.enabled === 0" v-model="checkVal" :checked="checked" :marginLeft="'2rem'"/>
-      <button type="submit" class="btn btn-success" @click="renameCompany(company.id)">Сохранить</button>
-      <button class="btn btn-danger" @click="showModal">
-        Удалить
-      </button>
+      <div class="d-flex">
+        <oy-button
+          @click="renameCompany(company.id)"
+          title="Сохранить"
+          type="success"
+          :svgIcon="'saveIcon'"
+        >
+        </oy-button>
+        <oy-button
+          :style="{marginLeft:'.5rem'}"
+          @click="showModal"
+          title="Удалить"
+          type="warning"
+          :svgIcon="'deleteIcon'"
+        ></oy-button>
+      </div>
       <oy-modal
       :title="'Удалить компанию '"
       padding="1rem"
       :visible="confirm_delete"
       @close="confirm_delete = false"
     >
-        <confirm-delete       @close="confirm_delete = false"
+        <confirm-company-delete       @close="confirm_delete = false"
                               :company="company"/>
     </oy-modal>
     </oy-page-body>
@@ -27,7 +39,7 @@
 
 <script>
 
-  import confirmDelete from "@/components/dashboard/company/modals/confirmDelete";
+  import confirmCompanyDelete from "@/components/dashboard/company/modals/confirmCompanyDelete";
 
   export default {
     data() {
@@ -38,7 +50,7 @@
         edit: false,
       }
     },
-    components:{confirmDelete},
+    components:{confirmCompanyDelete},
     computed: {
       company: function () {
         return this.$store.getters["company/company"];
