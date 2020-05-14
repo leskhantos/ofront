@@ -34,7 +34,7 @@
       classes:{
         type: Array,
         required: false,
-        default: ['','']
+        default: ()=>(['',''])
       },
       id:{
         type: String,
