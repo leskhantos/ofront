@@ -27,9 +27,13 @@
   import generateIcon from "@/components/icons/generateIcon";
   import activateIcon from "@/components/icons/activateIcon";
   import printIcon from "@/components/icons/printIcon";
+  import deleteIcon from "@/components/icons/deleteIcon";
+  import refreshIcon from "@/components/icons/refreshIcon";
+  import loginIcon from "@/components/icons/loginIcon";
+  import closeIcon from "@/components/icons/closeIcon";
 
   export default {
-    components: {AddIcon, AddUserIcon, PassGenerateIcon, FilterIcon, diagnoseIcon, saveIcon, generateIcon, activateIcon, printIcon},
+    components: {AddIcon, AddUserIcon, PassGenerateIcon, FilterIcon, diagnoseIcon, saveIcon, generateIcon, activateIcon, printIcon, deleteIcon, refreshIcon, loginIcon, closeIcon},
     props: {
       title: {
         type: String,

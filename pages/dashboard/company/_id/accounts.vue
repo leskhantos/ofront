@@ -35,9 +35,30 @@
           <td>{{ dateTransform(account.last_online, true) }}</td>
           <td>{{account.last_ip ? account.last_ip : 'нет данных'}}</td>
           <td class="row">
-            <div class="col"><i class="icon-refresh"></i> Сбросить пароль</div>
-            <div class="col"><i class="icon-ban"></i> Удалить</div>
-            <div class="col"><i class="icon-login"></i> Вход</div>
+            <div class="col account-buttons">
+              <oy-button
+              title="Сбросить пароль"
+              type="info"
+              :svgIcon="'refreshIcon'"
+            >
+            </oy-button>
+            </div>
+            <div class="col account-buttons" @click="showDeleteModal(account)">
+              <oy-button
+                title="Удалить"
+                type="warning"
+                :svgIcon="'deleteIcon'"
+              >
+              </oy-button>
+            </div>
+            <div class="col account-buttons">
+              <oy-button
+                title="Вход"
+                type="primary"
+                :svgIcon="'loginIcon'"
+              >
+              </oy-button>
+              </div>
           </td>
         </tr>
         <tr v-if="!accounts.length" class="no-data text-center">
@@ -45,27 +66,42 @@
         </tr>
         </tbody>
       </table>
+      <oy-modal
+        :title="'Удалить аккаунт '"
+        padding="1rem"
+        :visible="confirm_delete"
+        @close="confirm_delete = false"
+      >
+        <confirm-account-delete      @close="confirm_delete = false"
+                              :account="account" :company_id="company_id"/>
+      </oy-modal>
     </oy-page-body>
   </oy-page>
 </template>
 
 <script>
   import storeAccount from "@/components/dashboard/company/modals/storeAccount";
+  import confirmAccountDelete from "@/components/dashboard/company/modals/confirmAccountDelete";
   import moment from "moment";
 
   export default {
     components: {
-      storeAccount
+      storeAccount, confirmAccountDelete
     },
     name: "accounts",
     data() {
       return {
-        company_id: this.$route.params.id
+        company_id: this.$route.params.id,
+        account: null
       }
     },
     methods: {
       showModal() {
         return this.set_new_account = true;
+      },
+      showDeleteModal(account) {
+        this.account=account
+        return this.confirm_delete = true;
       },
       dateTransform(date, time) {
         if (moment(date, 'YYYY-MM-DD H:mm:ss').isValid()) {
@@ -87,6 +123,14 @@
           this.$store.commit('app/SET_NEW_ACCOUNT', value);
         }
       },
+      confirm_delete: {
+        get: function () {
+          return this.$store.getters['app/confirm_delete'];
+        },
+        set: function (value) {
+          this.$store.commit('app/CONFIRM_DELETE', value);
+        }
+      },
     },
     mounted() {
       this.$store.dispatch('company/getAccounts', this.company_id)
@@ -94,6 +138,10 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss"scoped>
+  .table .account-buttons{
+    :hover{
+      cursor: pointer;
+    }
+  }
 </style>
