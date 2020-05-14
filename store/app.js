@@ -7,6 +7,7 @@ export const state = () => ({
   set_new_spot: false,
   set_new_style: false,
   set_new_account: false,
+  reset_account_password: false,
   confirm_delete:false,
   activate_voucher:false,
   errors: {}
@@ -45,6 +46,9 @@ export const getters = {
   },
   activate_voucher(state) {
     return state.activate_voucher;
+  },
+  reset_account_password(state) {
+    return state.reset_account_password;
   },
   get_years(){
     let currentYear = new Date().getFullYear(), years = [], startYear = 2018;
@@ -105,6 +109,9 @@ export const mutations = {
   },
   ACTIVATE_VOUCHER(state, activate_voucher) {
     state.activate_voucher = activate_voucher;
+  },
+  RESET_ACCOUNT_PASSWORD(state, reset_account_password) {
+    state.reset_account_password = reset_account_password;
   },
 };
 

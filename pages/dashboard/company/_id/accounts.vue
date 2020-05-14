@@ -35,7 +35,8 @@
           <td>{{ dateTransform(account.last_online, true) }}</td>
           <td>{{account.last_ip ? account.last_ip : 'нет данных'}}</td>
           <td class="row">
-            <div class="col account-buttons">
+            <div class="col account-buttons"
+                 @click="showResetModal(account)">
               <oy-button
               title="Сбросить пароль"
               type="info"
@@ -43,7 +44,8 @@
             >
             </oy-button>
             </div>
-            <div class="col account-buttons" @click="showDeleteModal(account)">
+            <div class="col account-buttons"
+                 @click="showDeleteModal(account)">
               <oy-button
                 title="Удалить"
                 type="warning"
@@ -67,6 +69,15 @@
         </tbody>
       </table>
       <oy-modal
+        :visible="reset_account_password"
+        @close="reset_account_password = false"
+        title="Сбросить пароль"
+        padding="1rem"
+        minWidth="350px"
+      >
+        <reset-account-password @success="reset_account_password = false" :account="account"/>
+      </oy-modal>
+      <oy-modal
         :title="'Удалить аккаунт '"
         padding="1rem"
         :visible="confirm_delete"
@@ -83,9 +94,11 @@
   import storeAccount from "@/components/dashboard/company/modals/storeAccount";
   import confirmAccountDelete from "@/components/dashboard/company/modals/confirmAccountDelete";
   import moment from "moment";
+  import ResetAccountPassword from "@/components/dashboard/company/modals/resetAccountPassword";
 
   export default {
     components: {
+      ResetAccountPassword,
       storeAccount, confirmAccountDelete
     },
     name: "accounts",
@@ -103,6 +116,10 @@
         this.account=account
         return this.confirm_delete = true;
       },
+      showResetModal(account) {
+        this.account=account
+        return this.reset_account_password = true;
+      },
       dateTransform(date, time) {
         if (moment(date, 'YYYY-MM-DD H:mm:ss').isValid()) {
           return moment(date, 'YYYY-MM-DD H:mm:ss').format(time ? 'DD.MM.YYYY H:mm:ss' : 'DD.MM.YYYY');
@@ -114,6 +131,14 @@
     computed: {
       accounts: function () {
         return this.$store.getters['company/accounts']
+      },
+      reset_account_password: {
+        get: function () {
+          return this.$store.getters["app/reset_account_password"];
+        },
+        set: function (value) {
+          this.$store.commit('app/RESET_ACCOUNT_PASSWORD', value);
+        }
       },
       set_new_account: {
         get: function () {
