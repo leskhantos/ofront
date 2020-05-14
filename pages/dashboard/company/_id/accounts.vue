@@ -55,6 +55,7 @@
             </div>
             <div class="col account-buttons">
               <oy-button
+                @click="login()"
                 title="Вход"
                 type="primary"
                 :svgIcon="'loginIcon'"
@@ -127,6 +128,21 @@
           return 'не заходил'
         }
       },
+      async logout() {
+        try {
+          await this.$axios.get('auth/logout').then((res) => {
+            console.log(res.data)
+            Cookie.remove('auth')
+            this.$store.commit('setAuth', null)
+          })
+        } catch (e) {
+          console.log(e.response)
+        }
+      },
+      login(){
+        this.logout()
+        location.reload()
+      }
     },
     computed: {
       accounts: function () {
