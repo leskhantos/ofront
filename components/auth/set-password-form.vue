@@ -1,21 +1,18 @@
 <template>
   <form @submit.prevent="updatePassword">
-    <oyInput label="Старый пароль" v-model="form.oldPassword" type="password" :error="errors['oldPassword']"/>
-    <oyInput label="Новый пароль" v-model="form.password" type="password"/>
-    <oyInput label="Подтвердите новый пароль" v-model="new_password_confirmation" type="password"/>
+    <oy-input label="Старый пароль" v-model="form.oldPassword" type="password" :error="errors['oldPassword']"/>
+    <oy-input label="Новый пароль" v-model="form.password" type="password"/>
+    <oy-input label="Подтвердите новый пароль" v-model="new_password_confirmation" type="password"/>
     <transition class="row">
       <p v-if="notSamePasswords" class="col-xs-12 center-block text-center">Пароли не совпадают.</p>
     </transition>
     <div class="mb-0 mt-3">
-      <oyButton type="success" buttonType="submit" title="Сохранить" :block="true"/>
+      <oy-button type="success" buttonType="submit" title="Сохранить" :block="true"/>
     </div>
   </form>
 </template>
 
 <script>
-  import oyInput from "../../plugins/oyUI/base/oyInput";
-  import oyButton from "../../plugins/oyUI/base/oyButton";
-
   export default {
     data: () => ({
       form: {
@@ -24,9 +21,6 @@
       },
       new_password_confirmation: '',
     }),
-    components: {
-      oyInput, oyButton
-    },
     computed: {
       notSamePasswords() {
         if (this.passwordsFilled) {
