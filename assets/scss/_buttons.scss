@@ -33,3 +33,63 @@
     border-color: #257346;
   }
 }
+
+.btn-info {
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: #0F6674;
+
+  &:hover, &:focus, &:active {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #0F6674;
+  }
+}
+
+.btn-warning {
+  color: #fff;
+  background-color: #ff9800;
+  border-color: #B36A00;
+
+  &:hover, &:focus, &:active {
+    color: #fff;
+    background-color: #ff9800;
+    border-color: #B36A00;
+  }
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #0056B3;
+
+  &:hover, &:focus, &:active {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #0056B3;
+  }
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #A71D2A;
+
+  &:hover, &:focus, &:active {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #A71D2A;
+  }
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #494F54;
+
+  &:hover, &:focus, &:active {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #494F54;
+  }
+}
